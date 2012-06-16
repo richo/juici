@@ -7,6 +7,8 @@ GEM
     json (1.7.3)
     mongo (1.6.2)
       bson (~> 1.6.2)
+    mongo_record (0.5.1)
+      mongo (>= 0.20.1)
     rack (1.4.1)
     rack-protection (1.2.0)
       rack
@@ -23,4 +25,5 @@ DEPENDENCIES
   bson_ext
   json
   mongo
+  mongo_record
   sinatra
