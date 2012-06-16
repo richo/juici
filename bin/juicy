@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+$:.unshift(File.expand_path("../../lib", __FILE__))
+require 'juicy'
+
+Juicy::Server.start('localhost', 9000)
