@@ -2,6 +2,7 @@ require 'sinatra/base'
 
 module Juicy
   class Server < Sinatra::Base
+    extend Juicy::App
 
     attr_reader :juicy
 
@@ -12,9 +13,12 @@ module Juicy
     set :static, true
     set :lock, true
 
-    def initialize(*args)
-      @juicy = Juicy::App.new
-      super(*args)
+    def self.start(host, port)
+      Juicy::Server.run! :host => host, :port => port
+    end
+
+    def self.rack_start(project_path)
+      self.new
     end
 
     get '/' do
@@ -25,12 +29,12 @@ module Juicy
       erb(:projects, {}, :juicy => juicy)
     end
 
-    def self.start(host, port)
-      Juicy::Server.run! :host => host, :port => port
+    get '/builds/:project' do
+      erb(:builds, {}, :juicy => juicy, :project => params[:project])
     end
 
-    def self.rack_start(project_path)
-      self.new
+    post '/trigger/:project' do
+      TriggerController.new(params[:project], params).build!
     end
 
   end

@@ -1,3 +1,5 @@
+require 'mongo'
+require 'mongoid'
 module Juicy
 end
 

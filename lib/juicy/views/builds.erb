@@ -1,0 +1,13 @@
+<h1>Builds!</h1>
+<% proj = ::Juicy::Project.where(name: project).first %>
+<% if proj %>
+<ul>
+  <li><em><%= proj.name %></em></li>
+  <% ::Juicy::Build.where(parent: proj.name).sort.each do |build| %>
+    <li><%= build.start_time %>:<%= build.status %></li>
+    <li><%= build.start_time %>:<%= build.output if build.respond_to? :output %></li>
+  <% end %>
+</ul>
+<% else %>
+  No such project.
+<% end %>

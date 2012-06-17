@@ -1,5 +1,8 @@
 module Juicy
-  class Project < MongoRecord::Base
+  class Project
+    include Mongoid::Document
+
+    field :name, type: String
 
   end
 end

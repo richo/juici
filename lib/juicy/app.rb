@@ -1,4 +1,6 @@
 module Juicy
-  class App
+  module App
+
+
   end
 end

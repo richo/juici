@@ -3,5 +3,5 @@ source :rubygems
 gem "sinatra"
 gem "json"
 gem "mongo"
-gem "mongo_record"
+gem "mongoid"
 gem "bson_ext"

@@ -1,10 +1,7 @@
 Projects:
 
-<%= ::Juicy::Project.insert({"thing" => "test"}) %>
-<%= ::Juicy::Project.all %>
-
-<%# <ul> %>
-<%# <% ::Juicy::Project.all.each do |p| %1> %>
-<%#   <li><%= p['name'] %1></li> %>
-<%# <% end %1> %>
-<%# </ul> %>
+<ul>
+<% ::Juicy::Project.all.each do |p| %>
+  <li><%= p['name'] %></li>
+<% end %>
+</ul>
