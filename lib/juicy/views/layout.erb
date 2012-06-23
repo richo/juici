@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <link href="http://current.bootstrapcdn.com/bootstrap-v204/css/bootstrap-combined.min.css" rel="stylesheet">
+    <style>
+      body { padding-top: 60px; }
+    </style>
+    <title>Juicy</title>
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">Juicy</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <%# <li class="active"><a href="#">Home</a></li> %>
+              <%# <li><a href="#about">About</a></li> %>
+              <%# <li><a href="#contact">Contact</a></li> %>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <%= yield %>
+    </div>
+    <script src="http://current.bootstrapcdn.com/bootstrap-v204/js/bootstrap.min.js"></script>
+  </body>
+</html>
