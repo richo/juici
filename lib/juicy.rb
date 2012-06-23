@@ -3,7 +3,10 @@ require 'mongoid'
 module Juicy
 end
 
-# Dir[File.dirname(__FILE__) + '/juicy/**.rb'].each {|file| require file }
-Dir[File.dirname(__FILE__) + '/juicy/**/*.rb'].each  do |file|
-  require file
+# Load juicy core, followed by extras
+["", "controllers", "models"].each do |el|
+  Dir[File.dirname(__FILE__) + "/juicy/#{el}/*.rb"].each  do |file|
+    puts "Loading #{file}"
+    require file
+  end
 end
