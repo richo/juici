@@ -1,13 +1,15 @@
-<h1>Builds!</h1>
 <% proj = ::Juicy::Project.where(name: project).first %>
 <% if proj %>
-<ul>
-  <li><em><%= proj.name %></em></li>
+<p>
+  <h3><em><%= proj.name %></em></h3>
   <% ::Juicy::Build.where(parent: proj.name).sort.each do |build| %>
-    <li><%= build.start_time %>:<%= build.status %></li>
-    <li><%= build.start_time %>:<%= build.output if build.respond_to? :output %></li>
+    <%# This should be an object that we can drill into or some shit %>
+    <ul><%= build.start_time %>
+      <li><%= build.status %></li>
+      <li><%= build.output if build.respond_to? :output %></li>
+    </ul>
   <% end %>
-</ul>
+</p>
 <% else %>
   No such project.
 <% end %>
