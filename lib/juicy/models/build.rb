@@ -12,6 +12,8 @@ module Juicy
     # A wrapper around the build process
 
     include Mongoid::Document
+    include ::Juicy.url_helpers("builds")
+    # TODO Builds should probably be children of projects in the URL?
 
     field :parent, type: String
     field :command, type: String
