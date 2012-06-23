@@ -1,9 +1,13 @@
 <h1>Hi from Juicy</h1>
 <p>
-  Hello! Welcome to Juicy. A an insane CI inatory thing.
+  Hello! Welcome to Juicy. A an insane CI inatory thing, built on top of
+  MongoDB and obscene amounts of caffiene.
 </p>
 <p>
-Juicy is backed by mongo w
+In the past, this instance of Juicy has built code for:
+<ul><% ::Juicy::Project.all.each do |p| %>
+    <li><%= p.name %></li>
+<% end %></ul>
 </p>
 
 
