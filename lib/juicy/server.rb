@@ -2,7 +2,6 @@ require 'sinatra/base'
 
 module Juicy
   class Server < Sinatra::Base
-    extend Juicy::App
 
     attr_reader :juicy
 
@@ -12,6 +11,11 @@ module Juicy
     set :public_folder, "#{dir}/public"
     set :static, true
     set :lock, true
+
+    def initialize(*args)
+      @juicy = Juicy::App.new
+      super(*args)
+    end
 
     def self.start(host, port)
       Juicy::Server.run! :host => host, :port => port
