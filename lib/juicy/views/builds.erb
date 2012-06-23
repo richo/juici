@@ -1,15 +1,21 @@
 <% proj = ::Juicy::Project.where(name: project).first %>
 <% if proj %>
-<p>
   <h3><em><%= proj.name %></em></h3>
-  <% ::Juicy::Build.where(parent: proj.name).sort.each do |build| %>
-    <%# This should be an object that we can drill into or some shit %>
-    <ul><%= build.start_time %>
-      <li><%= build.status %></li>
-      <li><%= build.output if build.respond_to? :output %></li>
-    </ul>
+  <% ::Juicy::Build.where(parent: proj.name).sort.each_with_index do |build, idx| %>
+    <div class="accordion" id="accordion<%= idx %>">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion<%= idx+1 %>" href="#collapse_<%= idx %>">
+          <%= build.start_time %>
+        </a>
+      </div>
+      <div id="collapse_<%= idx %>" class="accordion-body collapse in">
+        <div class="accordion-inner">
+          <%= build.output if build.respond_to? :output %>
+        </div>
+      </div>
+    </div>
   <% end %>
-</p>
+  <script>$(".collapse").collapse()</script>
 <% else %>
   No such project.
 <% end %>
