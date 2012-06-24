@@ -9,8 +9,8 @@
         </a>
       </div>
       <div id="collapse_<%= idx %>" class="accordion-body collapse in">
-        <div class="accordion-inner">
-          <%= build.output if build.respond_to? :output %>
+        <div class="accordion-inner build-output">
+<%= build.output if build.respond_to? :output %>
         </div>
       </div>
     </div>
