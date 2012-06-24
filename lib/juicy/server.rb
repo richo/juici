@@ -3,6 +3,12 @@ require 'sinatra/base'
 module Juicy
   class Server < Sinatra::Base
 
+    helpers do
+      Dir[File.dirname(__FILE__) + "/helpers/**/*.rb"].each  do |file|
+        load file
+      end
+    end
+
     attr_reader :juicy
 
     dir = File.dirname(File.expand_path(__FILE__))
