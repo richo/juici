@@ -5,6 +5,3 @@ class Juicy::Config; class << self
   end
 
 end; end
-
-
-
