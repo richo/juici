@@ -1,10 +1,24 @@
+<style>
+  .build-heading-pending  { color: #111 }
+  :hover .build-heading-pending  { color: #111 }
+
+  .build-heading-failed   { color: #C10 }
+  :hover .build-heading-failed   { color: #C10 }
+
+  .build-heading-success  { color: #4A0 }
+  :hover .build-heading-success  { color: #4A0 }
+
+  .build-heading-started  { color: #CC0 }
+  :hover .build-heading-started  { color: #CC0 }
+</style>
+
 <% proj = ::Juicy::Project.where(name: project).first %>
 <% if proj %>
   <h3><em><%= proj.name %></em></h3>
   <% ::Juicy::Build.where(parent: proj.name).sort.each_with_index do |build, idx| %>
     <div class="accordion" id="accordion<%= idx %>">
       <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion<%= idx+1 %>" href="#collapse_<%= idx %>">
+        <a class="accordion-toggle <%= build.heading_color %>" data-toggle="collapse" data-parent="#accordion<%= idx+1 %>" href="#collapse_<%= idx %>">
           <%= build.start_time %>
         </a>
       </div>

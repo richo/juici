@@ -51,6 +51,20 @@ module Juicy
       File.join(Config.workspace, parent)
     end
 
+    # View helpers
+    def heading_color
+      case status
+      when :waiting
+        "build-heading-pending"
+      when :failed
+        "build-heading-failed"
+      when :success
+        "build-heading-success"
+      when :started
+        "build-heading-started"
+      end
+    end
+
   private
 
     def build_in_progress?
