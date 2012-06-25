@@ -6,8 +6,6 @@
 
 * Proper callback support
 
-* Build status visualised
-
 * Graphing of build times and statuses
 
 * Search
