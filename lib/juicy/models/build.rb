@@ -21,6 +21,7 @@ module Juicy
     field :start_time, type: Time, :default => Proc.new { Time.now }
     field :end_time, type: Time, :default => nil
     field :status, type: Symbol, :default => :waiting
+    field :priority, type: Fixnum, :default => 1
 
     def set_status(value)
       self[:status] = value
