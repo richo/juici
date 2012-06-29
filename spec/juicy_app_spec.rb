@@ -1,6 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe Juicy::App do
+  after(:all) do
+    Juicy::App.shutdown
+  end
+
   it "instanciates cleanly and exits cleanly" do
     threads = Thread.list.length
 
