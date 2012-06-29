@@ -3,7 +3,7 @@ module Juicy
 
     def self.start!
       new do
-        mainloop
+        self.mainloop
       end
     end
 
@@ -11,9 +11,12 @@ module Juicy
       self.kill
     end
 
-    def mainloop
+    def self.mainloop
+      #XXX No classvariables ever!
       loop do
+        Juicy.dbgp "Waiting for a child to exit"
         pid = Process.wait
+        Juicy.dbgp "#{pid} exited"
         status = $?
 
           build = Build.where(status: :started,
