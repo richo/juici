@@ -11,12 +11,15 @@ module Juicy
       shutdown_build_queue
     end
 
-    def initialize
+    attr_reader :opts
+    def initialize(opts={})
+      @opts = opts
       # NOTE: this happening before we start a build queue is important, it
       # means we can't start any more workers and get tied in knots
       # clear_stale_children
-      spawn_watcher
+      #
       # Urgh
+      start_workers
       init_build_queue
     end
 
@@ -36,6 +39,14 @@ module Juicy
 
       # Find any remaining children and kill them
       # Ensure that any killed builds will be retried
+    end
+
+    def start_workers
+      no_workers = opts[:workers] || 1
+      warn "More than 1 worker is liable to do strange things" if no_workers > 1
+      no_workers.times do
+        spawn_watcher
+      end
     end
 
   end
