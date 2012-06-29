@@ -32,6 +32,11 @@ describe Juicy::BuildQueue do
     @builds.collect(&:pid).should == [1, 2, 3, 4, 5, 6]
   end
 
+  ##TODO
+  #it "Should remove a given build by id" do
+  #end
+
+
 end
 
 class Juicy::BuildQueue #{{{ Test injection
