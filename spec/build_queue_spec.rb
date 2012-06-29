@@ -26,6 +26,12 @@ describe Juicy::BuildQueue do
     @builds.collect(&:pid).should == [1, 2, 4, 5, 6]
   end
 
+  it "Should silently fail to remove nonexistant pids" do
+    @builds = builds_with(pid: [1, 2, 3, 4, 5, 6])
+    subject.purge(stub(:pid => 9))
+    @builds.collect(&:pid).should == [1, 2, 3, 4, 5, 6]
+  end
+
 end
 
 class Juicy::BuildQueue #{{{ Test injection
