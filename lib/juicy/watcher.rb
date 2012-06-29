@@ -15,9 +15,8 @@ module Juicy
       #XXX No classvariables ever!
       loop do
         Juicy.dbgp "Waiting for a child to exit"
-        pid = catch_child
+        pid, status = catch_child
         Juicy.dbgp "#{pid} exited"
-        status = $?
 
           build = Build.where(status: :started,
                               pid: pid)
@@ -31,7 +30,7 @@ module Juicy
 
     # Hook for testing
     def self.catch_child
-      Process.wait
+      Process.wait2
     end
 
   end
