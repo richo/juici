@@ -3,13 +3,17 @@ require 'sinatra/base'
 module Juicy
   class Server < Sinatra::Base
 
+    @@juicy = nil
+
+    def juicy
+      @@juicy
+    end
+
     helpers do
       Dir[File.dirname(__FILE__) + "/helpers/**/*.rb"].each  do |file|
         load file
       end
     end
-
-    attr_reader :juicy
 
     dir = File.dirname(File.expand_path(__FILE__))
 
@@ -18,12 +22,8 @@ module Juicy
     set :static, true
     set :lock, true
 
-    def initialize(*args)
-      @juicy = Juicy::App.new
-      super(*args)
-    end
-
     def self.start(host, port)
+      @@juicy = App.new
       Juicy::Server.run! :host => host, :port => port
     end
 
