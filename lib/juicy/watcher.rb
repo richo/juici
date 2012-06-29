@@ -14,12 +14,18 @@ module Juicy
     def self.mainloop
       #XXX No classvariables ever!
       loop do
-        Juicy.dbgp "Waiting for a child to exit"
-        pid, status = catch_child
-        Juicy.dbgp "#{pid} exited"
+        begin
+          pid, status = catch_child
+        rescue Errno::ECHILD
+          # No children available, sleep for a while until some might exist
+          # TODO: It'd be a nice optimisation to actually die here, and
+          # optionally start a worker if we're the first child
+          sleep 5
+          next
+        end
 
-          build = Build.where(status: :started,
-                              pid: pid)
+        build = Build.where(status: :started,
+                            pid: pid)
         if status == 0
           build.success!
         else
@@ -30,7 +36,7 @@ module Juicy
 
     # Hook for testing
     def self.catch_child
-      Process.wait2
+      Process.wait2(-1, Process::WNOHANG)
     end
 
   end
