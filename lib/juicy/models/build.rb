@@ -36,10 +36,12 @@ module Juicy
     end
 
     def success!
+      self[:output] = get_output
       set_status :success
     end
 
     def failure!
+      self[:output] = get_output
       set_status :failed
     end
 
@@ -72,11 +74,11 @@ module Juicy
       end
     end
 
-  private
-
-    def build_in_progress?
-      # XXX stub
-      return false
+    def get_output
+      File.open(self[:buffer], 'r') do |f|
+        f.rewind
+        f.read
+      end
     end
 
   end
