@@ -42,7 +42,7 @@ module Juicy
     # should start a process
     def bump!
       update_children
-      if @child_pids.length == 0 && @builds.length > 0
+      if not_working? && work_to_do?
         Juicy.dbgp "Starting another child process"
         next_child.tap do |child|
           pid = child.build!
@@ -67,6 +67,14 @@ module Juicy
 
     def get_build_by_pid(pid)
       @builds_by_pid[pid]
+    end
+
+    def not_working?
+      @child_pids.length == 0
+    end
+
+    def work_to_do?
+      @builds.length > 0
     end
 
   end
