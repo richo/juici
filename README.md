@@ -11,6 +11,11 @@ It's designed to work well with [agent99](https://github.com/99designs/agent99) 
 * Queues can be dynamically created
 * Build status visualised
 
+## Important but Miscellaneous
+
+If you create child process in modules/plugins then you need to register your
+disinterest or Juicy will think they're builds and that would be bad
+
 ## Setup
 
 Juicy is deliberately very light on the setup front.
