@@ -19,6 +19,13 @@ describe Juicy::BuildQueue do
     subject.current_min_priority.should == 4
   end
 
+  it "Should remove a given build by pid" do
+    # Build an array of
+    @builds = builds_with(pid: [1, 2, 3, 4, 5, 6])
+    subject.purge(stub(:pid => 3))
+    @builds.collect(&:pid).should == [1, 2, 4, 5, 6]
+  end
+
 end
 
 class Juicy::BuildQueue #{{{ Test injection
