@@ -10,4 +10,14 @@ describe Juicy::App do
     Juicy::App.shutdown
     Thread.list.length.should == threads
   end
+
+  it "Can be started without workers" do
+    threads = Thread.list.length
+
+    app = Juicy::App.new(workers: 0)
+    Thread.list.length.should == threads + 0
+
+    Juicy::App.shutdown
+    Thread.list.length.should == threads
+  end
 end
