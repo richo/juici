@@ -23,6 +23,7 @@ module Juicy
           sleep 5
           next
         end
+        next unless pid
 
         build = Build.where(status: :started,
                             pid: pid).first
