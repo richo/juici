@@ -63,3 +63,18 @@ You may specify one or more callbacks when you request a build. They will be
 called with an (as yet unformalised) json body as the body if/when the build
 reaches that state. Alternately you may specify "any" as the callback state and
 it will be called on all state changes.
+
+## Security
+
+Juicy poses some interesting security conecerns. First off, it will allow
+anyone with access to run arbitrary commands on your server. I have
+deliberately not implemented any kind of security inside Juicy, it plays nicely
+as a Rack application, and middlewares are much better suited to this task.
+
+It should go without saying, but any builds started by Juicy will inherit it's
+environment. This means that if you run it in dev mode and forward your ssh
+agent, builds can ssh to other machines as you!
+
+When running in production you should take steps to ensure that the user Juicy
+runs as is no more privileged than it needs to be, and sanitise it's
+environment before execution.
