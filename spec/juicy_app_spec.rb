@@ -15,7 +15,7 @@ describe Juicy::App do
     threads = Thread.list.length
 
     app = Juicy::App.new(workers: 0)
-    Thread.list.length.should == threads + 0
+    Thread.list.length.should == threads
 
     Juicy::App.shutdown
     Thread.list.length.should == threads
