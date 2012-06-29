@@ -8,9 +8,13 @@ module Juicy
       @builds = []
     end
 
+    def shutdown!
+      # TODO
+      # Handle killing off all running jobs and dealing with their state
+    end
+
     # Pushing a Build object into the BuildQueue is expressing that you want it run
     def <<(other)
-      Juicy.dbgp "Build requested for #{other}"
     end
 
     def current_min_priority
