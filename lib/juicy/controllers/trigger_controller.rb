@@ -11,7 +11,7 @@ module Juicy
       Build.new(parent: project.name, environment: build_environment,
                   command: build_command).tap do |build|
         build.save!
-        build.build!
+        $build_queue << build
       end
     end
 
