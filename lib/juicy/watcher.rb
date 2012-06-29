@@ -7,10 +7,6 @@ module Juicy
       end
     end
 
-    def shutdown!
-      self.kill
-    end
-
     def self.mainloop
       #XXX No classvariables ever!
       loop do

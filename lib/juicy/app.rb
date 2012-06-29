@@ -4,7 +4,7 @@ module Juicy
 
     def self.shutdown
       @@watchers.each do |watcher|
-        watcher.shutdown!
+        watcher.kill
         watcher.join
       end
 
