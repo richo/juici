@@ -16,18 +16,7 @@ module Juicy
     end
 
     def spawn_watcher
-      @@watchers << Watcher.new do
-        loop do
-          pid = Process.wait
-          status = $?
-
-          build = Build.where(status: :started,
-                              pid: pid)
-          if status == 0
-            build.success!
-          end
-        end
-      end
+      @@watchers << Watcher.start!
     end
 
   end
