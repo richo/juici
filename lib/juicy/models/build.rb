@@ -50,6 +50,7 @@ module Juicy
     def finish
       self[:end_time] = Time.now
       self[:output] = get_output
+      $build_queue.purge(:pid, self)
     end
 
     def build!
