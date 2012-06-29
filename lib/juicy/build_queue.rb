@@ -7,6 +7,8 @@ module Juicy
     def initialize
       @builds = []
       @child_pids = []
+      # This is never expired, for now
+      @builds_by_pid = {}
     end
 
     def shutdown!
@@ -40,8 +42,15 @@ module Juicy
     # should start a process
     def bump!
       update_children
-      if @child_pids.length == 0
-        next_child.build!
+      if @child_pids.length == 0 && @builds.length > 0
+        Juicy.dbgp "Starting another child process"
+        next_child.tap do |child|
+          pid = child.build!
+          @child_pids << pid
+          @builds_by_pid[pid] = child
+        end
+      else
+        Juicy.dbgp "I have quite enough to do"
       end
     end
 
@@ -54,6 +63,10 @@ module Juicy
           false
         end
       end
+    end
+
+    def get_build_by_pid(pid)
+      @builds_by_pid[pid]
     end
 
   end

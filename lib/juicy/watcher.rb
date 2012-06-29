@@ -20,14 +20,14 @@ module Juicy
           next
         end
         next unless pid
+        build = $build_queue.get_build_by_pid(pid)
 
-        build = Build.where(status: :started,
-                            pid: pid).first
         if status == 0
           build.success!
         else
           build.failure!
         end
+        $build_queue.bump! if $build_queue
       end
     end
 
