@@ -19,7 +19,8 @@ module Juicy
     field :parent, type: String
     field :command, type: String
     field :environment, type: Hash
-    field :start_time, type: Time, :default => Proc.new { Time.now }
+    field :create_time, type: Time, :default => Proc.new { Time.now }
+    field :start_time, type: Time, :default => nil
     field :end_time, type: Time, :default => nil
     field :status, type: Symbol, :default => :waiting
     field :priority, type: Fixnum, :default => 1
@@ -32,17 +33,23 @@ module Juicy
     end
 
     def start!
+      self[:start_time] = Time.now
       set_status :started
     end
 
     def success!
-      self[:output] = get_output
+      finish
       set_status :success
     end
 
     def failure!
-      self[:output] = get_output
+      finish
       set_status :failed
+    end
+
+    def finish
+      self[:end_time] = Time.now
+      self[:output] = get_output
     end
 
     def build!
