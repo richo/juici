@@ -6,6 +6,7 @@ module Juicy
     attr_reader :build
     def initialize(build)
       @build = build
+      # This intoduces a bunch of weird error conditions unless you're willing to do git init hax
       raise "No such work tree" unless FileUtils.mkdir_p(build.worktree)
     end
 
