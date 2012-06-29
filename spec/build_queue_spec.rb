@@ -36,6 +36,12 @@ describe Juicy::BuildQueue do
     pending("To be implemented")
   end
 
+  it "Should return a low priority job from #next_child" do
+    @builds = builds_with(priority: [1, 2, 3, 4, 5, 6])
+    subject.next_child.priority.should == 1
+    @builds = builds_with(priority: [6, 5, 4, 3, 2, 1])
+    subject.next_child.priority.should == 1
+  end
 
 end
 
