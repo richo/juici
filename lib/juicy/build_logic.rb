@@ -12,8 +12,6 @@ module Juicy
 
     def spawn(cmd, dir)
       @buffer = Tempfile.new('juicy-xxxx')
-      $stderr.puts "cmd: #{cmd}"
-      $stderr.puts "dir: #{dir}"
       Process.spawn(environment, cmd,
         :chdir => dir,
         :in  => "/dev/null",
