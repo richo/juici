@@ -25,7 +25,7 @@ module Juicy
         end
 
         build = Build.where(status: :started,
-                            pid: pid)
+                            pid: pid).first
         if status == 0
           build.success!
         else
