@@ -13,6 +13,7 @@ module Juicy
 
     include Mongoid::Document
     include ::Juicy.url_helpers("builds")
+    include BuildLogic
     # TODO Builds should probably be children of projects in the URL?
 
     field :parent, type: String
@@ -22,6 +23,8 @@ module Juicy
     field :end_time, type: Time, :default => nil
     field :status, type: Symbol, :default => :waiting
     field :priority, type: Fixnum, :default => 1
+    field :pid, type: Fixnum
+    field :buffer, type: String
 
     def set_status(value)
       self[:status] = value
@@ -41,11 +44,14 @@ module Juicy
     end
 
     def build!
-      if build_in_progress?
-        status = :waiting
-      else
-        BuildThread.new(self).fire!
+      if (pid = spawn_build)
+        start!
+        Juicy.dbgp "#{pid} away!"
+        self[:pid] = pid
+        self[:buffer] = @buffer.path
+        save!
       end
+      return pid
     end
 
     def worktree
