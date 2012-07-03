@@ -19,8 +19,9 @@ module Juicy
       # clear_stale_children
       #
       # Urgh
-      start_workers
       init_build_queue
+      reload_unfinished_work
+      start_workers
     end
 
     def spawn_watcher
@@ -46,6 +47,14 @@ module Juicy
       warn "More than 1 worker is liable to do strange things" if no_workers > 1
       no_workers.times do
         spawn_watcher
+      end
+    end
+
+    def reload_unfinished_work
+      # At this point no workers have started yet, we can safely assume that
+      # :started means aborted
+      Build.where(:status.in => [:started, :waiting]).each do |build|
+        $build_queue << build
       end
     end
 
