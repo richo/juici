@@ -20,3 +20,9 @@ out of the ranks, and then die on ECHILD
 This means that with lots of builds passing through we can retain a single
 watcher, and when we're idle we let him die and then spawn a new one when we
 need
+
+* Neat method of either resuming or starting a build
+
+* RSS api
+
+* Import of Xdefaults/itermcolors.plist for output colors
