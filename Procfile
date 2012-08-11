@@ -1,1 +1,1 @@
-web: bundle exec ruby bin/juicy
+web: RACK_ENV=heroku bundle exec ruby bin/juicy
