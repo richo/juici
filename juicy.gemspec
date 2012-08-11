@@ -11,7 +11,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency "sinatra"
   s.add_dependency "json"
-  s.add_dependency "mongo"
   s.add_dependency "mongoid"
   s.add_dependency "bson_ext"
 

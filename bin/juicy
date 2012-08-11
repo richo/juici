@@ -2,4 +2,6 @@
 $:.unshift(File.expand_path("../../lib", __FILE__))
 require 'juicy'
 
-Juicy::Server.start('localhost', 9000)
+port = ENV['PORT'] || 9000
+
+Juicy::Server.start('localhost', port)
