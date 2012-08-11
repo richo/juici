@@ -14,7 +14,7 @@
 
 <% proj = ::Juicy::Project.where(name: project).first %>
 <% if proj %>
-  <h3><em><%= proj.name %></em></h3>
+  <h3><em><%= proj.name %></em> - <a href="/builds/new?project=<%= proj.name %>"><em>New Build</em></a></h3>
   <% ::Juicy::Build.where(parent: proj.name).sort.each_with_index do |build, idx| %>
     <div class="accordion" id="accordion<%= idx %>">
       <div class="accordion-heading">
