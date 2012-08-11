@@ -32,6 +32,7 @@ module Juicy
         %w[RUBYOPT BUNDLE_GEMFILE RACK_ENV MONGOLAB_URI].each do |var|
           env[var] = nil
         end
+        env["BUNDLE_CONFIG"] = "/nonexistent"
       end
     end
 
