@@ -39,6 +39,14 @@ module Juicy
       erb(:projects, {}, :juicy => juicy)
     end
 
+    get '/builds/new' do
+      erb(:"builds/new", :juicy => juicy)
+    end
+
+    post '/builds/new' do
+      TriggerController.new(params[:project], params).build!
+    end
+
     get '/builds/:project' do
       erb(:builds, {}, :juicy => juicy, :project => params[:project])
     end

@@ -1,0 +1,13 @@
+<form class="well" action="/builds/new" method="post">
+  <label>Project Name</label>
+  <input type="text" name="project" class="span3" value="<%= params[:project] %>" <%= "readonly" if params[:project] %>>
+  <label>Environment</label>
+  <input type="text" name="environment" class="span3" value="">
+  <span class="help-block">nb: Expects a valid json hash</span>
+  <label>Command</label>
+  <textarea name="command" class="span3"></textarea>
+  <%# TODO -> When callbacks get implemented %>
+  <%# <label>Callback URL</label> %>
+  <%# <input type="text" name="callback" class="span3"> %>
+  <button type="submit" class="btn">Submit</button>
+</form>
