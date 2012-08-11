@@ -45,6 +45,9 @@ module Juicy
 
     post '/builds/new' do
       TriggerController.new(params[:project], params).build!
+      if params[:redirect_to]
+        redirect params[:redirect_to]
+      end
     end
 
     get '/builds/:project' do
