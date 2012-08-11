@@ -17,7 +17,9 @@ module Juicy
 
     def build_environment
       env = sanitized_environment
-      env.merge(JSON.load(params['environment']))
+      # TODO Raise warning
+      env.merge(JSON.load(params['environment'])) rescue nil
+      env
     end
 
     def build_command
