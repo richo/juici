@@ -1,3 +1,6 @@
 development:
   database: juicy
   host: localhost
+
+production:
+  uri: <%= ENV['MONGOLAB_URI'] %>
