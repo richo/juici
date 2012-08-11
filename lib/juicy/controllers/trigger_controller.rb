@@ -29,7 +29,7 @@ module Juicy
 
     def sanitized_environment
       ENV.to_hash.tap do |env|
-        %w[RUBYOPT BUNDLE_GEMFILE RACK_ENV].each do |var|
+        %w[RUBYOPT BUNDLE_GEMFILE RACK_ENV MONGOLAB_URI].each do |var|
           env[var] = nil
         end
       end
