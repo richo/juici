@@ -16,12 +16,7 @@ module Juicy
     end
 
     def build_environment
-      # TODO is inheriting from the parent really a good idea?
-      env = ENV.to_hash
-      env["RUBYOPT"] = nil
-      # TODO Potentially set this to the new one if it exists
-      env["BUNDLE_GEMFILE"] = nil
-
+      env = sanitized_environment
       env.merge(JSON.load(params['environment']))
     end
 
@@ -31,5 +26,14 @@ module Juicy
         raise "No command given" if c.nil?
       end
     end
+
+    def sanitized_environment
+      ENV.to_hash.tap do |env|
+        %w[RUBYOPT BUNDLE_GEMFILE RACK_ENV].each do |var|
+          env[var] = nil
+        end
+      end
+    end
+
   end
 end
