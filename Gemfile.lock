@@ -4,7 +4,6 @@ PATH
     juicy (0.0.0)
       bson_ext
       json
-      mongo
       mongoid
       sinatra
 
