@@ -32,18 +32,24 @@ module Juicy
     end
 
     get '/' do
+      @page = :index
       erb(:index, {}, :juicy => juicy)
     end
 
     get '/about' do
+      @page = :about
       erb(:about)
     end
 
     get '/projects' do
+      @page = :projects
+      @action = :list
       erb(:projects, {}, :juicy => juicy)
     end
 
     get '/builds/new' do
+      @page = :builds
+      @action = :new
       erb(:"builds/new", :juicy => juicy)
     end
 
@@ -55,6 +61,8 @@ module Juicy
     end
 
     get '/builds/:project' do
+      @page = :builds
+      @action = :show
       erb(:builds, {}, :juicy => juicy, :project => params[:project])
     end
 
