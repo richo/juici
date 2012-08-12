@@ -15,12 +15,11 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="/">Juicy</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <%# <li class="active"><a href="#">Home</a></li> %>
-              <li><a href="/builds/new" class="<%= "active" if @page ==:builds && @action == :new %>">New Build</a></li>
-              <li><a href="/about" class="<%= "active" if @page == :about %>">About</a></li>
+              <li class="<%= "active" if @page == :index %>"><a class="brand" href="/">Juicy</a></li>
+              <li class="<%= "active" if @page == :builds && @action == :new %>"><a href="/builds/new">New Build</a></li>
+              <li class="<%= "active" if @page == :about %>"><a href="/about">About</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
