@@ -1,14 +1,36 @@
-<form class="well" action="/builds/new" method="post">
-  <label>Project Name</label>
-  <input type="text" name="project" class="span3" value="<%= params[:project] %>" <%= "readonly" if params[:project] %>>
-  <label>Environment</label>
-  <input type="text" name="environment" class="span3" value="">
-  <span class="help-block">nb: Expects a valid json hash</span>
-  <label>Command</label>
-  <textarea name="command" class="span3"></textarea>
-  <input type="hidden" name="redirect_to" value="<%= "/builds/#{params[:project]}" %>"></input>
-  <%# TODO -> When callbacks get implemented %>
-  <%# <label>Callback URL</label> %>
-  <%# <input type="text" name="callback" class="span3"> %>
-  <button type="submit" class="btn">Submit</button>
-</form>
+<div class="row">
+<div class="span6">
+  <form class="well" action="/builds/new" method="post">
+    <label>Project Name</label>
+    <input type="text" name="project" class="span3" value="<%= params[:project] %>" <%= "readonly" if params[:project] %>>
+    <label>Environment</label>
+    <input type="text" name="environment" class="span3" value="">
+    <span class="help-block">nb: Expects a valid json hash</span>
+    <label>Command</label>
+    <textarea name="command" class="span3"></textarea>
+    <input type="hidden" name="redirect_to" value="<%= "/builds/#{params[:project]}" %>"></input>
+    <%# TODO -> When callbacks get implemented %>
+    <%# <label>Callback URL</label> %>
+    <%# <input type="text" name="callback" class="span3"> %>
+    <button type="submit" class="btn">Submit</button>
+  </form>
+</div>
+<div class="span6">
+  <p>From here you can create a new build</p>
+  <p>Name is a unique identifier for the project. It doesn't need to already exist, but builds for a like project need to be named identically</p>
+  <p>Environment is a json hash of KEY - VALUE pairs, to be passed into the child environment</p>
+  <p>Command is where the magic happens. Often they'll be longwinded, but a reasonable boilerplate might look something like<p>
+  <pre class="prettyprint linenums">
+if [ ! -d .git ]; then
+  git init .
+  git remote add origin git://github.com/$user/$project.git
+fi
+
+git fetch origin
+git checkout -fq origin/master
+
+bundle install --path .bundle
+bundle exec rake spec
+  </pre>
+</div>
+</div>
