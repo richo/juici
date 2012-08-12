@@ -35,6 +35,10 @@ module Juicy
       erb(:index, {}, :juicy => juicy)
     end
 
+    get '/about' do
+      erb(:about)
+    end
+
     get '/projects' do
       erb(:projects, {}, :juicy => juicy)
     end
