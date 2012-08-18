@@ -8,18 +8,22 @@ module Juicy
     end
 
     def build!
-      Build.new(parent: project.name, environment: build_environment,
-                  command: build_command).tap do |build|
+      Build.new(parent: project.name, command: build_command).tap do |build|
+        # The seperation of concerns around this madness is horrifying
+        construct_environment(build)
         build.save!
         $build_queue << build
       end
     end
 
-    def build_environment
+    def construct_environment(build)
       env = sanitized_environment
-      # TODO Raise warning
-      env.merge(JSON.load(params['environment'])) rescue nil
-      env
+      begin
+        env.merge(JSON.load(params['environment']))
+      rescue JSON::ParserError
+        build.warn!("Failed to parse environment")
+      end
+      build[:environment] = env
     end
 
     def build_command

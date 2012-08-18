@@ -26,6 +26,7 @@ module Juicy
     field :priority, type: Fixnum, :default => 1
     field :pid, type: Fixnum
     field :buffer, type: String
+    field :warnings, type: Array, :default => []
 
     def set_status(value)
       self[:status] = value
@@ -87,6 +88,11 @@ module Juicy
         f.rewind
         f.read
       end
+    end
+
+    def warn!(msg)
+      warnings << msg
+      save!
     end
 
   end
