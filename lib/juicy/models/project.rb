@@ -1,7 +1,7 @@
 module Juicy
   class Project
     include Mongoid::Document
-    include Juicy.url_helpers("projects")
+    include Juicy.url_helpers("builds")
 
     field :name, type: String
 

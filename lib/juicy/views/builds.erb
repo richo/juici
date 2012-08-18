@@ -1,35 +1,7 @@
-<style>
-  .build-heading-pending  { color: #111 }
-  :hover .build-heading-pending  { color: #111 }
+Projects:
 
-  .build-heading-failed   { color: #C10 }
-  :hover .build-heading-failed   { color: #C10 }
-
-  .build-heading-success  { color: #4A0 }
-  :hover .build-heading-success  { color: #4A0 }
-
-  .build-heading-started  { color: #CC0 }
-  :hover .build-heading-started  { color: #CC0 }
-</style>
-
-<% proj = ::Juicy::Project.where(name: project).first %>
-<% if proj %>
-  <h3><em><%= proj.name %></em> - <a href="/builds/new?project=<%= proj.name %>"><em>New Build</em></a></h3>
-  <% ::Juicy::Build.where(parent: proj.name).sort.each_with_index do |build, idx| %>
-    <div class="accordion" id="accordion<%= idx %>">
-      <div class="accordion-heading">
-        <a class="accordion-toggle <%= build.heading_color %>" data-toggle="collapse" data-parent="#accordion<%= idx+1 %>" href="#collapse_<%= idx %>">
-          <%= build.create_time %>
-        </a>
-      </div>
-      <div id="collapse_<%= idx %>" class="accordion-body collapse in">
-        <div class="accordion-inner build-output">
-<%= build.output if build.respond_to? :output %>
-        </div>
-      </div>
-    </div>
-  <% end %>
-  <script>$(".collapse").collapse()</script>
-<% else %>
-  No such project.
+<ul>
+<% ::Juicy::Project.all.each do |p| %>
+  <li><%= p['name'] %></li>
 <% end %>
+</ul>

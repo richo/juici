@@ -42,10 +42,10 @@ module Juicy
       erb(:about)
     end
 
-    get '/projects' do
-      @page = :projects
+    get '/builds' do
+      @page = :builds
       @action = :list
-      erb(:projects, {}, :juicy => juicy)
+      erb(:builds, {}, :juicy => juicy)
     end
 
     get '/builds/new' do
@@ -63,7 +63,7 @@ module Juicy
     get '/builds/:project' do
       @page = :builds
       @action = :show
-      erb(:builds, {}, :juicy => juicy, :project => params[:project])
+      erb(:"builds/show", {}, :juicy => juicy, :project => params[:project])
     end
 
     post '/trigger/:project' do
