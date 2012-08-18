@@ -83,3 +83,9 @@ agent, builds can ssh to other machines as you!
 When running in production you should take steps to ensure that the user Juicy
 runs as is no more privileged than it needs to be, and sanitise it's
 environment before execution.
+
+## Contact
+
+Juicy's code lives on [Github](https://github.com/richo/juicy)
+and the [author](mailto:richo@psych0tik.net) can be contacted on
+ [Twitter](https://twitter.com/rich0H)

@@ -38,8 +38,7 @@ module Juicy
     end
 
     get '/about' do
-      @page = :about
-      erb(:about)
+      markdown(:README)
     end
 
     get '/builds' do
