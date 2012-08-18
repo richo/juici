@@ -8,7 +8,6 @@
     <span class="help-block">nb: Expects a valid json hash</span>
     <label>Command</label>
     <textarea name="command" class="span3"></textarea>
-    <input type="hidden" name="redirect_to" value="<%= params[:project] ? "/builds/#{params[:project]}" : "/projects" %>"></input>
     <%# TODO -> When callbacks get implemented %>
     <%# <label>Callback URL</label> %>
     <%# <input type="text" name="callback" class="span3"> %>
