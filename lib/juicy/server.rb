@@ -38,7 +38,7 @@ module Juicy
     end
 
     get '/about' do
-      markdown(:README)
+      erb(:about)
     end
 
     get '/builds' do
