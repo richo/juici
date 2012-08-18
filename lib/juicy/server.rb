@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'net/http' # for URI#escape
 
 module Juicy
   class Server < Sinatra::Base
@@ -55,7 +56,8 @@ module Juicy
 
     post '/builds/new' do
       TriggerController.new(params[:project], params).build!
-      redirect project_url_for(params[:project])
+      @redirect_to = project_url_for(params[:project])
+      erb(:redirect, {}, :juicy => juicy)
     end
 
     get '/builds/:project' do

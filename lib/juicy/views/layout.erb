@@ -10,6 +10,9 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.0.3/bootstrap.min.js"></script>
     <title>Juicy</title>
+    <% if @redirect_to %>
+      <meta http-equiv="Refresh" content="0; url=<%= URI.escape(@redirect_to) %>" />
+    <% end %>
   </head>
   <body>
     <div class="navbar navbar-fixed-top">
