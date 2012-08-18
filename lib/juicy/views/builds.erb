@@ -2,6 +2,6 @@ Projects:
 
 <ul>
 <% ::Juicy::Project.all.each do |p| %>
-  <li><%= p['name'] %></li>
+  <li><a href="<%= build_url_for(p['name']) %>"><%= p['name'] %></a></li>
 <% end %>
 </ul>
