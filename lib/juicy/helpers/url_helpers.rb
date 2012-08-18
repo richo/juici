@@ -1,3 +1,3 @@
-def project_url_for(project)
+def build_url_for(project)
   "/builds/#{project}"
 end

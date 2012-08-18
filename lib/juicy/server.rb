@@ -56,7 +56,7 @@ module Juicy
 
     post '/builds/new' do
       TriggerController.new(params[:project], params).build!
-      @redirect_to = project_url_for(params[:project])
+      @redirect_to = build_url_for(params[:project])
       erb(:redirect, {}, :juicy => juicy)
     end
 
