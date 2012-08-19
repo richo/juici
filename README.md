@@ -84,6 +84,16 @@ When running in production you should take steps to ensure that the user Juicy
 runs as is no more privileged than it needs to be, and sanitise it's
 environment before execution.
 
+## A note on subprocesses
+
+Juicy by default invokes everything in a subshell- indeed this is the only way
+to approach this if you want to execute more than one command.
+
+What this means to you as the user though is that unless you go to lengths to
+specifically implement it, your process won't see any of the signal handling
+madness. The shell(`/bin/sh`) will see everything, and if killed, your
+processes will become orphaned, but carry on.
+
 ## Contact
 
 Juicy's code lives on [Github](https://github.com/richo/juicy)
