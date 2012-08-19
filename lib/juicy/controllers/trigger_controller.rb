@@ -9,14 +9,15 @@ module Juicy
 
     def build!
       environment = BuildEnvironment.new
-      Build.new(parent: project.name, command: build_command).tap do |build|
+      Build.new(parent: project.name).tap do |build|
         # The seperation of concerns around this madness is horrifying
         unless environment.load_json!(params['environment'])
           build.warn!("Failed to parse environment")
         end
 
-        build[:environment] = environment.to_hash
+        build[:command] = build_command
         build[:priority] = build_priority
+        build[:environment] = environment.to_hash
 
         build.save!
         $build_queue << build
