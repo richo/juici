@@ -1,3 +1,8 @@
 def build_url_for(project)
-  "/builds/#{project}"
+  case project
+  when String
+    "/builds/#{project}"
+  when Juicy::Build
+    "/builds/#{project.name}"
+  end
 end
