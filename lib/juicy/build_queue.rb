@@ -12,8 +12,10 @@ module Juicy
     end
 
     def shutdown!
-      # TODO
-      # Handle killing off all running jobs and dealing with their state
+      @child_pids.each do |pid|
+        ::Juicy.dbgp "Killing off child pid #{pid}"
+        Process.kill(15, pid)
+      end
     end
 
     # Pushing a Build object into the BuildQueue is expressing that you want it
