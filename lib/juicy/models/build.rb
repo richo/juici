@@ -61,6 +61,8 @@ module Juicy
         self[:pid] = pid
         self[:buffer] = @buffer.path
         save!
+      else
+        failure!
       end
       return pid
     end
@@ -84,6 +86,7 @@ module Juicy
     end
 
     def get_output
+      return "" unless self[:buffer]
       File.open(self[:buffer], 'r') do |f|
         f.rewind
         f.read

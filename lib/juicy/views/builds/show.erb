@@ -1,7 +1,6 @@
-<% proj = ::Juicy::Project.where(name: project).first %>
-<% if proj %>
+<% if proj = ::Juicy::Project.where(name: project).first %>
   <h3><em><%= proj.name %></em> - <a href="/builds/new?project=<%= proj.name %>"><em>New Build</em></a></h3>
-  <% ::Juicy::Build.where(parent: proj.name).sort.each_with_index do |build, idx| %>
+  <% ::Juicy::Build.where(parent: proj.name).sort.reverse.each_with_index do |build, idx| %>
     <div class="accordion" id="accordion<%= idx %>">
       <div class="accordion-heading">
         <a class="accordion-toggle <%= build.heading_color %>" data-toggle="collapse" data-parent="#accordion<%= idx+1 %>" href="#collapse_<%= idx %>">
