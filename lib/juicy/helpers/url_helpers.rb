@@ -1,5 +1,5 @@
 def build_url_for(project)
-  case project
+  URI.escape case project
   when String
     "/builds/#{project}"
   when ::Juicy::Project
