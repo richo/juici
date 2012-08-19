@@ -55,16 +55,22 @@ module Juicy
     end
 
     def build!
-      if (pid = spawn_build)
+      case pid = spawn_build
+      when Fixnum
         start!
         Juicy.dbgp "#{pid} away!"
         self[:pid] = pid
         self[:buffer] = @buffer.path
         save!
-      else
+        return pid
+      when :enoent
+        warn! "No such command"
+        failure!
+      when :invalidcommand
+        warn! "Invalid command"
         failure!
       end
-      return pid
+      nil
     end
 
     def worktree
