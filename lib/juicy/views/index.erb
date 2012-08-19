@@ -6,8 +6,6 @@
 <p>
 In the past, this instance of Juicy has built code for:
 <ul><% ::Juicy::Project.all.each do |p| %>
-    <%# <li><a href="<%= p.url_for p.name %1>"><%= p.name %1></a></li> %>
-    <%# Temp kludge because /projects/thing isn't wired up yet %>
     <li><a href="<%= build_url_for(p) %>"><%= p.name %></a></li>
 <% end %></ul>
 </p>
