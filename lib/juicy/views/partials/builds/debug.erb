@@ -1,0 +1,10 @@
+<h3>Environment:</h3>
+<pre class="prettyprint">
+<% build[:environment].each do |k, v| %>
+ <%= "#{k}=#{v}" %>
+<% end %>
+</pre>
+<h3>Priority:</h3>
+<pre class="prettyprint">
+<%= build[:priority] %>
+</pre>

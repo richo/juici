@@ -9,8 +9,15 @@
         </a>
       </div>
       <div id="collapse_<%= idx %>" class="accordion-body collapse in">
-        <div class="accordion-inner build-output">
+        <div class="row">
+          <div class="span8">
+            <div class="accordion-inner build-output">
 <%= build.output if build.respond_to? :output %>
+            </div>
+          </div>
+          <div class="span4">
+<%= erb(:"partials/builds/debug", :locals => { :build => build }) %>
+          </div>
         </div>
       </div>
     </div>
