@@ -56,6 +56,7 @@ module Juicy
 
     def update_children
       @child_pids.select! do |pid|
+        return false if pid.nil?
         begin
           Process.kill(0, pid)
           true

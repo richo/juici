@@ -18,6 +18,8 @@ module Juicy
         :out => @buffer.fileno,
         :err => [:child, :out]
       )
+    rescue Errno::ENOENT
+      nil
     end
 
   end
