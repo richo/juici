@@ -18,11 +18,6 @@ module Juicy
 
     dir = File.dirname(File.expand_path(__FILE__))
 
-    set :views,  "#{dir}/views"
-    set :public_folder, "#{dir}/public"
-    set :static, true
-    set :lock, true
-
     def self.start(host, port)
       @@juicy = App.new
       Juicy::Server.run! :host => host, :port => port
@@ -31,6 +26,10 @@ module Juicy
     def self.rack_start(project_path)
       self.new
     end
+
+    set :views,  "#{dir}/views"
+    set :public_folder, "public"
+    set :static, true
 
     get '/' do
       @page = :index

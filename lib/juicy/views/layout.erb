@@ -2,6 +2,9 @@
 <html>
   <head>
     <link href="http://current.bootstrapcdn.com/bootstrap-v204/css/bootstrap-combined.min.css" rel="stylesheet">
+    <% if @page # This will 404 a ton of page XXX %>
+      <link href="/styles/<%= @page %>.css" rel="stylesheet">
+    <% end %>
     <%# Note If this gets any further out of hand, actually make juicy.css %>
     <style>
       body { padding-top: 60px; }
