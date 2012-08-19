@@ -1,10 +1,11 @@
 module Juicy
+  BUILD_SENSITIVE_VARIABLES = %w[RUBYOPT BUNDLE_GEMFILE RACK_ENV MONGOLAB_URI]
   class BuildEnvironment
 
     attr_reader :env
     def initialize
       @env = ENV.to_hash.tap do |env|
-        %w[RUBYOPT BUNDLE_GEMFILE RACK_ENV MONGOLAB_URI].each do |var|
+        BUILD_SENSITIVE_VARIABLES.each do |var|
           env[var] = nil
         end
         env["BUNDLE_CONFIG"] = "/nonexistent"
