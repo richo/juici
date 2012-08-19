@@ -1,2 +1,2 @@
 ENV['RACK_ENV'] ||= "development"
-Mongoid.load!("mongoid.yml")
+Mongoid.load!("config/mongoid.yml")
