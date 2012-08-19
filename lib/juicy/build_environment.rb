@@ -15,13 +15,17 @@ module Juicy
       env[k]
     end
 
+    # XXX This is spectacular.
+    # Not in the good way
     def load_json!(json)
-      begin
-        env.merge!(JSON.load(json)) unless json.nil? || json.empty?
-      rescue JSON::ParserError
-        return false
+      loaded_json = JSON.load(json)
+      if loaded_json.is_a? Hash
+        env.merge!(loaded_json)
+        return true
       end
-      return true
+      false
+    rescue JSON::ParserError
+      return false
     end
 
     def to_hash
