@@ -19,7 +19,9 @@ module Juicy
         :err => [:child, :out]
       )
     rescue Errno::ENOENT
-      nil
+      :enoent
+    rescue TypeError
+      :invalidcommand
     end
 
   end

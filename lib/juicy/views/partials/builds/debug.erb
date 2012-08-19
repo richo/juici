@@ -1,10 +1,20 @@
-<h3>Environment:</h3>
-<pre class="prettyprint">
-<% build[:environment].each do |k, v| %>
- <%= "#{k}=#{v}" %>
+<% if build[:environment] %>
+  <h3>Environment:</h3>
+  <pre class="prettyprint">
+  <% build[:environment].each do |k, v| %>
+   <%= "#{k}=#{v}" %>
+  <% end %>
+  </pre>
 <% end %>
-</pre>
-<h3>Priority:</h3>
-<pre class="prettyprint">
-<%= build[:priority] %>
-</pre>
+<% if build[:priority] %>
+  <h3>Priority:</h3>
+  <pre class="prettyprint">
+  <%= build[:priority] %>
+  </pre>
+<% end %>
+<% if build[:command] %>
+  <h3>Command:</h3>
+  <pre class="prettyprint">
+  <%= build[:command] %>
+  </pre>
+<% end %>

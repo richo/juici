@@ -44,4 +44,10 @@ describe "Juicy build environment" do
 
     env.load_json!(json).should == false
   end
+
+  it "Should regard an empty string as valid" do
+    env = ::Juicy::BuildEnvironment.new
+    json = ""
+    env.load_json!(json).should == true
+  end
 end

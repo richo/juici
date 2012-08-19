@@ -19,6 +19,7 @@ module Juicy
     # XXX This is spectacular.
     # Not in the good way
     def load_json!(json)
+      return true if json == ""
       loaded_json = JSON.load(json)
       if loaded_json.is_a? Hash
         env.merge!(loaded_json)
