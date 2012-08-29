@@ -76,12 +76,12 @@ anyone with access to run arbitrary commands on your server. I have
 deliberately not implemented any kind of security inside Juicy, it plays nicely
 as a Rack application, and middlewares are much better suited to this task.
 
-It should go without saying, but any builds started by Juicy will inherit it's
+It should go without saying, but any builds started by Juicy will inherit its
 environment. This means that if you run it in dev mode and forward your ssh
 agent, builds can ssh to other machines as you!
 
 When running in production you should take steps to ensure that the user Juicy
-runs as is no more privileged than it needs to be, and sanitise it's
+runs as is no more privileged than it needs to be, and sanitise its
 environment before execution.
 
 ## A note on subprocesses
