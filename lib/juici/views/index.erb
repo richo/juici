@@ -1,0 +1,11 @@
+<h1>Hi from Juici</h1>
+<p>
+  Hello! Welcome to Juici. A an insane CI inatory thing, built on top of
+  MongoDB and obscene amounts of caffiene.
+</p>
+<p>
+In the past, this instance of Juici has built code for:
+<ul><% ::Juici::Project.all.each do |p| %>
+    <li><a href="<%= build_url_for(p) %>"><%= p.name %></a></li>
+<% end %></ul>
+</p>

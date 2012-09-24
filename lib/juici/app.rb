@@ -1,18 +1,18 @@
 at_exit do
-  Juicy::App.shutdown
+  Juici::App.shutdown
 end
 
-module Juicy
+module Juici
   class App
     @@watchers = []
 
     def self.shutdown
-      ::Juicy.dbgp "Shutting down Juicy"
+      ::Juici.dbgp "Shutting down Juici"
       @@watchers.each do |watcher|
-        ::Juicy.dbgp "Killing #{watcher.inspect}"
+        ::Juici.dbgp "Killing #{watcher.inspect}"
         watcher.kill
         watcher.join
-        ::Juicy.dbgp "Dead:   #{watcher.inspect}"
+        ::Juici.dbgp "Dead:   #{watcher.inspect}"
       end
 
       shutdown_build_queue

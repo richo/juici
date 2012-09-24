@@ -1,7 +1,7 @@
 # An object representing a queue. It merely manages creating child processes
 # and their priority, reaping them is a job for BuildThread
 #
-module Juicy
+module Juici
   class BuildQueue
 
     def initialize
@@ -13,7 +13,7 @@ module Juicy
 
     def shutdown!
       @child_pids.each do |pid|
-        ::Juicy.dbgp "Killing off child pid #{pid}"
+        ::Juici.dbgp "Killing off child pid #{pid}"
         Process.kill(15, pid)
       end
     end
@@ -45,14 +45,14 @@ module Juicy
     def bump!
       update_children
       if not_working? && work_to_do?
-        Juicy.dbgp "Starting another child process"
+        Juici.dbgp "Starting another child process"
         next_child.tap do |child|
           pid = child.build!
           @child_pids << pid
           @builds_by_pid[pid] = child
         end
       else
-        Juicy.dbgp "I have quite enough to do"
+        Juici.dbgp "I have quite enough to do"
       end
     end
 

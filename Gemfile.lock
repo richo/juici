@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    juicy (0.0.0)
+    juici (0.0.0)
       bson_ext
       json
       mongoid (~> 2)
@@ -58,7 +58,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  juicy!
+  juici!
   mocha
   rake
   rspec

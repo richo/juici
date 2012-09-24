@@ -1,4 +1,4 @@
-module Juicy
+module Juici
   class Watcher < Thread
 
     def self.start!

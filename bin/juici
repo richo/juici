@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 $:.unshift(File.expand_path("../../lib", __FILE__))
-require 'juicy'
+require 'juici'
 
 port = ENV['PORT'] || 9000
 
-Juicy::Server.start('localhost', port)
+Juici::Server.start('localhost', port)

@@ -1,7 +1,7 @@
-module Juicy
+module Juici
   class Project
     include Mongoid::Document
-    include Juicy.url_helpers("builds")
+    include Juici.url_helpers("builds")
 
     field :name, type: String
 

@@ -1,6 +1,6 @@
 require 'fileutils'
 require 'tempfile'
-module Juicy
+module Juici
    module BuildLogic
 
     def spawn_build
@@ -11,7 +11,7 @@ module Juicy
   private
 
     def spawn(cmd, dir)
-      @buffer = Tempfile.new('juicy-xxxx')
+      @buffer = Tempfile.new('juici-xxxx')
       Process.spawn(environment, cmd,
         :chdir => dir,
         :in  => "/dev/null",

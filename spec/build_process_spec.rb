@@ -1,19 +1,19 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe "Juicy build abstraction" do
+describe "Juici build abstraction" do
 
   before(:all) do
-    @app = Juicy::App.new(workers: 0)
+    @app = Juici::App.new(workers: 0)
   end
 
   after(:all) do
-    Juicy::App.shutdown
+    Juici::App.shutdown
   end
 
 
   it "Should run a given command in a subshell" do
-    worker = Juicy::Watcher.start!
-    build = Juicy::Build.new(parent: "test project",
+    worker = Juici::Watcher.start!
+    build = Juici::Build.new(parent: "test project",
                       environment: {},
                       command: "/bin/echo 'test build succeeded'")
     $build_queue << build

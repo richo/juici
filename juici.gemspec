@@ -1,11 +1,11 @@
 # vim: ft=ruby
 
 Gem::Specification.new do |s|
-  s.name        = "juicy"
+  s.name        = "juici"
   s.version     = "0.0.0"
   s.authors     = ["Richo Healey"]
   s.email       = ["richo@psych0tik.net"]
-  s.homepage    = "http://github.com/richo/juicy"
+  s.homepage    = "http://github.com/richo/juici"
   s.summary     = "Minimal CI server with some support for dynamic"
   s.description = s.summary
 

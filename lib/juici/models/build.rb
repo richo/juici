@@ -7,12 +7,12 @@
 #   ???
 #   :profit!
 #
-module Juicy
+module Juici
   class Build
     # A wrapper around the build process
 
     include Mongoid::Document
-    include ::Juicy.url_helpers("builds")
+    include ::Juici.url_helpers("builds")
     include BuildLogic
     # TODO Builds should probably be children of projects in the URL?
 
@@ -58,7 +58,7 @@ module Juicy
       case pid = spawn_build
       when Fixnum
         start!
-        Juicy.dbgp "#{pid} away!"
+        Juici.dbgp "#{pid} away!"
         self[:pid] = pid
         self[:buffer] = @buffer.path
         save!

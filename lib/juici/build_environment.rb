@@ -1,4 +1,4 @@
-module Juicy
+module Juici
   BUILD_SENSITIVE_VARIABLES = %w[RUBYOPT BUNDLE_GEMFILE RACK_ENV MONGOLAB_URI]
   class BuildEnvironment
 

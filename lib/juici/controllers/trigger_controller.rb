@@ -1,4 +1,4 @@
-module Juicy
+module Juici
   class TriggerController
 
     attr_reader :project, :params

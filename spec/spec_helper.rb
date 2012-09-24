@@ -1,4 +1,4 @@
-require 'juicy'
+require 'juici'
 require 'mocha'
 
 require 'fileutils'

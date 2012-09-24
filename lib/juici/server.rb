@@ -1,13 +1,13 @@
 require 'sinatra/base'
 require 'net/http' # for URI#escape
 
-module Juicy
+module Juici
   class Server < Sinatra::Base
 
-    @@juicy = nil
+    @@juici = nil
 
-    def juicy
-      @@juicy
+    def juici
+      @@juici
     end
 
     helpers do
@@ -19,8 +19,8 @@ module Juicy
     dir = File.dirname(File.expand_path(__FILE__))
 
     def self.start(host, port)
-      @@juicy = App.new
-      Juicy::Server.run! :host => host, :port => port
+      @@juici = App.new
+      Juici::Server.run! :host => host, :port => port
     end
 
     def self.rack_start(project_path)
@@ -33,7 +33,7 @@ module Juicy
 
     get '/' do
       @page = :index
-      erb(:index, {}, :juicy => juicy)
+      erb(:index, {}, :juici => juici)
     end
 
     get '/about' do
@@ -43,25 +43,25 @@ module Juicy
     get '/builds' do
       @page = :builds
       @action = :list
-      erb(:builds, {}, :juicy => juicy)
+      erb(:builds, {}, :juici => juici)
     end
 
     get '/builds/new' do
       @page = :builds
       @action = :new
-      erb(:"builds/new", :juicy => juicy)
+      erb(:"builds/new", :juici => juici)
     end
 
     post '/builds/new' do
       TriggerController.new(params[:project], params).build!
       @redirect_to = build_url_for(params[:project])
-      erb(:redirect, {}, :juicy => juicy)
+      erb(:redirect, {}, :juici => juici)
     end
 
     get '/builds/:project' do
       @page = :builds
       @action = :show
-      erb(:"builds/show", {}, :juicy => juicy, :project => params[:project])
+      erb(:"builds/show", {}, :juici => juici, :project => params[:project])
     end
 
     post '/trigger/:project' do

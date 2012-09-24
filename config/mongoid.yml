@@ -1,5 +1,5 @@
 development:
-  database: juicy
+  database: juici
   host: localhost
 
 heroku:
