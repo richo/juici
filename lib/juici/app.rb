@@ -9,10 +9,8 @@ module Juici
     def self.shutdown
       ::Juici.dbgp "Shutting down Juici"
       @@watchers.each do |watcher|
-        ::Juici.dbgp "Killing #{watcher.inspect}"
-        watcher.kill
-        watcher.join
-        ::Juici.dbgp "Dead:   #{watcher.inspect}"
+        ::Juici.dbgp "Disabling #{watcher.inspect}"
+        watcher[:disabled] = true
       end
 
       shutdown_build_queue

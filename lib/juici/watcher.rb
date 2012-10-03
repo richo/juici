@@ -8,7 +8,6 @@ module Juici
     end
 
     def self.mainloop
-      #XXX No classvariables ever!
       loop do
         begin
           pid, status = catch_child
@@ -19,6 +18,7 @@ module Juici
           sleep 5
           next
         end
+        break if disabled?
         next unless pid
         build = $build_queue.get_build_by_pid(pid)
 
@@ -34,6 +34,10 @@ module Juici
     # Hook for testing
     def self.catch_child
       Process.wait2(-1, Process::WNOHANG)
+    end
+
+    def self.disabled?
+      Thread.current[:disabled]
     end
 
   end
