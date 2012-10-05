@@ -27,6 +27,7 @@ module Juici
     field :pid, type: Fixnum
     field :buffer, type: String
     field :warnings, type: Array, :default => []
+    field :callbacks, type: Array, :default => []
 
     def set_status(value)
       self[:status] = value
