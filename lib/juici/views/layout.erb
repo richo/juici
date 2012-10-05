@@ -8,7 +8,7 @@
     <% end %>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.0.3/bootstrap.min.js"></script>
-    <title>Juici</title>
+    <title>JuiCI</title>
     <% if @redirect_to %>
       <meta http-equiv="Refresh" content="0; url=<%= URI.escape(@redirect_to) %>" />
     <% end %>
@@ -19,7 +19,7 @@
         <div class="container">
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="<%= "active" if @page == :index %>"><a class="brand" href="/">Juici</a></li>
+              <li class="<%= "active" if @page == :index %>"><a class="brand" href="/">JuiCI</a></li>
               <li class="<%= "active" if @page == :builds && @action == :new %>"><a href="/builds/new">New Build</a></li>
               <li class="<%= "active" if @page == :about %>"><a href="/about">About</a></li>
             </ul>
