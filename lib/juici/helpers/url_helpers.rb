@@ -1,8 +1,10 @@
-def build_url_for(project)
-  URI.escape case project
+def build_url_for(entity)
+  URI.escape case entity
   when String
-    "/builds/#{project}/list"
+    "/builds/#{entity}/list"
   when ::Juici::Project
-    "/builds/#{project.name}/list"
+    "/builds/#{entity.name}/list"
+  when ::Juici::Build
+    "/builds/#{entity[:parent]}/show/#{entity[:_id]}"
   end
 end
