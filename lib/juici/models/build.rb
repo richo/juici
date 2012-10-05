@@ -119,7 +119,7 @@ module Juici
       {
         "project" => self[:parent],
         "status" => self[:status],
-        "url" => ""
+        "url" => build_url_for(self)
       }.to_json
     end
 

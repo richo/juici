@@ -1,17 +1,17 @@
 <% if proj = ::Juici::Project.where(name: project).first %>
   <h3><em><%= proj.name %></em> - <a href="/builds/new?project=<%= proj.name %>"><em>New Build</em></a></h3>
-  <% ::Juici::Build.where(parent: proj.name).sort.reverse.each_with_index do |build, idx| %>
-    <div class="accordion" id="accordion<%= idx %>">
+  <% build =::Juici::Build.where(parent: proj.name, _id: id).first %>
+    <div class="accordion" id="accordion0">
       <div class="accordion-heading">
-        <a class="accordion-toggle <%= build.heading_color %>" data-toggle="collapse" data-parent="#accordion<%= idx+1 %>" href="#collapse_<%= idx %>">
+        <a class="accordion-toggle <%= build.heading_color %>" data-toggle="collapse" data-parent="#accordion0" href="#collapse_0">
           <%= build.create_time %>&nbsp;<% build[:warnings].each do |warning| %><span class="label label-important"><%= warning %></span><% end %>
         </a>
       </div>
-      <div id="collapse_<%= idx %>" class="accordion-body collapse in">
+      <div id="collapse_0" class="accordion-body collapse in">
         <div class="row">
           <div class="span8">
             <div>
-              <a href="<%= build_url_for(build) %>">Link to this build</a>
+              <a href="/builds/<%= proj.name %>/show/<%= build[:_id] %>">Link to this build</a>
             </div>
             <div class="accordion-inner build-output">
 <%= build.output if build.respond_to? :output %>
@@ -23,8 +23,6 @@
         </div>
       </div>
     </div>
-  <% end %>
-  <script>$(".collapse").collapse()</script>
 <% else %>
   No such project.
 <% end %>
