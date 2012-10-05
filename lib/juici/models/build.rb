@@ -42,11 +42,13 @@ module Juici
     def success!
       finish
       set_status :success
+      process_callbacks
     end
 
     def failure!
       finish
       set_status :failed
+      process_callbacks
     end
 
     def finish
@@ -103,6 +105,21 @@ module Juici
     def warn!(msg)
       warnings << msg
       save!
+    end
+
+    def process_callbacks
+      self[:callbacks].each do |callback_url|
+        Callback.new(self, callback_url).process!
+      end
+    end
+
+
+    def to_form_hash
+      {
+        "project" => self[:parent],
+        "status" => self[:status],
+        "url" => ""
+      }
     end
 
   end
