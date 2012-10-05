@@ -10,7 +10,12 @@ module Juici
     end
 
     def process!
-      Net::HTTP.post_form(url, build.to_form_hash)
+      Net::HTTP.start(url.host, url.port) do |http|
+        request = Net::HTTP::Post.new(url.request_uri)
+        request.body = build.to_callback_json
+
+        response = http.request request # Net::HTTPResponse object
+      end
     end
 
   end

@@ -1,3 +1,4 @@
+require 'json'
 # status enum
 #   :waiting
 #   :started
@@ -114,12 +115,12 @@ module Juici
     end
 
 
-    def to_form_hash
+    def to_callback_json
       {
         "project" => self[:parent],
         "status" => self[:status],
         "url" => ""
-      }
+      }.to_json
     end
 
   end
