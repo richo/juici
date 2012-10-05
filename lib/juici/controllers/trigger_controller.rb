@@ -18,6 +18,7 @@ module Juici
         build[:command] = build_command
         build[:priority] = build_priority
         build[:environment] = environment.to_hash
+        build[:callbacks] = callbacks
 
         build.save!
         $build_queue << build
@@ -43,6 +44,12 @@ module Juici
       else
         1
       end
+    end
+
+    def callbacks
+      JSON.load(params['callbacks'])
+    rescue
+      []
     end
 
   end

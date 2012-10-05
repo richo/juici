@@ -42,8 +42,10 @@ module Juici
     end
 
     def self.shutdown_build_queue
-      $build_queue.shutdown!
-      $build_queue = nil
+      if $build_queue
+        $build_queue.shutdown!
+        $build_queue = nil
+      end
 
       # Find any remaining children and kill them
       # Ensure that any killed builds will be retried

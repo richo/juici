@@ -58,18 +58,21 @@ module Juici
       erb(:redirect, {}, :juici => juici)
     end
 
+    def list_builds(params)
+      erb(:"builds/list", {}, :juici => juici, :project => params[:project])
+    end
+
     get '/builds/:project' do
       @page = :builds
       @action = :show
-      erb(:"builds/show", {}, :juici => juici, :project => params[:project])
+      list_builds(params)
     end
-
-    # spectacular hack
 
     get '/builds/:user/:project' do
       @page = :builds
       @action = :show
-      erb(:"builds/show", {}, :juici => juici, :project => "#{params[:user]}/#{params[:project]}")
+      params[:project] = "#{params[:user]}/#{params[:project]}"
+      list_builds(params)
     end
 
     post '/trigger/:project' do
