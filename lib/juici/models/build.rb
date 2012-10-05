@@ -29,6 +29,7 @@ module Juici
     field :buffer, type: String
     field :warnings, type: Array, :default => []
     field :callbacks, type: Array, :default => []
+    field :title, type: String, :default => Proc.new { Time.now.to_s }
 
     def set_status(value)
       self[:status] = value
@@ -101,6 +102,11 @@ module Juici
         f.rewind
         f.read
       end
+    end
+
+    def display_title
+      # Catch old builds which didn't have a title
+      self[:title] || self[:create_time]
     end
 
     def warn!(msg)
