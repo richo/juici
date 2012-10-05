@@ -18,3 +18,11 @@
   <%= build[:command] %>
   </pre>
 <% end %>
+<% if build[:callbacks] %>
+  <h3>Callbacks:</h3>
+  <pre class="prettyprint">
+  <% build[:callbacks].each do |callback| %>
+<%= callback %>
+  <% end %>
+  </pre>
+<% end %>
