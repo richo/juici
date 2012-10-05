@@ -19,6 +19,7 @@ module Juici
         build[:priority] = build_priority
         build[:environment] = environment.to_hash
         build[:callbacks] = callbacks
+        build[:title] = title if title_given?
 
         build.save!
         $build_queue << build
@@ -50,6 +51,15 @@ module Juici
       JSON.load(params['callbacks'])
     rescue
       []
+    end
+
+    def title
+      params['title']
+    end
+
+    def title_given?
+      t = params['title']
+      !(t.nil? || t.empty?)
     end
 
   end
