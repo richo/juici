@@ -64,15 +64,32 @@ module Juici
 
     get '/builds/:project' do
       @page = :builds
-      @action = :show
+      @action = :list
       list_builds(params)
     end
 
     get '/builds/:user/:project' do
       @page = :builds
-      @action = :show
+      @action = :list
       params[:project] = "#{params[:user]}/#{params[:project]}"
       list_builds(params)
+    end
+
+    def show_build(params)
+      erb(:"builds/list", {}, :juici => juici, :project => params[:project], :id => params[:project])
+    end
+
+    get '/builds/:project/show/:id' do
+      @page = :builds
+      @action = :show
+      show_build(params)
+    end
+
+    get '/builds/:user/:project/show/:id' do
+      @page = :builds
+      @action = :show
+      params[:project] = "#{params[:user]}/#{params[:project]}"
+      show_build(params)
     end
 
     post '/trigger/:project' do
