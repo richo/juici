@@ -76,7 +76,7 @@ module Juici
     end
 
     def show_build(params)
-      erb(:"builds/list", {}, :juici => juici, :project => params[:project], :id => params[:project])
+      erb(:"builds/show", {}, :juici => juici, :project => params[:project], :id => params[:id])
     end
 
     get '/builds/:project/show/:id' do
