@@ -6,7 +6,7 @@ module Juici
 
     def initialize(build, url)
       @build = build
-      @url = url
+      @url = URI(url)
     end
 
     def process!
