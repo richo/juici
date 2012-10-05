@@ -62,13 +62,13 @@ module Juici
       erb(:"builds/list", {}, :juici => juici, :project => params[:project])
     end
 
-    get '/builds/:project' do
+    get '/builds/:project/list' do
       @page = :builds
       @action = :list
       list_builds(params)
     end
 
-    get '/builds/:user/:project' do
+    get '/builds/:user/:project/list' do
       @page = :builds
       @action = :list
       params[:project] = "#{params[:user]}/#{params[:project]}"
