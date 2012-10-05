@@ -64,6 +64,14 @@ module Juici
       erb(:"builds/show", {}, :juici => juici, :project => params[:project])
     end
 
+    # spectacular hack
+
+    get '/builds/:user/:project' do
+      @page = :builds
+      @action = :show
+      erb(:"builds/show", {}, :juici => juici, :project => "#{params[:user]}/#{params[:project]}")
+    end
+
     post '/trigger/:project' do
       TriggerController.new(params[:project], params).build!
     end
