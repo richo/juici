@@ -29,10 +29,11 @@ is all you need to have a working instance (provided that you have mongo install
 
 ## Usage
 
-JuiCI chooses to be very "Mongo" (which is an adjective now), in that you don't
-need to formally create a project. Just request a build; however this means
-that on your first build you will need to send the commands to create your test
-environment)
+JuiCI is very focused on minimal configuration; meaning that beyond starting
+the server and pointing it at a mongoDB instance, you do not need to do
+anything special to build a new project. Just request a build; however this
+means that on your first build you will need to send the commands to create
+your test environment)
 
 Example:
 
