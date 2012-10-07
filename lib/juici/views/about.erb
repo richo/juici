@@ -1,1 +1,1 @@
-<%= markdown(:README) %>
+<%= GitHub::Markdown.render(File.read("lib/juici/views/README.markdown")) %>

@@ -1,5 +1,6 @@
 require 'mongo'
 require 'mongoid'
+require 'github/markdown'
 module Juici
   def self.dbgp(*args)
     ENV['JUICY_DEBUG'] && $stderr.puts(args)

@@ -21,7 +21,6 @@ disinterest or JuiCI will think they're builds and that would be bad
 JuiCI is deliberately very light on the setup front.
 
 ```bash
-
 bundle install
 bundle exec juici
 ```
@@ -38,7 +37,6 @@ environment)
 Example:
 
 ```bash
-
 curl --data-ascii @/dev/stdin <<EOF
 payload={"environment":{
 "SHA1":"e8b179f75bbc8717c948af052353424d458af981"},
