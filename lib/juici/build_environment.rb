@@ -1,12 +1,12 @@
 module Juici
-  BUILD_SENSITIVE_VARIABLES = %w[RUBYOPT BUNDLE_GEMFILE RACK_ENV MONGOLAB_URI]
+  BUILD_SENSITIVE_VARIABLES = %w[RUBYOPT BUNDLE_GEMFILE RACK_ENV MONGOLAB_URI GEM_PATH]
   class BuildEnvironment
 
     attr_reader :env
     def initialize
       @env = ENV.to_hash.tap do |env|
         BUILD_SENSITIVE_VARIABLES.each do |var|
-          env[var] = nil
+          env.delete(var)
         end
         env["BUNDLE_CONFIG"] = "/nonexistent"
       end
