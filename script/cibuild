@@ -1,0 +1,8 @@
+#!/bin/sh
+
+be="bundle exec"
+
+export RACK_ENV="test"
+
+$be rake db:destroy
+$be rake spec
