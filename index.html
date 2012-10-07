@@ -1,0 +1,160 @@
+<!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen"/>
+  <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/script.js"></script>
+
+  <title>JuiCI</title>
+  <meta name="description" content="Prioritised CI server">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <header>
+      <h1 class="title">JuiCI</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">Prioritised CI server</p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        <div class="inner">
+          <a href="https://github.com/richo/juici/tarball/master" class="download-button tar"><span>Download</span></a>
+          <a href="https://github.com/richo/juici/zipball/master" class="download-button zip"><span>Download</span></a>
+          <a href="https://github.com/richo/juici" class="code">View JuiCI on GitHub</a>
+        </div>
+        <span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+          <h2>JuiCI</h2>
+
+<p>JuiCI is a CI server that has a notion of queuing and priority.</p>
+
+<p>It's designed to work well with <a href="https://github.com/99designs/agent99">agent99</a> but will play nicely with most frontends to CI.</p>
+
+<h2>Features</h2>
+
+<ul>
+<li>callbacks are created as builds are requested</li>
+<li>Builds are executed sequentially in a series of parallel queues.</li>
+<li>Queues can be dynamically created</li>
+<li>Build status visualised</li>
+</ul><h2>Important but Miscellaneous</h2>
+
+<p>If you create child process in modules/plugins then you need to register your
+disinterest or JuiCI will think they're builds and that would be bad</p>
+
+<h2>Setup</h2>
+
+<p>JuiCI is deliberately very light on the setup front.</p>
+
+<div class="highlight"><pre>
+bundle install
+bundle <span class="nb">exec </span>juici
+</pre></div>
+
+<p>is all you need to have a working instance (provided that you have mongo installed)</p>
+
+<h2>Usage</h2>
+
+<p>JuiCI chooses to be very "Mongo" (which is an adjective now), in that you don't
+need to formally create a project. Just request a build; however this means
+that on your first build you will need to send the commands to create your test
+environment)</p>
+
+<p>Example:</p>
+
+<div class="highlight"><pre>
+curl --data-ascii @/dev/stdin <span class="s">&lt;&lt;EOF</span>
+<span class="s">payload={"environment":{</span>
+<span class="s">"SHA1":"e8b179f75bbc8717c948af052353424d458af981"},</span>
+<span class="s">"command":"[ -d .git ] || (git init .; git remote add origin git://github.com/richo/twat.git); git fetch; git checkout $SHA1; bundle install; bundle exec rake spec"</span>
+<span class="s">EOF</span>
+</pre></div>
+
+<p>Using a convention like <code>script/cibuild</code> as in janky/hubot etc is advisable,
+although bear in mind that the logic to checkout the repo will need to be
+seperate.</p>
+
+<h2>Priority</h2>
+
+<p>JuiCI supports the notion of priority. Builds given without a priority will be
+assigned priority 1 (to allow for marking a build as less important with
+priority 0).</p>
+
+<p>If juici recieves a new build with priority higher than any currently
+unfinished, it will pause whatever it's doing and build the new project. If
+there is a tie for priority, a FIFO queue is assumed.</p>
+
+<p>JuiCI uses <code>SIGSTOP</code> and <code>SIGCONT</code> internally for job control.</p>
+
+<h2>Hooks</h2>
+
+<p>You may specify one or more callbacks when you request a build. They will be
+called with an (as yet unformalised) json body as the body if/when the build
+reaches that state. Alternately you may specify "any" as the callback state and
+it will be called on all state changes.</p>
+
+<h2>Security</h2>
+
+<p>JuiCI poses some interesting security conecerns. First off, it will allow
+anyone with access to run arbitrary commands on your server. I have
+deliberately not implemented any kind of security inside JuiCI, it plays nicely
+as a Rack application, and middlewares are much better suited to this task.</p>
+
+<p>It should go without saying, but any builds started by JuiCI will inherit its
+environment. This means that if you run it in dev mode and forward your ssh
+agent, builds can ssh to other machines as you!</p>
+
+<p>When running in production you should take steps to ensure that the user JuiCI
+runs as is no more privileged than it needs to be, and sanitise its
+environment before execution.</p>
+
+<h2>A note on subprocesses</h2>
+
+<p>JuiCI by default invokes everything in a subshell- indeed this is the only way
+to approach this if you want to execute more than one command.</p>
+
+<p>What this means to you as the user though is that unless you go to lengths to
+specifically implement it, your process won't see any of the signal handling
+madness. The shell(<code>/bin/sh</code>) will see everything, and if killed, your
+processes will become orphaned, but carry on.</p>
+
+<h2>Contact</h2>
+
+<p>JuiCI's code lives on <a href="https://github.com/richo/juici">Github</a>
+and the <a href="mailto:richo@psych0tik.net">author</a> can be contacted on
+ <a href="https://twitter.com/rich0H">Twitter</a></p>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="owner">
+      <p><a href="https://github.com/richo" class="avatar"><img src="https://secure.gravatar.com/avatar/f39a093535874d323647c1cb64a6e36b?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png" width="48" height="48"/></a> <a href="https://github.com/richo">richo</a> maintains <a href="https://github.com/richo/juici">JuiCI</a></p>
+
+
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br/>theme by <a href="http://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/richo/juici/tarball/master" class="tar">tar</a><a href="https://github.com/richo/juici/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
+
+  
+</body>
+</html>
