@@ -1,0 +1,2 @@
+*.gem
+config/mongoid.yml
