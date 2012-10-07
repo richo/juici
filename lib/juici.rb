@@ -1,5 +1,3 @@
-require 'mongo'
-require 'mongoid'
 require 'github/markdown'
 
 ENV['RACK_ENV'] ||= "development"
