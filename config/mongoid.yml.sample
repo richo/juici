@@ -6,5 +6,9 @@ production:
   database: juici
   host: localhost
 
+test:
+  database: juici-test
+  host: localhost
+
 heroku:
   uri: <%= ENV['MONGOLAB_URI'] %>
