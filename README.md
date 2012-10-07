@@ -13,8 +13,8 @@ It's designed to work well with [agent99](https://github.com/99designs/agent99) 
 
 ## Important but Miscellaneous
 
-If you create child process in modules/plugins then you need to register your
-disinterest or JuiCI will think they're builds and that would be bad
+If you create child processes in modules/plugins then you need to register your
+disinterest or JuiCI will think they're builds and that would be bad.
 
 ## Setup
 
