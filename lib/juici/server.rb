@@ -19,6 +19,7 @@ module Juici
     dir = File.dirname(File.expand_path(__FILE__))
 
     def self.start(host, port)
+      Database.initialize!
       @@juici = App.new
       Juici::Server.run! :host => host, :port => port
     end

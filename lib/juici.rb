@@ -1,6 +1,9 @@
 require 'mongo'
 require 'mongoid'
 require 'github/markdown'
+
+ENV['RACK_ENV'] ||= "development"
+
 module Juici
   def self.dbgp(*args)
     ENV['JUICY_DEBUG'] && $stderr.puts(args)
