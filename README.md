@@ -22,7 +22,7 @@ JuiCI is deliberately very light on the setup front.
 
 ```bash
 bundle install
-bundle exec juici
+bundle exec bin/juici
 ```
 
 is all you need to have a working instance (provided that you have mongo installed)
