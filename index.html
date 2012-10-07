@@ -51,31 +51,30 @@
 <li>Build status visualised</li>
 </ul><h2>Important but Miscellaneous</h2>
 
-<p>If you create child process in modules/plugins then you need to register your
-disinterest or JuiCI will think they're builds and that would be bad</p>
+<p>If you create child processes in modules/plugins then you need to register your
+disinterest or JuiCI will think they're builds and that would be bad.</p>
 
 <h2>Setup</h2>
 
 <p>JuiCI is deliberately very light on the setup front.</p>
 
-<div class="highlight"><pre>
-bundle install
-bundle <span class="nb">exec </span>juici
+<div class="highlight"><pre>bundle install
+bundle <span class="nb">exec </span>bin/juici
 </pre></div>
 
 <p>is all you need to have a working instance (provided that you have mongo installed)</p>
 
 <h2>Usage</h2>
 
-<p>JuiCI chooses to be very "Mongo" (which is an adjective now), in that you don't
-need to formally create a project. Just request a build; however this means
-that on your first build you will need to send the commands to create your test
-environment)</p>
+<p>JuiCI is very focused on minimal configuration; meaning that beyond starting
+the server and pointing it at a mongoDB instance, you do not need to do
+anything special to build a new project. Just request a build; however this
+means that on your first build you will need to send the commands to create
+your test environment)</p>
 
 <p>Example:</p>
 
-<div class="highlight"><pre>
-curl --data-ascii @/dev/stdin <span class="s">&lt;&lt;EOF</span>
+<div class="highlight"><pre>curl --data-ascii @/dev/stdin <span class="s">&lt;&lt;EOF</span>
 <span class="s">payload={"environment":{</span>
 <span class="s">"SHA1":"e8b179f75bbc8717c948af052353424d458af981"},</span>
 <span class="s">"command":"[ -d .git ] || (git init .; git remote add origin git://github.com/richo/twat.git); git fetch; git checkout $SHA1; bundle install; bundle exec rake spec"</span>
