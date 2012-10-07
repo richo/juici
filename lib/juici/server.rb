@@ -37,6 +37,8 @@ module Juici
     end
 
     get '/about' do
+      @page = :about
+      @action = :show
       erb(:about)
     end
 
