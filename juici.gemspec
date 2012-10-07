@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.add_dependency "json"
   s.add_dependency "mongoid", "~> 2"
   s.add_dependency "bson_ext"
-  s.add_dependency "redcarpet"
+  s.add_dependency "github-markdown"
 
   s.add_development_dependency "rake"
   s.add_development_dependency "mocha"

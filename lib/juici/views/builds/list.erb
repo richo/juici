@@ -1,4 +1,9 @@
 <% if proj = ::Juici::Project.where(name: project).first %>
+  <script>
+    $(document).ready(function() {
+      $(".collapse").collapse();
+    });
+  </script>
   <h3><em><%= proj.name %></em> - <a href="/builds/new?project=<%= proj.name %>"><em>New Build</em></a></h3>
   <% ::Juici::Build.where(parent: proj.name).sort.reverse.each_with_index do |build, idx| %>
     <div class="accordion" id="accordion<%= idx %>">
@@ -24,7 +29,6 @@
       </div>
     </div>
   <% end %>
-  <script>$(".collapse").collapse()</script>
 <% else %>
   No such project.
 <% end %>

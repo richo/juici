@@ -36,6 +36,9 @@ module Juici
       # TODO Throw 422 not acceptable if missing
       params['command'].tap do |c|
         raise "No command given" if c.nil?
+        # TODO Detect that we've recieved this from a browser session and only
+        # do this replacement there, we can trust API supplied data.
+        c.gsub!(/\r\n/, "\n")
       end
     end
 

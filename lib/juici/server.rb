@@ -19,6 +19,7 @@ module Juici
     dir = File.dirname(File.expand_path(__FILE__))
 
     def self.start(host, port)
+      Database.initialize!
       @@juici = App.new
       Juici::Server.run! :host => host, :port => port
     end
@@ -37,6 +38,8 @@ module Juici
     end
 
     get '/about' do
+      @page = :about
+      @action = :show
       erb(:about)
     end
 
@@ -90,6 +93,12 @@ module Juici
       @action = :show
       params[:project] = "#{params[:user]}/#{params[:project]}"
       show_build(params)
+    end
+
+    get '/support' do
+      @page = :support
+      @action = :show
+      erb(:"support", {})
     end
 
     post '/trigger/:project' do
