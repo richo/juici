@@ -1,7 +1,7 @@
 require 'fileutils'
 require 'tempfile'
 module Juici
-   module BuildLogic
+  module BuildLogic
 
     def spawn_build
       raise "No such work tree" unless FileUtils.mkdir_p(worktree)
