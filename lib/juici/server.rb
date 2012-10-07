@@ -92,6 +92,12 @@ module Juici
       show_build(params)
     end
 
+    get '/support' do
+      @page = :support
+      @action = :show
+      erb(:"support", {})
+    end
+
     post '/trigger/:project' do
       TriggerController.new(params[:project], params).build!
     end
