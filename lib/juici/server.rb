@@ -79,7 +79,10 @@ module Juici
     end
 
     def show_build(params)
-      erb(:"builds/show", {}, :juici => juici, :project => params[:project], :id => params[:id])
+      project = ::Juici::Project.where(name: params[:project]).first
+      build   = ::Juici::Build.where(parent: project.name, _id: params[:id]).first
+      # return 404 unless project && build
+      erb(:"builds/show", {}, :juici => juici, :project => project, :build => build)
     end
 
     get '/builds/:project/show/:id' do
