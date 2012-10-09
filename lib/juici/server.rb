@@ -62,8 +62,13 @@ module Juici
     end
 
     def list_builds(params)
+      params[:page] = params[:page] ? params[:page].to_i : 0
+
       project = ::Juici::Project.where(name: params[:project]).first
-      builds  = ::Juici::Build.where(parent: project.name)
+      builds  = ::Juici::Build.where(parent: project.name).
+                  limit(Config.builds_per_page).
+                  skip(params[:page].to_i * Config.builds_per_page)
+
       erb(:"builds/list", {}, :juici => juici, :project => project, :builds => builds)
     end
 
