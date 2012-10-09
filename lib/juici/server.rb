@@ -62,7 +62,9 @@ module Juici
     end
 
     def list_builds(params)
-      erb(:"builds/list", {}, :juici => juici, :project => params[:project])
+      project = ::Juici::Project.where(name: params[:project]).first
+      builds  = ::Juici::Build.where(parent: project.name)
+      erb(:"builds/list", {}, :juici => juici, :project => project, :builds => builds)
     end
 
     get '/builds/:project/list' do
