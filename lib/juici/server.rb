@@ -33,8 +33,9 @@ module Juici
     set :static, true
 
     get '/' do
-      @page = :index
-      erb(:index, {}, :juici => juici)
+      Controllers::Index.new.index do |template, opts|
+        erb(template, {}, opts)
+      end
     end
 
     get '/about' do
