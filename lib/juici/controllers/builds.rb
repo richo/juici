@@ -4,11 +4,9 @@ module Juici::Controllers
     attr_accessor :params
     def initialize(params)
       @params = params
-      @page = :builds
     end
 
     def list
-      @action = :list
       params[:page] = params[:page] ? params[:page].to_i : 0
       pages = {}
 
@@ -28,8 +26,6 @@ module Juici::Controllers
     end
 
     def show
-      @action = :show
-
       project = ::Juici::Project.where(name: params[:project]).first
       build   = ::Juici::Build.where(parent: project.name, _id: params[:id]).first
       # return 404 unless project && build
