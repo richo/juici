@@ -32,6 +32,10 @@ module Juici::Controllers
       yield [:"builds/show", build_opts({:project => project, :build => build})]
     end
 
+    def new
+      yield [:"builds/new", {}]
+    end
+
     def styles
       ["builds"]
     end
