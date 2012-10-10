@@ -1,5 +1,5 @@
-module Juici
-  class TriggerController
+module Juici::Controllers
+  class Trigger
 
     attr_reader :project, :params
     def initialize(project, params)

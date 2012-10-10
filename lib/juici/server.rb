@@ -56,33 +56,33 @@ module Juici
     end
 
     post '/builds/new' do
-      TriggerController.new(params[:project], params).build!
+      Controllers::Trigger.new(params[:project], params).build!
       @redirect_to = build_url_for(params[:project])
       erb(:redirect, {}, :juici => juici)
     end
 
     get '/builds/:project/list' do
-      BuildController.new(params).list do |template, opts|
+      Controllers::Builds.new(params).list do |template, opts|
         erb(template, {}, opts)
       end
     end
 
     get '/builds/:user/:project/list' do
       params[:project] = "#{params[:user]}/#{params[:project]}"
-      BuildController.new(params).list do |template, opts|
+      Controllers::Builds.new(params).list do |template, opts|
         erb(template, {}, opts)
       end
     end
 
     get '/builds/:project/show/:id' do
-      BuildController.new(params).show do |template, opts|
+      Controllers::Builds.new(params).show do |template, opts|
         erb(template, {}, opts)
       end
     end
 
     get '/builds/:user/:project/show/:id' do
       params[:project] = "#{params[:user]}/#{params[:project]}"
-      BuildController.new(params).show do |template, opts|
+      Controllers::Builds.new(params).show do |template, opts|
         erb(template, {}, opts)
       end
     end
@@ -94,7 +94,7 @@ module Juici
     end
 
     post '/trigger/:project' do
-      TriggerController.new(params[:project], params).build!
+      Controllers::Trigger.new(params[:project], params).build!
     end
 
   end
