@@ -45,9 +45,9 @@ module Juici
     end
 
     get '/builds' do
-      @page = :builds
-      @action = :list
-      erb(:builds, {}, :juici => juici)
+      Controllers::Index.new.builds do |template, opts|
+        erb(template, {}, opts)
+      end
     end
 
     get '/builds/new' do

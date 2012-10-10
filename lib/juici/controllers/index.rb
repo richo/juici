@@ -5,6 +5,10 @@ module Juici::Controllers
       yield [:index,  {}]
     end
 
+    def builds
+      yield [:builds, {}]
+    end
+
   end
 end
 
