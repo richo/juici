@@ -9,6 +9,14 @@ module Juici::Controllers
       yield [:builds, {}]
     end
 
+    def about
+      yield [:about, {}]
+    end
+
+    def support
+      yield [:support, {}]
+    end
+
   end
 end
 

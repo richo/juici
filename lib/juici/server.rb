@@ -39,9 +39,9 @@ module Juici
     end
 
     get '/about' do
-      @page = :about
-      @action = :show
-      erb(:about)
+      Controllers::Index.new.about do |template, opts|
+        erb(template, {}, opts)
+      end
     end
 
     get '/builds' do
@@ -49,6 +49,13 @@ module Juici
         erb(template, {}, opts)
       end
     end
+
+    get '/support' do
+      Controllers::Index.new.support do |template, opts|
+        erb(template, {}, opts)
+      end
+    end
+
 
     get '/builds/new' do
       @page = :builds
@@ -86,12 +93,6 @@ module Juici
       Controllers::Builds.new(params).show do |template, opts|
         erb(template, {}, opts)
       end
-    end
-
-    get '/support' do
-      @page = :support
-      @action = :show
-      erb(:"support", {})
     end
 
     post '/trigger/:project' do
