@@ -61,56 +61,30 @@ module Juici
       erb(:redirect, {}, :juici => juici)
     end
 
-    def list_builds(params)
-      params[:page] = params[:page] ? params[:page].to_i : 0
-      pages = {}
-
-      if params[:page] > 0
-        pages[:prev] = params[:page] - 1
-      end
-      #if lol
-        pages[:next] = params[:page] + 1
-      #end
-
-      project = ::Juici::Project.where(name: params[:project]).first
-      builds  = ::Juici::Build.where(parent: project.name).
-                  limit(Config.builds_per_page).
-                  skip(params[:page].to_i * Config.builds_per_page)
-
-      erb(:"builds/list", {}, :juici => juici, :project => project, :builds => builds, :pages => pages)
-    end
-
     get '/builds/:project/list' do
-      @page = :builds
-      @action = :list
-      list_builds(params)
+      BuildController.new(params).list do |template, opts|
+        erb(template, {}, opts)
+      end
     end
 
     get '/builds/:user/:project/list' do
-      @page = :builds
-      @action = :list
       params[:project] = "#{params[:user]}/#{params[:project]}"
-      list_builds(params)
-    end
-
-    def show_build(params)
-      project = ::Juici::Project.where(name: params[:project]).first
-      build   = ::Juici::Build.where(parent: project.name, _id: params[:id]).first
-      # return 404 unless project && build
-      erb(:"builds/show", {}, :juici => juici, :project => project, :build => build)
+      BuildController.new(params).list do |template, opts|
+        erb(template, {}, opts)
+      end
     end
 
     get '/builds/:project/show/:id' do
-      @page = :builds
-      @action = :show
-      show_build(params)
+      BuildController.new(params).show do |template, opts|
+        erb(template, {}, opts)
+      end
     end
 
     get '/builds/:user/:project/show/:id' do
-      @page = :builds
-      @action = :show
       params[:project] = "#{params[:user]}/#{params[:project]}"
-      show_build(params)
+      BuildController.new(params).show do |template, opts|
+        erb(template, {}, opts)
+      end
     end
 
     get '/support' do
