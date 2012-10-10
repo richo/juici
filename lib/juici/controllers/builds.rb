@@ -33,7 +33,7 @@ module Juici::Controllers
     end
 
     def new
-      yield [:"builds/new", {}]
+      yield [:"builds/new", {:active => :new_build}]
     end
 
     def styles

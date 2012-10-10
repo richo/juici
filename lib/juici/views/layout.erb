@@ -19,10 +19,11 @@
         <div class="container">
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="<%= "active" if @page == :index %>"><a class="brand" href="/">JuiCI</a></li>
-              <li class="<%= "active" if @page == :builds && @action == :new %>"><a href="/builds/new">New Build</a></li>
-              <li class="<%= "active" if @page == :about %>"><a href="/about">About</a></li>
-              <li class="<%= "active" if @page == :support %>"><a href="/support">Support</a></li>
+              <% active rescue active = nil %>
+              <li class="<%= "active" if active == :index %>"><a class="brand" href="/">JuiCI</a></li>
+              <li class="<%= "active" if active == :new_build %>"><a href="/builds/new">New Build</a></li>
+              <li class="<%= "active" if active == :about %>"><a href="/about">About</a></li>
+              <li class="<%= "active" if active == :support %>"><a href="/support">Support</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

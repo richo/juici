@@ -2,19 +2,15 @@ module Juici::Controllers
   class Index
 
     def index
-      yield [:index,  {}]
-    end
-
-    def builds
-      yield [:builds, {}]
+      yield [:index,  {:active => :index}]
     end
 
     def about
-      yield [:about, {}]
+      yield [:about, {:active => :about}]
     end
 
     def support
-      yield [:support, {}]
+      yield [:support, {:active => :support}]
     end
 
   end
