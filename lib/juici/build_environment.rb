@@ -6,7 +6,7 @@ module Juici
     def initialize
       @env = ENV.to_hash.tap do |env|
         BUILD_SENSITIVE_VARIABLES.each do |var|
-          env.delete(var)
+          env[var] = nil
         end
         env["BUNDLE_CONFIG"] = "/nonexistent"
       end
