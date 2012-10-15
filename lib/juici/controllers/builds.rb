@@ -19,7 +19,7 @@ module Juici::Controllers
 
       project = ::Juici::Project.where(name: params[:project]).first
       builds  = ::Juici::Build.where(parent: project.name).
-        asc(:_id).
+        desc(:_id).
         limit(::Juici::Config.builds_per_page).
         skip(params[:page].to_i * ::Juici::Config.builds_per_page)
 
