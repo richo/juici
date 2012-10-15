@@ -3,13 +3,13 @@ module Juici::Controllers
 
     attr_reader :project, :params
     def initialize(project, params)
-      @project = Project.find_or_create_by(name: project)
+      @project = ::Juici::Project.find_or_create_by(name: project)
       @params = params
     end
 
     def build!
-      environment = BuildEnvironment.new
-      Build.new(parent: project.name).tap do |build|
+      environment = ::Juici::BuildEnvironment.new
+      ::Juici::Build.new(parent: project.name).tap do |build|
         # The seperation of concerns around this madness is horrifying
         unless environment.load_json!(params['environment'])
           build.warn!("Failed to parse environment")
