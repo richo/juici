@@ -109,6 +109,10 @@ module Juici
       self[:title] || self[:create_time]
     end
 
+    def link_title
+      "#{self[:parent]}/#{display_title}"
+    end
+
     def warn!(msg)
       warnings << msg
       save!

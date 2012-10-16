@@ -80,5 +80,11 @@ module Juici
       @builds.length > 0
     end
 
+    def currently_building
+      @child_pids.map do |pid|
+        get_build_by_pid(pid)
+      end
+    end
+
   end
 end
