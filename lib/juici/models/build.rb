@@ -115,7 +115,7 @@ module Juici
     end
 
     def process_callbacks
-      self[:callbacks].each do |callback_url|
+      callbacks.each do |callback_url|
         Callback.new(self, callback_url).process!
       end
     end
@@ -127,6 +127,10 @@ module Juici
         "status" => self[:status],
         "url" => build_url_for(self)
       }.to_json
+    end
+
+    def callbacks
+      self[:callbacks] || []
     end
 
   end
