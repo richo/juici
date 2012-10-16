@@ -4,7 +4,13 @@ ENV['RACK_ENV'] ||= "development"
 
 module Juici
   def self.dbgp(*args)
-    ENV['JUICY_DEBUG'] && $stderr.puts(args)
+    if ENV['JUICI_DEBUG'] || env == "development"
+      $stderr.puts(args)
+    end
+  end
+
+  def self.env
+    ENV['JUICI_ENV'] || ENV['RACK_ENV']
   end
 end
 
