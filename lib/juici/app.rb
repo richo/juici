@@ -8,12 +8,7 @@ module Juici
 
     def self.shutdown
       ::Juici.dbgp "Shutting down Juici"
-      @@watchers.each do |watcher|
-        ::Juici.dbgp "Killing #{watcher.inspect}"
-        watcher.kill
-        watcher.join
-        ::Juici.dbgp "Dead:   #{watcher.inspect}"
-      end
+      ::Juici::Watcher.instance.shutdown!
 
       shutdown_build_queue
     end
@@ -28,11 +23,7 @@ module Juici
       # Urgh
       init_build_queue
       reload_unfinished_work
-      start_workers
-    end
-
-    def spawn_watcher
-      @@watchers << Watcher.start!
+      start_watcher
     end
 
   private
@@ -51,12 +42,8 @@ module Juici
       # Ensure that any killed builds will be retried
     end
 
-    def start_workers
-      no_workers = opts[:workers] || 1
-      warn "More than 1 worker is liable to do strange things" if no_workers > 1
-      no_workers.times do
-        spawn_watcher
-      end
+    def start_watcher
+      ::Juici::Watcher.instance.start
     end
 
     def reload_unfinished_work

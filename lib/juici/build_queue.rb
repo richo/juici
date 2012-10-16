@@ -48,6 +48,7 @@ module Juici
         Juici.dbgp "Starting another child process"
         next_child.tap do |child|
           pid = child.build!
+          Juici.dbgp "Started child: #{pid}"
           @child_pids << pid
           @builds_by_pid[pid] = child
         end
