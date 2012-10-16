@@ -1,4 +1,3 @@
-require 'mongo'
 require 'mongoid'
 module Juici
   class Database
