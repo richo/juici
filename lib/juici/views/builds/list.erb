@@ -1,6 +1,12 @@
 <script>
+  function display(el) {
+    el = this;
+    el.style["display"] = null;
+  }
   $(document).ready(function() {
     $(".collapse").collapse();
+    $('.build-output').each(display);
+    $('.debug-output').each(display);
   });
 </script>
 <h3><em><%= project.name %></em> - <a href="/builds/new?project=<%= project.name %>"><em>New Build</em></a></h3>
@@ -29,11 +35,11 @@
           <div>
             <a href="<%= build_url_for(build) %>">Link to this build</a>
           </div>
-          <div class="accordion-inner build-output">
+          <div class="accordion-inner build-output" style="display: none;">
             <%= build.output if build.respond_to? :output %>
           </div>
         </div>
-        <div class="span4">
+        <div class="span4 debug-output" style="display: none;">
           <%= erb(:"partials/builds/debug", :locals => { :build => build }) %>
         </div>
       </div>
