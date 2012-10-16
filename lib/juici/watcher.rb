@@ -16,6 +16,8 @@ module Juici
           $build_queue.purge(:pid, OpenStruct.new(:pid => pid))
           ::Juici.dbgp "Trying to find pid: #{pid}"
           handle(pid, status)
+
+          $build_queue.bump! if $build_queue
         end
       end
     end
