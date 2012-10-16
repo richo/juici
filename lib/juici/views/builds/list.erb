@@ -16,7 +16,7 @@
   </li>
   <% end %>
 </ul>
-<% builds.sort.reverse.each_with_index do |build, idx| %>
+<% builds.each_with_index do |build, idx| %>
   <div class="accordion" id="accordion<%= idx %>">
     <div class="accordion-heading">
       <a class="accordion-toggle <%= build.heading_color %>" data-toggle="collapse" data-parent="#accordion<%= idx+1 %>" href="#collapse_<%= idx %>">
