@@ -12,6 +12,7 @@ module Juici
       end
 
       def initialize!
+        ::Juici.dbgp "initializing Mongoid with environment: #{ENV['RACK_ENV']}"
         if ENV['RACK_ENV'] == "development"
           Mongoid.logger.level = Logger::INFO
         end
