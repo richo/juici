@@ -4,14 +4,18 @@
   });
 </script>
 <h3><em><%= project.name %></em> - <a href="/builds/new?project=<%= project.name %>"><em>New Build</em></a></h3>
-<div class="nav">
+<ul class="pager">
   <% if pages[:prev] %>
+  <li class="previous">
     <a href="/builds/<%=project.name%>/list?page=<%=pages[:prev]%>"><strong>prev</strong></a>
+  </li>
   <% end %>
   <% if pages[:next] %>
+  <li class="next">
     <a href="/builds/<%=project.name%>/list?page=<%=pages[:next]%>"><strong>next</strong></a>
+  </li>
   <% end %>
-</div>
+</ul>
 <% builds.sort.reverse.each_with_index do |build, idx| %>
   <div class="accordion" id="accordion<%= idx %>">
     <div class="accordion-heading">
