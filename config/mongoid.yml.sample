@@ -1,14 +1,26 @@
 development:
-  database: juici
-  host: localhost
+  sessions:
+    default:
+      database: juici
+      hosts:
+        - localhost:27017
 
 production:
-  database: juici
-  host: localhost
+  sessions:
+    default:
+      database: juici
+      hosts:
+        - localhost:27017
 
 test:
-  database: juici-test
-  host: localhost
+  sessions:
+    default:
+      database: juici-test
+      hosts:
+        - localhost:27017
 
 heroku:
-  uri: <%= ENV['MONGOLAB_URI'] %>
+  sessions:
+    default:
+      database: juici
+      uri: <%= ENV['MONGOLAB_URI'] %>
