@@ -15,5 +15,9 @@ module Juici::Controllers
       []
     end
 
+    def not_found
+      raise Sinatra::NotFound
+    end
+
   end
 end

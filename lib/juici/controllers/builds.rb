@@ -17,8 +17,11 @@ module Juici::Controllers
       pages[:next] = params[:page] + 1
       #end
 
-      project = ::Juici::Project.where(name: params[:project]).first
-      builds  = ::Juici::Build.where(parent: project.name).
+      unless project = ::Juici::Project.where(name: params[:project]).first
+        not_found
+      end
+
+      builds = ::Juici::Build.where(parent: project.name).
         desc(:_id).
         limit(::Juici::Config.builds_per_page).
         skip(params[:page].to_i * ::Juici::Config.builds_per_page)
@@ -27,7 +30,9 @@ module Juici::Controllers
     end
 
     def show
-      project = ::Juici::Project.where(name: params[:project]).first
+      unless project = ::Juici::Project.where(name: params[:project]).first
+        not_found
+      end
       build   = ::Juici::Build.where(parent: project.name, _id: params[:id]).first
       # return 404 unless project && build
       yield [:"builds/show", build_opts({:project => project, :build => build})]

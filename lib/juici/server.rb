@@ -98,5 +98,9 @@ module Juici
       Controllers::Trigger.new(params[:project], params).build!
     end
 
+    not_found do
+      erb(:not_found, {}, {})
+    end
+
   end
 end
