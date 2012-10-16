@@ -16,7 +16,7 @@
     <% end rescue nil%>
     <title>JuiCI</title>
     <% if @redirect_to %>
-      <meta http-equiv="Refresh" content="0; url=<%= URI.escape(@redirect_to) %>" />
+      <meta http-equiv="Refresh" content="0; url=<%= @redirect_to %>" />
     <% end %>
   </head>
   <body>
