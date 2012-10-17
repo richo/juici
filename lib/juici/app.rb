@@ -20,6 +20,7 @@ module Juici
 
     attr_reader :opts
     def initialize(opts={})
+      Database.initialize!
       @opts = opts
       # NOTE: this happening before we start a build queue is important, it
       # means we can't start any more workers and get tied in knots
