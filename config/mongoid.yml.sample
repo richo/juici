@@ -22,5 +22,4 @@ test:
 heroku:
   sessions:
     default:
-      database: juici
       uri: <%= ENV['MONGOLAB_URI'] %>
