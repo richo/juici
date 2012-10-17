@@ -30,7 +30,15 @@ module Juici
       return false
     end
 
+    def load_hash!(hash)
+      env.merge!(hash)
+    end
+
     def to_hash
+      env.reject { |key, value| value.nil? }
+    end
+
+    def to_environment
       env
     end
 

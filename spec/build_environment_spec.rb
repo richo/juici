@@ -50,4 +50,19 @@ describe "Juici build environment" do
     json = ""
     env.load_json!(json).should == true
   end
+
+  it "Should return the desired environment on #to_hash" do
+    env = ::Juici::BuildEnvironment.new
+    env.load_hash!({"key" => nil})
+
+    env.to_hash.include?("key").should be_false
+  end
+
+  it "Should return nil keys for values to be erased on #to_environment" do
+    env = ::Juici::BuildEnvironment.new
+    env.load_hash!({"key" => nil})
+
+    env.to_environment["key"].should be_nil
+  end
+
 end
