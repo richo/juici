@@ -17,6 +17,13 @@ module Juici
     include BuildLogic
     # TODO Builds should probably be children of projects in the URL?
 
+    # Finder classmethods
+    def self.get_recent(n, opts={})
+      self.where(opts).
+        limit(n).
+        desc(:_id)
+    end
+
     field :parent, type: String
     field :command, type: String
     field :environment, type: Hash
