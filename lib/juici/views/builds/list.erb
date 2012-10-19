@@ -3,52 +3,40 @@
     $(".collapse").collapse();
   });
 </script>
-<h3 class="block-header"><em><%= project.name %></em> - <a href="/builds/new?project=<%= project.name %>"><em>New Build</em></a></h3>
 
 <div class="row">
 
-  <!-- Pagination bloops -->
+  <!-- Pagination -->
   <div class="span1">
-    <ul class="bloops">
-       <% if pages[:next] %>
-      <li class="next">
-        <a href="/builds/<%=project.name%>/list?page=<%=pages[:next]%>"><strong>&raquo;</strong></a>
-      </li>
-      <% end %>
-      <% if pages[:prev] %>
-      <li class="previous">
-        <a href="/builds/<%=project.name%>/list?page=<%=pages[:prev]%>"><strong>&laquo;</strong></a>
-      </li>
-      <% end %>
-    </ul>
+    <% pages.times.with_index do |page| %>
+      <a href="?page=<%= page %>" class="<%= "active" if page == params[:page] %>"><%= page %></a>
+    <% end %>
   </div>
-
   <!-- Main contents -->
   <div class="span11">
+    <!-- Create a new build -->
+    <h3><em><%= project.name %></em> - <a href="/builds/new?project=<%= project.name %>"><em>New Build</em></a></h3>
+    <!-- Build history -->
     <% builds.each_with_index do |build, idx| %>
       <div class="accordion" id="accordion<%= idx %>">
+        <!-- Build heading/toggle -->
         <div class="accordion-heading">
           <a class="accordion-toggle <%= build.heading_color %>" data-toggle="collapse" data-parent="#accordion<%= idx+1 %>" href="#collapse_<%= idx %>">
             <%= build.display_title %>&nbsp;<% build[:warnings].each do |warning| %><span class="label label-important"><%= warning %></span><% end %>
           </a>
         </div>
+        <!-- Build content -->
         <div id="collapse_<%= idx %>" class="accordion-body collapse in">
+          <!-- Link to build -->
+          <a href="<%= build_url_for(build) %>">Link to this build</a>
           <div class="row">
-            <div class="span8">
-              <div>
-                <a href="<%= build_url_for(build) %>">Link to this build</a>
-              </div>
-              <div class="accordion-inner build-output">
-                <%= build.output if build.respond_to? :output %>
-              </div>
-            </div>
-            <div class="span4">
-              <%= erb(:"partials/builds/debug", :locals => { :build => build }) %>
-            </div>
+            <!-- Build Output -->
+            <div class="span7 accordion-inner build-output"><%= build.output if build.respond_to? :output %></div>
+            <!-- Build Environment -->
+            <div class="span3"><%= erb(:"partials/builds/debug", :locals => { :build => build }) %></div>
           </div>
         </div>
       </div>
     <% end %>
   </div>
-
 </div>
