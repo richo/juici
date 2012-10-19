@@ -143,15 +143,15 @@ hr {
 .build-heading-pending  {
 	color: yellow;
 }
-:hover .build-heading-pending  {
+.build-heading-pending:hover  {
 	color: yellow;
 }
 
-.build-heading-failed   {
+.build-heading-failed {
 	color: black;
 	background-color: #ff7bff;
 }
-:hover .build-heading-failed   {
+.build-heading-failed:hover {
 	color: white;
 	background-color: #e100e1;
 }
@@ -160,9 +160,32 @@ hr {
 	color: white;
 	background: #8091ff;
 }
-:hover .build-heading-success  {
+.build-heading-success:hover {
 	color: white;
 }
 
 .build-heading-started  { color: #CC0 }
-:hover .build-heading-started  { color: #CC0 }
+.build-heading-started:hover  { color: #CC0 }
+
+.bloops {
+	list-style: none;
+	margin: 0;
+}
+
+.bloops a {
+	text-decoration: none;
+	font-size: 26px;
+	font-weight: normal;
+	display: block;
+	margin: 3px 0 0 0;
+}
+
+.bloops .next {
+	background-color: #ff7bff;
+}
+
+.bloops .previous {
+	background-color: blue;
+}
+
+
