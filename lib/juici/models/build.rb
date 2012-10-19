@@ -67,9 +67,9 @@ module Juici
     end
 
     def build!
+      start!
       case pid = spawn_build
       when Fixnum
-        start!
         Juici.dbgp "#{pid} away!"
         self[:pid] = pid
         self[:buffer] = @buffer.path

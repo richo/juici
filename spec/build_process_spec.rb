@@ -12,15 +12,16 @@ describe "Juici build abstraction" do
 
 
   it "Should run a given command in a subshell" do
-    worker = Juici::Watcher.start!
+    watcher = Juici::Watcher.instance.start
     build = Juici::Build.new(parent: "test project",
                       environment: {},
                       command: "/bin/echo 'test build succeeded'")
     $build_queue << build
+
     # Wait a reasonable time for build to finish
     # TODO: This can leverage the hooks system
     # TODO: Easer will be to have worker.block or something
-    sleep 5
+    sleep 2
 
     build.reload
     build[:status].should == :success
