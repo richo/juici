@@ -16,14 +16,10 @@ module Juici
     attr_reader :opts
     def initialize(opts={})
       @opts = opts
-      # NOTE: this happening before we start a build queue is important, it
-      # means we can't start any more workers and get tied in knots
-      # clear_stale_children
-      #
-      # Urgh
+      reset_stale_children
+      start_watcher
       init_build_queue
       reload_unfinished_work
-      start_watcher
     end
 
   private
@@ -49,8 +45,15 @@ module Juici
     def reload_unfinished_work
       # At this point no workers have started yet, we can safely assume that
       # :started means aborted
-      Build.where(:status.in => [:started, :waiting]).each do |build|
+      Build.where(:status => :waiting).each do |build|
         $build_queue << build
+      end
+    end
+
+    def reset_stale_children
+      Build.where(:status => :started).each do |build|
+        build[:status] = :waiting
+        build.save!
       end
     end
 
