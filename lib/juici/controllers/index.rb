@@ -1,8 +1,14 @@
 module Juici::Controllers
   class Index
 
+    attr_reader :params
+
+    def initialize(params)
+      @params = params
+    end
+
     def index
-      yield [:index,  {:active => :index}]
+      yield [:index,  {:active => :index, :the_90s => params.include?("90s")}]
     end
 
     def about
@@ -17,4 +23,3 @@ module Juici::Controllers
 
   end
 end
-
