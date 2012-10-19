@@ -20,6 +20,7 @@ module Juici
       start_watcher
       init_build_queue
       reload_unfinished_work
+      start_queue
     end
 
   private
@@ -55,6 +56,10 @@ module Juici
         build[:status] = :waiting
         build.save!
       end
+    end
+
+    def start_queue
+      $build_queue.start!
     end
 
   end
