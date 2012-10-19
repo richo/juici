@@ -1,3 +1,125 @@
-body { padding-top: 60px; }
+body {
+	color: #2dffff;
+	background-color: #000;
+	padding-top: 80px;
+	font-family: "Monaco";
+	font-size: 12px;
+}
+
+hr {
+	border: none;
+}
+
+/* --- Navbar --- */
+
+.navbar {
+	margin: 20px 0 0 0;
+}
+
+.navbar-inner {
+	background: none;
+	border: none;
+}
+
+.nav li {
+	background-color: #7e9eff;
+	border-right: 2px solid black;
+	width: 100px;
+}
+
+.nav > li > a {
+	color: black !important;
+	line-height: 14px;
+	font-size: 12px;
+	text-shadow: none !important;
+	padding: 15px 0 3px 5px !important;
+}
+
+.active {
+	background-color: red;
+}
+
 .build-output { white-space: pre-wrap; }
 .currently-building { white-space: pre-wrap; }
+
+.block-header {
+	font-size: 13px;
+	line-height: 24px;
+	color: black;
+	background-color: #2dffff;
+	font-weight: normal;
+	padding: 0 3px 0 3px;
+}
+
+.builds-header {
+	margin: 10px 0 0 0;
+}
+
+.builds-header--success {
+	background-color: #ff7bff;
+}
+
+.builds-header--failure {
+	background-color: #7e9eff;
+}
+
+/* Builds */
+
+.table-flipper {
+	color: white;
+}
+
+.builds {
+	list-style: none;
+	overflow: auto;
+	padding: 0;
+	margin: 0;
+}
+
+.builds a {
+	display: block;
+	text-decoration: none;
+	padding: 34px 3px 3px 3px;
+	border-top: 2px solid #000;
+}
+
+.failed {
+	color: black;
+	background-color: #ff7bff;
+}
+
+.failed:hover {
+	color: white;
+	background-color: #e100e1;
+}
+
+.successful {
+	color: white;
+	background-color: #595959;
+	padding: 16px 3px 3px 3px !important;
+}
+
+.successful:hover {
+	color: white;
+	background-color: #3f3f3f;
+}
+
+.submit-build label {
+	font-size: 12px;
+	color: #8091ff;
+}
+
+.submit-build button {
+	width: 100%;
+	height: 83px;
+	border-radius: 0;
+	background: #8091ff;
+	text-shadow: none;
+	color: #000;
+	margin-top: 14px;
+}
+
+.submit-build button:hover {
+	background: #001fe6;
+	color: #FFF;
+}
