@@ -9,6 +9,7 @@ module Juici
       @child_pids = []
       # This is never expired, for now
       @builds_by_pid = {}
+      @started = false
     end
 
     def shutdown!
@@ -43,11 +44,13 @@ module Juici
     # Stopgap measure that means you can knock on this if there's a chance we
     # should start a process
     def bump!
+      return unless @started
       update_children
       if not_working? && work_to_do?
         Juici.dbgp "Starting another child process"
         next_child.tap do |child|
           pid = child.build!
+          Juici.dbgp "Started child: #{pid}"
           @child_pids << pid
           @builds_by_pid[pid] = child
         end
@@ -84,6 +87,11 @@ module Juici
       @child_pids.map do |pid|
         get_build_by_pid(pid)
       end
+    end
+
+    def start!
+      @started = true
+      bump!
     end
 
   end
