@@ -15,9 +15,13 @@
     </p>
   </div>
   <div class="span4">
-    <h4 class="block-header">CURRENTLY BUILDING</h4>
-      <% $build_queue.currently_building.each do |build| %>
-      <a class"<%= build.heading_color %>" href="<%= build_url_for(build) %>"><%= build.link_title %></a>
+    <h4 class="block-header builds-header">CURRENTLY BUILDING</h4>
+      <ul class="builds">
+        <li>
+          <% $build_queue.currently_building.each do |build| %>
+          <a class="successful" href="<%= build_url_for(build) %>"><%= build.link_title %></a>
+        </li>
+      </ul>
       <% end %>
     <hr />
     <%= erb(:"partials/index/recently_built") %>
