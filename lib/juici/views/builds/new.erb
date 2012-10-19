@@ -1,47 +1,10 @@
 <div class="row">
 
 <div class="span4">
-
-    <h1 class="block-header builds-header builds-header--success">FAIL! <span class="pull-right table-flipper">（╯°□°）╯︵ ┻━┻</span></h1>
-    <ul class="builds">
-      <li>
-        <a class="failed" href="#">
-          project_name_1 <span class="pull-right">>></span><br>
-          <strong>FAILED</strong> at 4:03 on 07/12/2012
-        </a>
-      </li>
-      <li>
-        <a class="failed" href="#">
-          project_name_1 <span class="pull-right">>></span><br>
-          <strong>FAILED</strong> at 4:03 on 07/12/2012
-        </a>
-      </li>
-    </ul>
-
-  <hr>
-
-  <h1 class="block-header builds-header builds-header--failure">SUCCEED!<span class="pull-right table-flipper">┬─┬ノ( º _ ºノ)</span></h1>
-  <ul class="builds">
-    <li>
-      <a class="successful" href="#">
-        project_name_1 <span class="pull-right">>></span><br>
-      </a>
-    </li>
-    <li>
-      <a class="successful" href="#">
-        project_name_1 <span class="pull-right">>></span><br>
-      </a>
-    </li>
-  </ul>
-
+  <%= erb(:"partials/index/recently_built") %>
 </div>
 
 <div class="span8">
-
-  <h1 class="block-header">What is juiCI?</h1>
-  <p>juiCI is a CI server that has a notion of queuing and priority.</p>
-  <p>It's designed to work with agent99 but will play nicely with most frontends to CI.
-  <p><a href="#">More about juiCI -></a></p>
 
   <h1 class="block-header">New</h1>
   <p>From here you can create a new build</p>

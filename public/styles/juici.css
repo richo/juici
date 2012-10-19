@@ -6,6 +6,16 @@ body {
 	font-size: 12px;
 }
 
+a {
+	color: #FFF;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+a:hover {
+	color: red;
+}
+
 hr {
 	border: none;
 }
@@ -31,8 +41,13 @@ hr {
 	color: black !important;
 	line-height: 14px;
 	font-size: 12px;
+	font-weight: normal;
 	text-shadow: none !important;
 	padding: 15px 0 3px 5px !important;
+}
+
+.nav li.main {
+	width: 338px;
 }
 
 .active {
@@ -42,7 +57,6 @@ hr {
 .build-output { white-space: pre-wrap; }
 .currently-building { white-space: pre-wrap; }
 
-<<<<<<< HEAD
 .block-header {
 	font-size: 13px;
 	line-height: 24px;
@@ -56,11 +70,11 @@ hr {
 	margin: 10px 0 0 0;
 }
 
-.builds-header--success {
+.builds-header--failure {
 	background-color: #ff7bff;
 }
 
-.builds-header--failure {
+.builds-header--success {
 	background-color: #7e9eff;
 }
 
@@ -79,6 +93,7 @@ hr {
 
 .builds a {
 	display: block;
+	font-weight: normal;
 	text-decoration: none;
 	padding: 34px 3px 3px 3px;
 	border-top: 2px solid #000;
@@ -125,14 +140,29 @@ hr {
 	color: #FFF;
 }
 
-.build-heading-pending  { color: #111 }
-:hover .build-heading-pending  { color: #111 }
+.build-heading-pending  {
+	color: yellow;
+}
+:hover .build-heading-pending  {
+	color: yellow;
+}
 
-.build-heading-failed   { color: #C10 }
-:hover .build-heading-failed   { color: #C10 }
+.build-heading-failed   {
+	color: black;
+	background-color: #ff7bff;
+}
+:hover .build-heading-failed   {
+	color: white;
+	background-color: #e100e1;
+}
 
-.build-heading-success  { color: #4A0 }
-:hover .build-heading-success  { color: #4A0 }
+.build-heading-success  {
+	color: white;
+	background: #8091ff;
+}
+:hover .build-heading-success  {
+	color: white;
+}
 
 .build-heading-started  { color: #CC0 }
 :hover .build-heading-started  { color: #CC0 }

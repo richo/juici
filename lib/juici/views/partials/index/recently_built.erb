@@ -1,0 +1,19 @@
+<h1 class="block-header builds-header builds-header--failure">FAIL! <span class="pull-right table-flipper">（╯°□°）╯︵ ┻━┻</span></h1>
+    <ul class="builds">
+      <% ::Juici::Build.get_recent(5, :status.in => [:failed]).each do |build| %>
+      <li>
+        <a class="failed" href="<%= build_url_for(build) %>"><%= build.link_title %></a>
+      </li>
+    <% end %>
+    </ul>
+
+  <hr>
+
+  <h1 class="block-header builds-header builds-header--success">SUCCEED!<span class="pull-right table-flipper">┬─┬ノ( º _ ºノ)</span></h1>
+  <ul class="builds">
+    <% ::Juici::Build.get_recent(5, :status.in => [:success]).each do |build| %>
+      <li>
+        <a class="successful" href="<%= build_url_for(build) %>"><%= build.link_title %></a>
+      </li>
+    <% end %>
+  </ul>
