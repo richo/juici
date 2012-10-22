@@ -56,9 +56,9 @@ module Juici
     end
 
     post '/builds/new' do
-      Controllers::Trigger.new(params[:project], params).build!
-      @redirect_to = build_url_for(params[:project])
-      erb(:redirect, {}, :juici => juici)
+      build = Controllers::Trigger.new(params[:project], params).build!
+      @redirect_to = build_url_for(build)
+      erb(:redirect, {}, {})
     end
 
     get '/builds/new' do
