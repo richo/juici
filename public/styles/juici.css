@@ -1,6 +1,14 @@
 body { padding-top: 60px; }
-.build-output { white-space: pre-wrap; }
-.currently-building { white-space: pre-wrap; }
+
+.build-output { 
+  white-space: pre-wrap; 
+  word-wrap: break-word;
+}
+
+.currently-building { 
+  white-space: pre-wrap; 
+  word-wrap: break-word;
+}
 
 .build-heading-pending  { color: #111 }
 :hover .build-heading-pending  { color: #111 }
