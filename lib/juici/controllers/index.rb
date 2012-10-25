@@ -6,7 +6,9 @@ module Juici::Controllers
     end
 
     def about
-      yield [:about, {:active => :about}]
+      content = GitHub::Markdown.render(File.read("lib/juici/views/README.markdown"))
+      content.gsub!(/<h(\d+)>/, '<h\1 class="block-header">')
+      yield [:about, {:active => :about, :content => content}]
     end
 
     def support

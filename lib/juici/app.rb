@@ -8,31 +8,20 @@ module Juici
 
     def self.shutdown
       ::Juici.dbgp "Shutting down Juici"
-      @@watchers.each do |watcher|
-        ::Juici.dbgp "Killing #{watcher.inspect}"
-        watcher.kill
-        watcher.join
-        ::Juici.dbgp "Dead:   #{watcher.inspect}"
-      end
+      ::Juici::Watcher.instance.shutdown!
 
       shutdown_build_queue
     end
 
     attr_reader :opts
     def initialize(opts={})
+      Database.initialize!
       @opts = opts
-      # NOTE: this happening before we start a build queue is important, it
-      # means we can't start any more workers and get tied in knots
-      # clear_stale_children
-      #
-      # Urgh
+      reset_stale_children
+      start_watcher
       init_build_queue
       reload_unfinished_work
-      start_workers
-    end
-
-    def spawn_watcher
-      @@watchers << Watcher.start!
+      start_queue
     end
 
   private
@@ -51,20 +40,27 @@ module Juici
       # Ensure that any killed builds will be retried
     end
 
-    def start_workers
-      no_workers = opts[:workers] || 1
-      warn "More than 1 worker is liable to do strange things" if no_workers > 1
-      no_workers.times do
-        spawn_watcher
-      end
+    def start_watcher
+      ::Juici::Watcher.instance.start
     end
 
     def reload_unfinished_work
       # At this point no workers have started yet, we can safely assume that
       # :started means aborted
-      Build.where(:status.in => [:started, :waiting]).each do |build|
+      Build.where(:status => :waiting).each do |build|
         $build_queue << build
       end
+    end
+
+    def reset_stale_children
+      Build.where(:status => :started).each do |build|
+        build[:status] = :waiting
+        build.save!
+      end
+    end
+
+    def start_queue
+      $build_queue.start!
     end
 
   end
