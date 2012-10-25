@@ -42,7 +42,7 @@
                 <%= build.output if build.respond_to? :output %>
               </div>
             </div>
-            <div class="span4">
+            <div class="span4 debug-bar">
               <%= erb(:"partials/builds/debug", :locals => { :build => build }) %>
             </div>
           </div>

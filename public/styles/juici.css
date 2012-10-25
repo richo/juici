@@ -54,7 +54,15 @@ hr {
 	background-color: red;
 }
 
-.build-output { white-space: pre-wrap; }
+.build-output {
+    color: #a8a8a8;
+    white-space: pre-wrap;
+}
+
+.debug-bar {
+    color: #a8a8a8;
+}
+
 .currently-building { white-space: pre-wrap; }
 
 .block-header {
