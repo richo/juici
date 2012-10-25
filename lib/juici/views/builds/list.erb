@@ -10,14 +10,9 @@
   <!-- Pagination bloops -->
   <div class="span1">
     <ul class="bloops">
-       <% if pages[:next] %>
-      <li class="next">
-        <a href="/builds/<%=project.name%>/list?page=<%=pages[:next]%>"><strong>&raquo;</strong></a>
-      </li>
-      <% end %>
-      <% if pages[:prev] %>
-      <li class="previous">
-        <a href="/builds/<%=project.name%>/list?page=<%=pages[:prev]%>"><strong>&laquo;</strong></a>
+      <% pages.times.with_index do |page| %>
+      <li>
+        <a href="?page=<%= page %>" class="<%= "in" unless page == params[:page] %>active">&nbsp;</a>
       </li>
       <% end %>
     </ul>

@@ -234,11 +234,11 @@ hr {
 	margin: 3px 0 0 0;
 }
 
-.bloops .next {
+.bloops .active {
 	background-color: #ff7bff;
 }
 
-.bloops .previous {
+.bloops .inactive {
 	background-color: blue;
 }
 
