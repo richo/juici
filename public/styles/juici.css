@@ -59,6 +59,52 @@ hr {
     white-space: pre-wrap;
 }
 
+.build-output .bright {
+    color: #ffffff;
+}
+
+.build-output .black {
+    color: #222222;
+}
+.build-output .red {
+    color: #a80000;
+}
+.build-output .green {
+    color: #00a800;
+}
+.build-output .yellow {
+    color: #a8a800;
+}
+.build-output .blue {
+    color: #3333a8;
+}
+.build-output .magenta {
+    color: #a800a8;
+}
+.build-output .cyan {
+    color: #00a8a8;
+}
+.build-output .black .bright {
+    color: #545454;
+}
+.build-output .red .bright {
+    color: #ff0054;
+}
+.build-output .green .bright {
+    color: #00ff54;
+}
+.build-output .yellow .bright {
+    color: #ffff54;
+}
+.build-output .blue .bright {
+    color: #5555ff;
+}
+.build-output .magenta .bright {
+    color: #ff00ff;
+}
+.build-output .cyan .bright {
+    color: #00ffff;
+}
 .debug-bar {
     color: #a8a8a8;
 }
