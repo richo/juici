@@ -16,7 +16,7 @@ describe "Juici build abstraction" do
     build = Juici::Build.new(parent: "test project",
                       environment: {},
                       command: "/bin/echo 'test build succeeded'")
-    $build_queue << build
+    BUILD_QUEUE << build
 
     # Wait a reasonable time for build to finish
     # TODO: This can leverage the hooks system

@@ -17,7 +17,7 @@
   <div class="span4">
     <div class="currently-building">
       <h4>Currently Building</h4>
-      <% $build_queue.currently_building.each do |build| %>
+      <% BUILD_QUEUE.currently_building.each do |build| %>
         <a class"<%= build.heading_color %>" href="<%= build_url_for(build) %>"><%= build.link_title %></a>
       <% end %>
     </div>

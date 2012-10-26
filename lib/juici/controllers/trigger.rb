@@ -22,7 +22,7 @@ module Juici::Controllers
         build[:title] = title if title_given?
 
         build.save!
-        $build_queue << build
+        BUILD_QUEUE << build
       end
     end
 

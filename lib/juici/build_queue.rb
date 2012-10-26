@@ -2,7 +2,7 @@
 # and their priority, reaping them is a job for BuildThread
 #
 module Juici
-  class BuildQueue
+  class << (BUILD_QUEUE = Object.new)
 
     def initialize
       @builds = []

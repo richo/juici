@@ -13,24 +13,22 @@ module Juici
       Signal.trap("CHLD") do
         if @active
           pid, status = Process.wait2(-1)
-          $build_queue.purge(:pid, OpenStruct.new(:pid => pid))
+          BUILD_QUEUE.purge(:pid, OpenStruct.new(:pid => pid))
           ::Juici.dbgp "Trying to find pid: #{pid}"
           handle(pid, status)
-
-          $build_queue.bump! if $build_queue
         end
       end
     end
 
     def handle(pid, status)
-      build = $build_queue.get_build_by_pid(pid)
+      build = BUILD_QUEUE.get_build_by_pid(pid)
 
       if status == 0
         build.success!
       else
         build.failure!
       end
-      $build_queue.bump! if $build_queue
+      BUILD_QUEUE.bump!
     end
 
     def shutdown!

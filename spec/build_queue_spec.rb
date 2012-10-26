@@ -1,8 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe Juici::BuildQueue do
+describe Juici::BUILDQUEUE do
 
-  subject { Juici::BuildQueue.new.tap { |q| q.__builds = @builds } }
+  subject { Juici::BUILDQUEUE.tap { |q| q.__builds = @builds } }
 
   it "Should return 1 as min priority when empty" do
     @builds = []
@@ -45,7 +45,7 @@ describe Juici::BuildQueue do
 
 end
 
-class Juici::BuildQueue #{{{ Test injection
+class Juici::BUILDQUEUE #{{{ Test injection
   def __builds=(builds)
     @builds = builds
   end
