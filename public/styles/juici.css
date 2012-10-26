@@ -1,12 +1,13 @@
 body { padding-top: 60px; }
 
-.build-output { 
-  white-space: pre-wrap; 
+.build-output {
+  white-space: pre-wrap;
   word-wrap: break-word;
+  text-align: left;
 }
 
-.currently-building { 
-  white-space: pre-wrap; 
+.currently-building {
+  white-space: pre-wrap;
   word-wrap: break-word;
 }
 
