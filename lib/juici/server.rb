@@ -97,6 +97,12 @@ module Juici
       Controllers::Trigger.new(params[:project], params).build!
     end
 
+    get '/queue' do
+      Controllers::BuildQueue.new(params).list do |template, opts|
+        erb(template, {}, opts)
+      end
+    end
+
     not_found do
       erb(:not_found, {}, {})
     end

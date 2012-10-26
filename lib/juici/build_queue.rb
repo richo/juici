@@ -94,5 +94,9 @@ module Juici
       bump!
     end
 
+    def builds
+      @builds
+    end
+
   end
 end
