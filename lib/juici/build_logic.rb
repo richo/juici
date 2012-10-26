@@ -12,16 +12,27 @@ module Juici
 
     def spawn(cmd, dir)
       @buffer = Tempfile.new('juici-xxxx')
-      Process.spawn(environment, cmd,
-        :chdir => dir,
-        :in  => "/dev/null",
-        :out => @buffer.fileno,
-        :err => [:child, :out]
-      )
+      if pid = fork
+        return pid
+      else
+        Posix.dup2(File.open("/dev/null", "r").fileno, STDIN.fileno)
+        Posix.dup2(@buffer.fileno, STDOUT.fileno)
+        Posix.dup2(STDOUT.fileno,  STDERR.fileno)
+
+        Dir.chdir(dir)
+        Posix.sigprocmask(Posix::SIG_BLOCK, sigmask)
+        Posix.execve("/bin/sh", ["/bin/sh", "-c", cmd], environment)
+        raise "Child process failed to launch"
+      end
     rescue Errno::ENOENT
       :enoent
     rescue TypeError
       :invalidcommand
+    end
+
+
+    def sigmask
+      Posix::Sigset.new << "INT"
     end
 
   end

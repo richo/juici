@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
   s.add_dependency "mongoid"
   s.add_dependency "bson_ext"
   s.add_dependency "github-markdown"
+  s.add_dependency "posix"
 
   s.add_development_dependency "rake"
   s.add_development_dependency "mocha"

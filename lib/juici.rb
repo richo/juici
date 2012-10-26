@@ -1,4 +1,5 @@
 require 'github/markdown'
+require 'posix'
 
 ENV['RACK_ENV'] ||= "development"
 

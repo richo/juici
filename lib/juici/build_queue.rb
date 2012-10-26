@@ -49,10 +49,12 @@ module Juici
       if not_working? && work_to_do?
         Juici.dbgp "Starting another child process"
         next_child.tap do |child|
+          Posix.sigprocmask(Posix::SIG_BLOCK, chld_mask)
           pid = child.build!
           Juici.dbgp "Started child: #{pid}"
           @child_pids << pid
           @builds_by_pid[pid] = child
+          Posix.sigprocmask(Posix::SIG_UNBLOCK, chld_mask)
         end
       else
         Juici.dbgp "I have quite enough to do"
@@ -96,6 +98,10 @@ module Juici
 
     def builds
       @builds
+    end
+
+    def chld_mask
+      @chld_mask ||= Posix::Sigset.new << "CHLD"
     end
 
   end
