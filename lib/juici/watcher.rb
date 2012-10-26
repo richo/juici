@@ -30,7 +30,6 @@ module Juici
       else
         build.failure!
       end
-      $build_queue.bump! if $build_queue
     end
 
     def shutdown!
