@@ -1,11 +1,6 @@
 module Juici::Controllers
   class Builds < Base
 
-    attr_accessor :params
-    def initialize(params)
-      @params = params
-    end
-
     def list
       params[:page] = params[:page] ? params[:page].to_i : 0
       pages = {}

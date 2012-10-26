@@ -1,6 +1,11 @@
 module Juici::Controllers
   class Base
 
+    attr_accessor :params
+    def initialize(params)
+      @params = params
+    end
+
     def build_opts(opts)
       default_opts.merge(opts)
     end
