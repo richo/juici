@@ -13,6 +13,10 @@ module Juici
       shutdown_build_queue
     end
 
+    def shutdown
+      self.class.shutdown
+    end
+
     attr_reader :opts
     def initialize(opts={})
       Database.initialize!

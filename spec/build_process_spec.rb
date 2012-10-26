@@ -2,16 +2,9 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "Juici build abstraction" do
 
-  before(:all) do
-    @app = Juici::App.new(workers: 0)
-  end
-
-  after(:all) do
-    Juici::App.shutdown
-  end
-
 
   it "Should run a given command in a subshell" do
+    app = Juici::App.new
     watcher = Juici::Watcher.instance.start
     build = Juici::Build.new(parent: "test project",
                       environment: {},
@@ -26,6 +19,7 @@ describe "Juici build abstraction" do
     build.reload
     build[:status].should == :success
     build[:output].chomp.should == "test build succeeded"
+    app.shutdown
   end
 
 end
