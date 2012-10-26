@@ -6,6 +6,12 @@ body { padding-top: 60px; }
   text-align: left;
 }
 
+.debug-output {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: left;
+}
+
 .currently-building {
   white-space: pre-wrap;
   word-wrap: break-word;
