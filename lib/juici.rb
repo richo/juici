@@ -1,4 +1,5 @@
 require 'github/markdown'
+require 'thread'
 
 ENV['RACK_ENV'] ||= "development"
 

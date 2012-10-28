@@ -10,6 +10,7 @@ module Juici
       # This is never expired, for now
       @builds_by_pid = {}
       @started = false
+      @lock = Mutex.new
     end
 
     def shutdown!
@@ -49,15 +50,17 @@ module Juici
       if not_working? && work_to_do?
         Juici.dbgp "Starting another child process"
         next_child.tap do |child|
-          if pid = child.build!
-            Juici.dbgp "Started child: #{pid}"
-            @child_pids << pid
-            @builds_by_pid[pid] = child
-          else
-            Juici.dbgp "Child #{child} failed to start"
-            bump! # Ruby's recursion isn't great, but re{try,do} may as well be
-                  # undefined behaviour here.
-          end
+          lock.synchronize {
+            if pid = child.build!
+              Juici.dbgp "Started child: #{pid}"
+              @child_pids << pid
+              @builds_by_pid[pid] = child
+            else
+              Juici.dbgp "Child #{child} failed to start"
+              bump! # Ruby's recursion isn't great, but re{try,do} may as well be
+                    # undefined behaviour here.
+            end
+          }
         end
       else
         Juici.dbgp "I have quite enough to do"
@@ -101,6 +104,10 @@ module Juici
 
     def builds
       @builds
+    end
+
+    def lock
+      @lock
     end
 
   end
