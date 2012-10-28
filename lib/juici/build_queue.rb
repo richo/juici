@@ -49,10 +49,15 @@ module Juici
       if not_working? && work_to_do?
         Juici.dbgp "Starting another child process"
         next_child.tap do |child|
-          pid = child.build!
-          Juici.dbgp "Started child: #{pid}"
-          @child_pids << pid
-          @builds_by_pid[pid] = child
+          if pid = child.build!
+            Juici.dbgp "Started child: #{pid}"
+            @child_pids << pid
+            @builds_by_pid[pid] = child
+          else
+            Juici.dbgp "Child #{child} failed to start"
+            bump! # Ruby's recursion isn't great, but re{try,do} may as well be
+                  # undefined behaviour here.
+          end
         end
       else
         Juici.dbgp "I have quite enough to do"
