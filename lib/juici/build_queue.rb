@@ -1,6 +1,7 @@
 # An object representing a queue. It merely manages creating child processes
 # and their priority, reaping them is a job for BuildThread
 #
+require 'continuation'
 module Juici
   class BuildQueue
 
@@ -45,6 +46,9 @@ module Juici
     # should start a process
     def bump!
       return unless @started
+      store = []
+      callcc { |cc| store << cc }
+
       update_children
       if not_working? && work_to_do?
         Juici.dbgp "Starting another child process"
@@ -55,8 +59,7 @@ module Juici
             @builds_by_pid[pid] = child
           else
             Juici.dbgp "Child #{child} failed to start"
-            bump! # Ruby's recursion isn't great, but re{try,do} may as well be
-                  # undefined behaviour here.
+            store[0].call
           end
         end
       else
