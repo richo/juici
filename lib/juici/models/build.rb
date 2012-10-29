@@ -63,7 +63,7 @@ module Juici
     def finish
       self[:end_time] = Time.now
       self[:output] = get_output
-      $build_queue.purge(:pid, self)
+      $build_queue.purge(:pid, self) if $build_queue
     end
 
     def build!
