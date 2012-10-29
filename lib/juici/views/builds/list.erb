@@ -29,6 +29,7 @@
         <div class="span8">
           <div>
             <a href="<%= build_url_for(build) %>">Link to this build</a>
+            <span><%= build.time_elapsed %></span>
           </div>
           <div class="accordion-inner build-output">
             <%= build.output if build.respond_to? :output %>

@@ -136,12 +136,23 @@ module Juici
       {
         "project" => self[:parent],
         "status" => self[:status],
-        "url" => build_url_for(self)
+        "url" => build_url_for(self),
+        "time" => time_elapsed
       }.to_json
     end
 
     def callbacks
       self[:callbacks] || []
+    end
+
+    def time_elapsed
+      if self[:end_time]
+        self[:end_time] - self[:start_time]
+      elsif self[:start_time]
+        Time.now - self[:start_time]
+      else
+        nil
+      end
     end
 
   end
