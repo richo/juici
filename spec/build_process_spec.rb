@@ -32,7 +32,7 @@ describe "Juici build abstraction" do
     watcher = Juici::Watcher.instance.start
     build = Juici::Build.new(parent: "test project",
                       environment: {},
-                      command: "lol command not found")
+                      command: "exit 3")
     $build_queue << build
 
     # Wait a reasonable time for build to finish
