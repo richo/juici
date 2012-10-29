@@ -20,6 +20,8 @@ module Juici
           $build_queue.bump! if $build_queue
         end
       end
+    rescue Errno::ECHILD
+      $build_queue.bump! if $build_queue
     end
 
     def handle(pid, status)
