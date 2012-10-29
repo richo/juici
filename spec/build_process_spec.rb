@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 describe "Juici build abstraction" do
 
   before(:all) do
-    @app = Juici::App.new(workers: 0)
+    @app = Juici::App.new
   end
 
   after(:all) do
