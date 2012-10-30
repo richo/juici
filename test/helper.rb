@@ -2,6 +2,7 @@ ENV['RACK_ENV'] ||= "test"
 
 require 'juici'
 require "test/unit"
+require 'mocha'
 
 require 'fileutils'
 
