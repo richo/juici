@@ -1,4 +1,5 @@
 require 'github/markdown'
+require 'ansible'
 
 ENV['RACK_ENV'] ||= "development"
 
