@@ -168,5 +168,11 @@ module Juici
       end
     end
 
+    def kill!
+      if pid = self[:pid]
+        Process.kill(15, pid)
+      end
+    end
+
   end
 end
