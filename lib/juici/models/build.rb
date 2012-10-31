@@ -169,6 +169,7 @@ module Juici
     end
 
     def kill!
+      warn! "Killed!"
       if pid = self[:pid]
         Process.kill(15, pid)
       end
