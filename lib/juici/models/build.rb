@@ -24,6 +24,16 @@ module Juici
         desc(:_id)
     end
 
+    CLONABLE_FIELDS = [:command, :priority, :environment, :callbacks, :title, :parent]
+
+    def self.new_from(other)
+      new.tap do |b|
+        CLONABLE_FIELDS.each do |prop|
+          b[prop] = other[prop]
+        end
+      end
+    end
+
     field :parent, type: String
     field :command, type: String
     field :environment, type: Hash

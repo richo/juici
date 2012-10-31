@@ -7,6 +7,21 @@ module Juici::Controllers
       @params = params
     end
 
+    # Find an existing build, duplicate the sane parts of it.
+    def rebuild!
+      unless project = ::Juici::Project.where(name: params[:project]).first
+        not_found
+      end
+      unless build = ::Juici::Build.where(parent: project.name, _id: params[:id]).first
+        not_found
+      end
+
+      ::Juici::Build.new_from(build).tap do |new_build|
+        new_build.save!
+        $build_queue << build
+      end
+    end
+
     def build!
       environment = ::Juici::BuildEnvironment.new
       ::Juici::Build.new(parent: project.name).tap do |build|
