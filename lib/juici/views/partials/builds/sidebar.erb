@@ -1,1 +1,6 @@
 <span><%= form_at(rebuild_url_for(build), {}, :submit => "Rebuild") %></span>
+<% if build[:status] == :started %>
+<span><%= form_at(kill_url_for(build),
+                  {:project => build[:parent], :id => build[:_id]},
+                  :submit => "Kill!") %></span>
+<% end %>
