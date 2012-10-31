@@ -167,6 +167,9 @@ module Juici
       else
         nil
       end
+    rescue
+      -1 # Throw an obviously impossible build time.
+         # This will only occur as a result of old builds.
     end
 
   end
