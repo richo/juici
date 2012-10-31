@@ -36,6 +36,13 @@
         </div>
       </div>
     </div>
+<%=
+begin # FIXME NameError's in pagination will vanish.
+  erb(:"partials/pagination", :locals => { :pages => pages })
+rescue NameError
+  nil
+end
+%>
     <div class="container">
       <%= yield %>
     </div>

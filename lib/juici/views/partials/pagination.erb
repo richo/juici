@@ -1,0 +1,7 @@
+<div class="pagination-bloops">
+  <ul>
+    <% pages[1].times do |idx| %>
+      <a href="?page=<%= idx %>"><li class="<%="active" if pages[0]== idx %>"><%= idx %></li></a>
+    <% end %>
+  </ul>
+</div>

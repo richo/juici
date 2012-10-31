@@ -11,6 +11,22 @@ body { padding-top: 60px; }
   word-wrap: break-word;
 }
 
+.pagination-bloops {
+  display: block;
+  float: left;
+  margin-left: 5px;
+}
+
+.pagination-bloops > ul > a > li {
+  font-size: 12pt;
+  font-weight: bold;
+  color: #eebb65;
+}
+
+.pagination-bloops > ul > a > li.active {
+  color: #5555ff !important;
+}
+
 .build-heading-pending  { color: #111 }
 :hover .build-heading-pending  { color: #111 }
 
