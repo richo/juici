@@ -24,6 +24,14 @@ module Juici
         desc(:_id)
     end
 
+    def self.new_from(other)
+      new.tap do |b|
+        [:command, :priority, :environment, :callbacks, :title, :parent].each do |prop|
+          b[prop] = other[prop]
+        end
+      end
+    end
+
     field :parent, type: String
     field :command, type: String
     field :environment, type: Hash
@@ -87,6 +95,9 @@ module Juici
 
     def worktree
       File.join(Config.workspace, parent)
+    rescue TypeError
+      warn! "Invalid worktree"
+      failure!
     end
 
     # View helpers

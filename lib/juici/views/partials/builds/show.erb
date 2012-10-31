@@ -9,6 +9,8 @@
       <div>
         <a href="<%= build_url_for(build) %>">Link to this build</a>
         <span><%= build.time_elapsed %></span>
+        <span><%= form_at(rebuild_url_for(build), {},
+                          :submit => "Rebuild") %>
       </div>
       <div class="accordion-inner build-output">
 <%= erb(:"partials/builds/output", :locals => { :build => build }) %>
