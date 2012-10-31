@@ -4,6 +4,8 @@ require 'net/http' # for URI#escape
 module Juici
   class Server < Sinatra::Base
 
+    include Ansible
+
     @@juici = nil
 
     def juici

@@ -1,12 +1,5 @@
 body { padding-top: 60px; }
 
-.build-output {
-  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  text-align: left;
-}
-
 .debug-output {
   white-space: pre-wrap;
   word-wrap: break-word;

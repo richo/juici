@@ -1,1 +1,1 @@
-<%= build.output if build.respond_to? :output %>
+<%= ansi_escaped(build.output) if build.respond_to? :output %>
