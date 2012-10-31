@@ -7,4 +7,5 @@ def form_at(route, fields, opts={})
   end
 
   form << %Q{<button type="submit" class="btn">#{opts[:submit] || "submit"}</button>}
+  form << %Q{</form>}
 end
