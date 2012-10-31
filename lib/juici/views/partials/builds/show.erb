@@ -14,8 +14,13 @@
 <%= erb(:"partials/builds/output", :locals => { :build => build }) %>
       </div>
     </div>
-    <div class="span4 debug-output">
+    <div class="span4">
+      <div class="build-sidebar">
+<%= erb(:"partials/builds/sidebar", :locals => { :build => build }) %>
+      </div>
+      <div class="debug-output">
 <%= erb(:"partials/builds/debug", :locals => { :build => build }) %>
+      </div>
     </div>
   </div>
 </div>
