@@ -32,7 +32,7 @@
             <span><%= build.time_elapsed %></span>
           </div>
           <div class="accordion-inner build-output">
-            <%= build.output if build.respond_to? :output %>
+            <%= erb(:"partials/builds/output", :locals => { :build => build }) %>
           </div>
         </div>
         <div class="span4 debug-output">
