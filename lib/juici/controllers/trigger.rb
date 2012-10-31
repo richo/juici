@@ -72,7 +72,7 @@ module Juici::Controllers
     end
 
     def title
-      params['title'] && !params['title'].empty?
+      params['title']
     end
 
     def title_given?
