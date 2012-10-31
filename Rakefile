@@ -1,14 +1,13 @@
-require 'rake'
-require 'rspec/core/rake_task'
-
 require 'juici/database'
+require 'rake/testtask'
 
-RSpec::Core::RakeTask.new(:spec) do |t|
-  t.pattern = "spec/**/*_spec.rb"
+Rake::TestTask.new do |t|
+  t.test_files = FileList['test/**/test_*.rb']
+  t.verbose = true
 end
 
 desc 'Default: run specs'
-task :default => :spec
+task :default => :test
 
 namespace :db do
   desc "Destroy the test db specified in mongoid.yml"

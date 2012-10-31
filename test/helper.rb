@@ -1,6 +1,7 @@
 ENV['RACK_ENV'] ||= "test"
 
 require 'juici'
+require "test/unit"
 require 'mocha'
 
 require 'fileutils'
@@ -10,6 +11,10 @@ Dir["#{File.expand_path(File.dirname(__FILE__))}/helpers/**/*.rb"].each do |f|
   require f
 end
 
-RSpec.configure do |config|
-  config.mock_framework = :mocha
+def assert_false(other)
+  assert_equal(other, false)
+end
+
+def assert_true(other)
+  assert_equal(other, true)
 end
