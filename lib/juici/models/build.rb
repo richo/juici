@@ -87,6 +87,10 @@ module Juici
 
     def worktree
       File.join(Config.workspace, parent)
+    rescue TypeError => e
+      warn! "Invalid workdir"
+      failure!
+      raise AbortBuild
     end
 
     # View helpers
