@@ -11,6 +11,8 @@ module Juici
     end
 
     helpers do
+      include Ansible
+
       Dir[File.dirname(__FILE__) + "/helpers/**/*.rb"].each  do |file|
         load file
       end
