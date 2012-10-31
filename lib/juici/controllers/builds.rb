@@ -38,7 +38,7 @@ module Juici::Controllers
         not_found
       end
       build   = ::Juici::Build.where(parent: project.name, _id: params[:id]).first
-      build.kill! unless build[:end_time]
+      build.kill! if build[:status] == :started
     end
 
     def new
