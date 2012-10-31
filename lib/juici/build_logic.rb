@@ -6,6 +6,8 @@ module Juici
     def spawn_build
       raise "No such work tree" unless FileUtils.mkdir_p(worktree)
       spawn(command, worktree)
+    rescue AbortBuild
+      :buildaborted
     end
 
   private
