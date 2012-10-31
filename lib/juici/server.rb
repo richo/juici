@@ -4,8 +4,6 @@ require 'net/http' # for URI#escape
 module Juici
   class Server < Sinatra::Base
 
-    include Ansible
-
     @@juici = nil
 
     def juici
@@ -13,6 +11,8 @@ module Juici
     end
 
     helpers do
+      include Ansible
+
       Dir[File.dirname(__FILE__) + "/helpers/**/*.rb"].each  do |file|
         load file
       end
