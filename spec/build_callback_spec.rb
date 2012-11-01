@@ -19,6 +19,36 @@ describe "Juicy::Build::Callback" do
     build = Juici::Build.new(:callbacks => callbacks)
     build.start!
     build.success!
+    build.destroy
+  end
+
+  # TODO DRY This right up
+  it "should have status success on success" do
+    cb = Juici::Callback.new("test")
+    cb.stubs(:process!)
+
+    Juici::Callback.stubs(:new).with("test").returns(cb)
+
+    build = Juici::Build.new(:callbacks => ["test"])
+    build.start!
+    build.success!
+
+    JSON.load(cb.payload)["status"].should == "success"
+    build.destroy
+  end
+
+  it "should have status failed on failure" do
+    cb = Juici::Callback.new("test")
+    cb.stubs(:process!)
+
+    Juici::Callback.stubs(:new).with("test").returns(cb)
+
+    build = Juici::Build.new(:callbacks => ["test"])
+    build.start!
+    build.failure!
+
+    JSON.load(cb.payload)["status"].should == "failed"
+    build.destroy
   end
 
 end
