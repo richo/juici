@@ -1,13 +1,5 @@
 require 'json'
-# status enum
-#   :waiting
-#   :started
-#   :failed
-#   :success
-#
-#   ???
-#   :profit!
-#
+
 module Juici
   class Build
     # A wrapper around the build process
@@ -15,6 +7,7 @@ module Juici
     include Mongoid::Document
     include ::Juici.url_helpers("builds")
     include BuildLogic
+    include BuildStatus
     # TODO Builds should probably be children of projects in the URL?
 
     # Finder classmethods
@@ -40,7 +33,7 @@ module Juici
     field :create_time, type: Time, :default => Proc.new { Time.now }
     field :start_time, type: Time, :default => nil
     field :end_time, type: Time, :default => nil
-    field :status, type: Symbol, :default => :waiting
+    field :status, type: Symbol, :default => WAIT.to_sym
     field :priority, type: Fixnum, :default => 1
     field :pid, type: Fixnum
     field :buffer, type: String
@@ -49,24 +42,24 @@ module Juici
     field :title, type: String, :default => Proc.new { Time.now.to_s }
 
     def set_status(value)
-      self[:status] = value
+      self.status= value
       save!
     end
 
     def start!
       self[:start_time] = Time.now
-      set_status :started
+      set_status START
     end
 
     def success!
       finish
-      set_status :success
+      set_status PASS
       process_callbacks
     end
 
     def failure!
       finish
-      set_status :failed
+      set_status FAIL
       process_callbacks
     end
 
@@ -106,13 +99,13 @@ module Juici
     # View helpers
     def heading_color
       case status
-      when :waiting
+      when WAIT
         "build-heading-pending"
-      when :failed
+      when FAIL
         "build-heading-failed"
-      when :success
+      when PASS
         "build-heading-success"
-      when :started
+      when START
         "build-heading-started"
       end
     end
@@ -172,6 +165,15 @@ module Juici
     rescue
       -1 # Throw an obviously impossible build time.
          # This will only occur as a result of old builds.
+    end
+
+    # Use symbols internally
+    def status
+      self[:status].to_s
+    end
+
+    def status=(s)
+      self[:status] = s.to_sym
     end
 
   end
