@@ -1,0 +1,2 @@
+class AbortBuild < Exception
+end

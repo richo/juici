@@ -13,8 +13,8 @@ module Juici
     # A wrapper around the build process
 
     include Mongoid::Document
-    include ::Juici.url_helpers("builds")
     include BuildLogic
+    extend FindLogic
     # TODO Builds should probably be children of projects in the URL?
 
     # Finder classmethods
@@ -97,9 +97,10 @@ module Juici
 
     def worktree
       File.join(Config.workspace, parent)
-    rescue TypeError
-      warn! "Invalid worktree"
+    rescue TypeError => e
+      warn! "Invalid workdir"
       failure!
+      raise AbortBuild
     end
 
     # View helpers
@@ -140,7 +141,9 @@ module Juici
 
     def process_callbacks
       callbacks.each do |callback_url|
-        Callback.new(self, callback_url).process!
+        c = Callback.new(callback_url)
+        c.payload = self.to_callback_json
+        c.process!
       end
     end
 
@@ -166,6 +169,9 @@ module Juici
       else
         nil
       end
+    rescue
+      -1 # Throw an obviously impossible build time.
+         # This will only occur as a result of old builds.
     end
 
   end

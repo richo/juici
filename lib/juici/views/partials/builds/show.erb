@@ -10,17 +10,11 @@
         <a href="<%= build_url_for(build) %>">Link to this build</a>
         <span><%= build.time_elapsed %></span>
       </div>
-      <div class="accordion-inner build-output">
 <%= erb(:"partials/builds/output", :locals => { :build => build }) %>
-      </div>
     </div>
     <div class="span4">
-      <div class="build-sidebar">
 <%= erb(:"partials/builds/sidebar", :locals => { :build => build }) %>
-      </div>
-      <div class="debug-output">
 <%= erb(:"partials/builds/debug", :locals => { :build => build }) %>
-      </div>
     </div>
   </div>
 </div>
