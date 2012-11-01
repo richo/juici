@@ -5,8 +5,9 @@ module Juici
     attr_reader :url
     attr_accessor :payload
 
-    def initialize(url)
+    def initialize(url, pl=nil)
       @url = url
+      @payload = pl if pl
     end
 
     def process!
