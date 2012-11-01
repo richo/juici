@@ -14,6 +14,7 @@ module Juici
 
     include Mongoid::Document
     include BuildLogic
+    extend FindLogic
     # TODO Builds should probably be children of projects in the URL?
 
     # Finder classmethods
