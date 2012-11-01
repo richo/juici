@@ -1,0 +1,7 @@
+<div class="pagination-bloops">
+  <div class="btn-group btn-group-vertical">
+    <% pages[1].times do |idx| %>
+      <a href="?page=<%= idx %>" class="btn <%= "disabled" if pages[0] == idx %>"><%= idx %></a>
+    <% end %>
+  </div>
+</div>
