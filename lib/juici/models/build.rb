@@ -141,7 +141,9 @@ module Juici
 
     def process_callbacks
       callbacks.each do |callback_url|
-        Callback.new(self, callback_url).process!
+        c = Callback.new(callback_url)
+        c.payload = self.to_callback_json
+        c.process!
       end
     end
 
