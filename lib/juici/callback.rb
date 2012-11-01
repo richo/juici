@@ -2,19 +2,20 @@ require 'net/http'
 module Juici
   class Callback
 
-    attr_reader :build, :url
+    attr_reader :url
+    attr_accessor :payload
 
-    def initialize(build, url)
-      @build = build
-      @url = URI(url)
+    def initialize(url, pl=nil)
+      @url = url
+      @payload = pl if pl
     end
 
     def process!
       Net::HTTP.start(url.host, url.port) do |http|
         request = Net::HTTP::Post.new(url.request_uri)
-        request.body = build.to_callback_json
+        request.body = payload
 
-        response = http.request request # Net::HTTPResponse object
+        http.request request # Net::HTTPResponse object
       end
     end
 

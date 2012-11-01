@@ -38,6 +38,8 @@ describe Juici::Build do
       end
 
       build = Juici::Build.new(values)
+      build[:output] = "Lol, I has an output"
+      build[:buffer] = "/tmp/buffer/lol"
       new_build = Juici::Build.new_from(build)
 
       Juici::Build::CLONABLE_FIELDS.each do |k|
@@ -45,6 +47,8 @@ describe Juici::Build do
       end
 
       build[:_id].should_not == new_build[:_id]
+      new_build[:output].should be_nil
+      new_build[:buffer].should be_nil
     end
   end
 end
