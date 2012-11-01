@@ -1,8 +1,10 @@
 # vim: ft=ruby
+#
+require File.expand_path("../lib/juici/version", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "juici-interface"
-  s.version     = "0.0.0"
+  s.version     = Juici::VERSION
   s.authors     = ["Richo Healey"]
   s.email       = ["richo@psych0tik.net"]
   s.homepage    = "http://github.com/richo/juici"
