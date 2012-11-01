@@ -5,6 +5,14 @@
   text-align: left;
 }
 
+.dark-background {
+  background-color: black !important;
+}
+
+.build-output .ansible_none {
+  color: #a8a8a8;
+}
+
 .build-output .ansible_1 {
     color: #ffffff;
 }
