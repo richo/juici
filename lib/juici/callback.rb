@@ -6,7 +6,7 @@ module Juici
     attr_accessor :payload
 
     def initialize(url, pl=nil)
-      @url = url
+      @url = URI(url)
       @payload = pl if pl
     end
 
