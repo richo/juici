@@ -13,7 +13,6 @@ module Juici
     # A wrapper around the build process
 
     include Mongoid::Document
-    include ::Juici.url_helpers("builds")
     include BuildLogic
     # TODO Builds should probably be children of projects in the URL?
 
