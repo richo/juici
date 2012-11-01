@@ -24,7 +24,7 @@
     <div class="recently-built">
       <h4>Recently Built</h4>
       <ul>
-        <% ::Juici::Build.get_recent(5, :status.in => [:success, :failed]).each do |build| %>
+        <% ::Juici::Build.get_recent(5, :status.in => [Juici::BuildStatus::PASS, Juici::BuildStatus::FAIL]).each do |build| %>
           <li>
           <a class="<%= build.heading_color %>" href="<%= build_url_for(build) %>"><%= build.link_title %></a>
           </li>

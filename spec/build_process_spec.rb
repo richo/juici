@@ -24,7 +24,7 @@ describe "Juici build abstraction" do
     sleep 2
 
     build.reload
-    build[:status].should == :success
+    build.status.should == Juici::BuildStatus::PASS
     build[:output].chomp.should == "test build succeeded"
   end
 
@@ -41,7 +41,7 @@ describe "Juici build abstraction" do
     sleep 2
 
     build.reload
-    build[:status].should == :failed
+    build.status.should == Juici::BuildStatus::FAIL
     build[:output].chomp.should == ""
   end
 
