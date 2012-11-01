@@ -38,25 +38,25 @@
 .build-output .ansible_36 {
     color: #00a8a8;
 }
-.build-output .black .ansible_1 {
+.build-output .ansible_30.ansible_1 {
     color: #545454;
 }
-.build-output .red .ansible_1 {
+.build-output .ansible_31.ansible_1 {
     color: #ff0054;
 }
-.build-output .green .ansible_1 {
+.build-output .ansible_32.ansible_1 {
     color: #00ff54;
 }
-.build-output .yellow .ansible_1 {
+.build-output .ansible_33.ansible_1 {
     color: #ffff54;
 }
-.build-output .blue .ansible_1 {
+.build-output .ansible_34.ansible_1 {
     color: #5555ff;
 }
-.build-output .magenta .ansible_1 {
+.build-output .ansible_35.ansible_1 {
     color: #ff00ff;
 }
-.build-output .cyan .ansible_1 {
+.build-output .ansible_36.ansible_1 {
     color: #00ffff;
 }
 
