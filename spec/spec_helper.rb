@@ -13,3 +13,5 @@ end
 RSpec.configure do |config|
   config.mock_framework = :mocha
 end
+
+Juici::Database.initialize!
