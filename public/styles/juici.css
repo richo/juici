@@ -1,10 +1,9 @@
-body { background-color: black; padding-top: 60px; }
+body { background: black url(../images/black_denim.png); color: #2dffff; font-family: "Monaco"; font-size: 12px; padding-top: 60px; }
 
-.debug-output {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  text-align: left;
-}
+a { color: white; font-weight: bold; }
+a:hover { color: red; text-decoration: none; }
+
+.accordion-inner {border-top: none;}
 
 .currently-building {
   white-space: pre-wrap;
@@ -12,12 +11,13 @@ body { background-color: black; padding-top: 60px; }
 }
 
 .block-header {
-	font-size: 13px;
+	font-size: 12px;
 	line-height: 24px;
 	color: black;
 	background-color: #2dffff;
-	font-weight: normal;
+	font-weight: bold;
 	padding: 0 3px 0 3px;
+	text-transform: lowercase;
 }
 
 .builds-header {
@@ -25,11 +25,16 @@ body { background-color: black; padding-top: 60px; }
 }
 
 .builds-header--failure {
-	background-color: #ff7bff;
+	color: #fff;
+	background-color: #c800c9;
 }
 
 .builds-header--success {
 	background-color: #7e9eff;
+}
+
+.project-title {
+	margin-top: 0;
 }
 
 /* Builds */
@@ -79,26 +84,33 @@ body { background-color: black; padding-top: 60px; }
 	color: #8091ff;
 }
 
-.submit-build button {
-	width: 100%;
-	height: 83px;
+button, .btn {
+	font-size: 12px;
+	font-weight: normal;
+	border: 2px solid rgba(255,255,255,0.25);
+	padding: 5px;
 	border-radius: 0;
-	background: #8091ff;
-	text-shadow: none;
-	color: #000;
-	margin-top: 14px;
+	background: #8091ff !important;
+	text-shadow: none !important;
+	color: #000 !important;
 }
 
-.submit-build button:hover {
-	background: #001fe6;
+button:hover, .btn:hover {
+	background: red !important;
 	color: #FFF;
 }
 
+button:before, button:after, .btn:before, .btn:after {
+	content: " ** ";
+}
+
 .build-heading-pending  {
-	color: yellow;
+	color: #DFFF80;
+	border: 2px dashed #DFFF80;
 }
 .build-heading-pending:hover  {
-	color: yellow;
+	color: #ccff33;
+	border: 2px dashed #ccff33;
 }
 
 .build-heading-failed {
@@ -116,28 +128,119 @@ body { background-color: black; padding-top: 60px; }
 }
 .build-heading-success:hover {
 	color: white;
+	background-color: #334fff;
 }
 
 .build-heading-started  { color: #CC0 }
 .build-heading-started:hover  { color: #CC0 }
 
-.bloops {
-	list-style: none;
-	margin: 0;
+.build-output {
+	padding: 20px;
+	background-color: black;
+	border: 1px solid #2dffff;
+	box-shadow: 0 0 2px #2dffff;
+	border-radius: 3px;
 }
 
-.bloops a {
+.bloop {
+	color: transparent;
 	text-decoration: none;
-	font-size: 26px;
+	font-size: 12px;
 	font-weight: normal;
 	display: block;
-	margin: 3px 0 0 0;
-}
-
-.bloops .next {
+	height: 79px;
+	width: 20px;
+	margin: 3px auto 0 auto;
 	background-color: #ff7bff;
 }
+.bloop:hover, .bloop.active { color: transparent; background-color: #c800c9; }
 
-.bloops .previous {
-	background-color: blue;
+.disclosure { display: inline-block; width: 20px; }
+.link-to-build { padding: 10px 0 10px 0; }
+
+.bowlG{
+	position:relative;
+	width:14px;
+	height:14px;
+}
+
+.bowl_ringG{
+	position:absolute;
+	width:14px;
+	height:14px;
+	border:1px solid #DFFF80;
+	-moz-border-radius:14px;
+	-webkit-border-radius:14px;
+	border-radius:14px;
+}
+
+.ball_holderG{
+	position:absolute;
+	width:4px;
+	height:14px;
+	left:5px;
+	top:0px;
+	-webkit-animation-name:ball_moveG;
+	-webkit-animation-duration:1.8s;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-timing-function:linear;
+	-moz-animation-name:ball_moveG;
+	-moz-animation-duration:1.8s;
+	-moz-animation-iteration-count:infinite;
+	-moz-animation-timing-function:linear;
+	-o-animation-name:ball_moveG;
+	-o-animation-duration:1.8s;
+	-o-animation-iteration-count:infinite;
+	-o-animation-timing-function:linear;
+	-ms-animation-name:ball_moveG;
+	-ms-animation-duration:1.8s;
+	-ms-animation-iteration-count:infinite;
+	-ms-animation-timing-function:linear;
+}
+
+.ballG{
+	position:absolute;
+	left:0px;
+	top:-3px;
+	width:6px;
+	height:6px;
+	background:#DFFF80;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+
+@-webkit-keyframes ball_moveG{
+0%{
+-webkit-transform:rotate(0deg)}
+
+100%{
+-webkit-transform:rotate(360deg)}
+
+}
+
+@-moz-keyframes ball_moveG{
+0%{
+-moz-transform:rotate(0deg)}
+
+100%{
+-moz-transform:rotate(360deg)}
+
+}
+
+@-o-keyframes ball_moveG{
+0%{
+-o-transform:rotate(0deg)}
+
+100%{
+-o-transform:rotate(360deg)}
+
+}
+
+@-ms-keyframes ball_moveG{
+0%{
+-ms-transform:rotate(0deg)}
+
+100%{
+-ms-transform:rotate(360deg)}
 }

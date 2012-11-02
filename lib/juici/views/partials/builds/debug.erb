@@ -2,11 +2,9 @@
 <% if build[:environment] %>
   <h3 class="block-header">Environment:</h3>
   <% build[:environment].each do |k, v| %>
-  <p>
-   <%= "#{k}=#{v}" %>
-   </p>
+    <p><strong><%="#{k} = " %></strong><%="#{v}" %></p>
   <% end %>
-<% end %>
+<% end %>w
 <% if build[:priority] %>
   <h3 class="block-header">Priority:</h3>
   <%= build[:priority] %>
