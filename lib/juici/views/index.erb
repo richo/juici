@@ -9,20 +9,22 @@
     </p>
     <div>
       In the past, this instance of Juici has built code for:
-      <ul><% ::Juici::Project.all.each do |p| %>
+      <ul>
+        <% ::Juici::Project.all.each do |p| %>
           <li><a href="<%= build_url_for(p) %>"><%= p.name %></a></li>
-      <% end %></ul>
+        <% end %>
+      </ul>
     </div>
   </div>
   <div class="span4">
     <h4 class="block-header builds-header">CURRENTLY BUILDING</h4>
       <ul class="builds">
-        <li>
-          <% $build_queue.currently_building.each do |build| %>
-          <a class="successful" href="<%= build_url_for(build) %>"><%= build.link_title %></a>
-        </li>
+        <% $build_queue.currently_building.each do |build| %>
+          <li>
+            <a class="successful" href="<%= build_url_for(build) %>"><%= build.link_title %></a>
+          </li>
+        <% end %>
       </ul>
-      <% end %>
     <hr />
     <%= erb(:"partials/index/recently_built") %>
   </div>
