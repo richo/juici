@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
   <head>
+    <meta charset="UTF-8">
   <% if ::Juici.env == "development" %>
     <link href="/vendor/bootstrap.css" rel="stylesheet">
     <script src="/vendor/jquery.js"></script>
@@ -22,7 +23,7 @@
   <body>
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
-        <div class="container">
+        <div class="container-fluid">
           <div class="nav-collapse">
             <ul class="nav">
               <% active rescue active = nil %>
@@ -30,12 +31,13 @@
               <li class="<%= "active" if active == :new_build %>"><a href="/builds/new">New Build</a></li>
               <li class="<%= "active" if active == :about %>"><a href="/about">About</a></li>
               <li class="<%= "active" if active == :support %>"><a href="/support">Support</a></li>
+              <li class="<%= "active" if active == :queue %>"><a href="/queue">Build Queue</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
     </div>
-    <div class="container">
+    <div class="container-fluid">
       <%= yield %>
     </div>
   </body>

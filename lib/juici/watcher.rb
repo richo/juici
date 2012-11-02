@@ -11,14 +11,17 @@ module Juici
 
     def register_handler
       Signal.trap("CHLD") do
-        if @active
-          pid, status = Process.wait2(-1)
-          $build_queue.purge(:pid, OpenStruct.new(:pid => pid))
-          ::Juici.dbgp "Trying to find pid: #{pid}"
-          handle(pid, status)
-
-          $build_queue.bump! if $build_queue
+        begin
+          if @active
+            pid, status = Process.wait2(-1)
+            $build_queue.purge(:pid, OpenStruct.new(:pid => pid))
+            ::Juici.dbgp "Trying to find pid: #{pid}"
+            handle(pid, status)
+          end
+        rescue Errno::ECHILD
+          nil
         end
+        $build_queue.bump! if $build_queue
       end
     end
 

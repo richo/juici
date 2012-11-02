@@ -1,18 +1,18 @@
-<div class="row">
+<div class="row-fluid">
   <div class="span8">
     <h1 class="block-header">JuiCI</h1>
     <p>
       JuiCI is a CI server, written at RailsCamp after Jenkins left me feeling a little dead inside. JuiCI aims to solve some of the issues with existing (and outstanding) CI solutions like <a href="http://jenkins-ci.org/">Jenkins</a> and <a href="http://travis-ci.org">Travis</a>, by not trying to be all things to all people.
     </p>
     <p>
-    JuiCI has a very thin wrapper around build triggers, is almost entirely API driven, and has a queuing system with a notion of priority, globally shared across all projects.
+      JuiCI has a very thin wrapper around build triggers, is almost entirely API driven, and has a queuing system with a notion of priority, globally shared across all projects.
     </p>
-    <p>
-    In the past, this instance of Juici has built code for:
-    <ul><% ::Juici::Project.all.each do |p| %>
-        <li><a href="<%= build_url_for(p) %>"><%= p.name %></a></li>
+    <div>
+      In the past, this instance of Juici has built code for:
+      <ul><% ::Juici::Project.all.each do |p| %>
+          <li><a href="<%= build_url_for(p) %>"><%= p.name %></a></li>
       <% end %></ul>
-    </p>
+    </div>
   </div>
   <div class="span4">
     <h4 class="block-header builds-header">CURRENTLY BUILDING</h4>

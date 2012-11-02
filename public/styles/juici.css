@@ -1,61 +1,15 @@
-body {
-	color: #2dffff;
-	background-color: #000;
-	padding-top: 80px;
-	font-family: "Monaco";
-	font-size: 12px;
+body { background-color: black; padding-top: 60px; }
+
+.debug-output {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: left;
 }
 
-a {
-	color: #FFF;
-	font-weight: bold;
-	text-decoration: underline;
+.currently-building {
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
-
-a:hover {
-	color: red;
-}
-
-hr {
-	border: none;
-}
-
-/* --- Navbar --- */
-
-.navbar {
-	margin: 20px 0 0 0;
-}
-
-.navbar-inner {
-	background: none;
-	border: none;
-}
-
-.nav li {
-	background-color: #7e9eff;
-	border-right: 2px solid black;
-	width: 100px;
-}
-
-.nav > li > a {
-	color: black !important;
-	line-height: 14px;
-	font-size: 12px;
-	font-weight: normal;
-	text-shadow: none !important;
-	padding: 15px 0 3px 5px !important;
-}
-
-.nav li.main {
-	width: 338px;
-}
-
-.active {
-	background-color: red;
-}
-
-.build-output { white-space: pre-wrap; }
-.currently-building { white-space: pre-wrap; }
 
 .block-header {
 	font-size: 13px;
@@ -187,5 +141,3 @@ hr {
 .bloops .previous {
 	background-color: blue;
 }
-
-

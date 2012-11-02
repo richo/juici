@@ -1,0 +1,62 @@
+.build-output {
+  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: left;
+}
+
+.dark-background {
+  background-color: black !important;
+}
+
+.build-output .ansible_none {
+  color: #a8a8a8;
+}
+
+.build-output .ansible_1 {
+    color: #ffffff;
+}
+
+.build-output .ansible_30 {
+    color: #222222;
+}
+.build-output .ansible_31 {
+    color: #a80000;
+}
+.build-output .ansible_32 {
+    color: #00a800;
+}
+.build-output .ansible_33 {
+    color: #a8a800;
+}
+.build-output .ansible_34 {
+    color: #3333a8;
+}
+.build-output .ansible_35 {
+    color: #a800a8;
+}
+.build-output .ansible_36 {
+    color: #00a8a8;
+}
+.build-output .ansible_30.ansible_1 {
+    color: #545454;
+}
+.build-output .ansible_31.ansible_1 {
+    color: #ff0054;
+}
+.build-output .ansible_32.ansible_1 {
+    color: #00ff54;
+}
+.build-output .ansible_33.ansible_1 {
+    color: #ffff54;
+}
+.build-output .ansible_34.ansible_1 {
+    color: #5555ff;
+}
+.build-output .ansible_35.ansible_1 {
+    color: #ff00ff;
+}
+.build-output .ansible_36.ansible_1 {
+    color: #00ffff;
+}
+
