@@ -21,8 +21,16 @@ module Juici
     dir = File.dirname(File.expand_path(__FILE__))
 
     def self.start(host, port)
-      @@juici = App.new
-      Juici::Server.run! :host => host, :port => port
+        @@juici = App.new
+        Juici::Server.run!(:host => host, :port => port) do |server|
+          [:INT, :TERM].each do |sig|
+            trap(sig) do
+              $stderr.puts "Shutting down JuiCI"
+              App.shutdown
+              server.respond_to?(:stop!) ? server.stop! : server.stop
+            end
+          end
+        end
     end
 
     def self.rack_start(project_path)
