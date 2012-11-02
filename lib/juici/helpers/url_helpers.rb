@@ -16,13 +16,9 @@ def rebuild_url_for(entity)
   end
 end
 
-def form_at(route, fields, opts={})
-  form = ""
-  form << %Q{<form class="well" action="#{route}" method="post">\n}
-
-  fields.each do |field|
-    form << %Q{<input type="hidden" name="#{field[:name]}" value="#{field[:value]}">\n}
+def kill_url_for(entity)
+  URI.escape case entity
+  when ::Juici::Build
+    "/builds/kill"
   end
-
-  form << %Q{<button type="submit" class="btn">#{opts[:submit] || "submit"}</button>}
 end
