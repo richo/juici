@@ -68,6 +68,20 @@ called with an (as yet unformalised) json body as the body if/when the build
 reaches that state. Alternately you may specify "any" as the callback state and
 it will be called on all state changes.
 
+## Integration
+
+Apps written in ruby wanting to interact with Juici can include the
+`juici-interface` gem, which presently exposes a few constants to line up with
+JuiCI's internal state.
+Over time this will be expanded, but for now they are:
+
+```ruby
+Juici::BuildStatus::PASS
+Juici::BuildStatus::FAIL
+Juici::BuildStatus::START
+Juici::BuildStatus::WAIT
+```
+
 ## Security
 
 JuiCI poses some interesting security conecerns. First off, it will allow
