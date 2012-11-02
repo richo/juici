@@ -54,7 +54,7 @@ describe "Juici build abstraction" do
 
     build.reload
 
-    build.status.should == :failed
+    build.status.should == Juici::BuildStatus::FAIL
     build.warnings.should include("Killed!")
   end
 
