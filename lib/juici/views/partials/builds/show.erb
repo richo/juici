@@ -6,7 +6,7 @@
     <% end %>
   </a>
 </div>
-<div id="collapse_<%= idx %>" class="accordion-body collapse">
+<div id="collapse_<%= idx %>" class="accordion-body collapse <%= "in" if show rescue nil %>">
   <div class="row-fluid" style="padding-top:20px">
     <div class="span8">
       <%= erb(:"partials/builds/output", :locals => { :build => build }) %>
