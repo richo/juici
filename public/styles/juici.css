@@ -96,6 +96,19 @@ button:before, button:after, .btn:before, .btn:after {
 .build-heading-pending  { color: gray; }
 .build-heading-pending:hover  { color: gray; }
 
+.build-sidebar {
+  height: 48px;
+}
+
+.build-sidebar > span {
+  float: left;
+}
+
+.build-sidebar > span > form > button {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .build-output {
   padding: 20px;
   background-color: black;
