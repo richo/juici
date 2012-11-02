@@ -24,6 +24,16 @@ module Juici::Controllers
       yield [:"builds/show", build_opts({:project => project, :build => build})]
     end
 
+    def kill
+      unless project = ::Juici::Project.where(name: params[:project]).first
+        not_found
+      end
+      build   = ::Juici::Build.where(parent: project.name, _id: params[:id]).first
+      ::Juici.dbgp "Killing off build #{build[:_id]}"
+      build.kill! if build[:status] == :started
+      return build
+    end
+
     def new
       yield [:"builds/new", {:active => :new_build}]
     end

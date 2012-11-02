@@ -18,7 +18,8 @@ module Juici::Controllers
 
       ::Juici::Build.new_from(build).tap do |new_build|
         new_build.save!
-        $build_queue << build
+        $build_queue << new_build
+        $build_queue.bump!
       end
     end
 

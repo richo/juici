@@ -45,4 +45,17 @@ describe "Juici build abstraction" do
     build[:output].chomp.should == ""
   end
 
+  it "Should kill builds" do
+    build = Juici::Build.new(parent: "test",
+                             command: "sleep 30")
+    $build_queue << build
+    sleep 1
+    build.kill!
+
+    build.reload
+
+    build.status.should == Juici::BuildStatus::FAIL
+    build.warnings.should include("Killed!")
+  end
+
 end

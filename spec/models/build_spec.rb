@@ -25,30 +25,30 @@ describe Juici::Build do
       build = Juici::Build.new
       build.time_elapsed.should be_nil
     end
+  end
 
-    it "Should clone itself with #new_from" do
-      values = {}
-      Juici::Build::CLONABLE_FIELDS.each do |k|
-        case k
-        when :environment
-          values[k] = {:something => "#{k}_value"}
-        else
-          values[k] = "#{k}_value"
-        end
+  it "Should clone itself with #new_from" do
+    values = {}
+    Juici::Build::CLONABLE_FIELDS.each do |k|
+      case k
+      when :environment
+        values[k] = {:something => "#{k}_value"}
+      else
+        values[k] = "#{k}_value"
       end
-
-      build = Juici::Build.new(values)
-      build[:output] = "Lol, I has an output"
-      build[:buffer] = "/tmp/buffer/lol"
-      new_build = Juici::Build.new_from(build)
-
-      Juici::Build::CLONABLE_FIELDS.each do |k|
-        build[k].should == new_build[k]
-      end
-
-      build[:_id].should_not == new_build[:_id]
-      new_build[:output].should be_nil
-      new_build[:buffer].should be_nil
     end
+
+    build = Juici::Build.new(values)
+    build[:output] = "Lol, I has an output"
+    build[:buffer] = "/tmp/buffer/lol"
+    new_build = Juici::Build.new_from(build)
+
+    Juici::Build::CLONABLE_FIELDS.each do |k|
+      build[k].should == new_build[k]
+    end
+
+    build[:_id].should_not == new_build[:_id]
+    new_build[:output].should be_nil
+    new_build[:buffer].should be_nil
   end
 end
