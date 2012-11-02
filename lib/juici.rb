@@ -1,6 +1,7 @@
 require 'github/markdown'
 require 'posix'
 require 'thread'
+require 'ansible'
 
 ENV['RACK_ENV'] ||= "development"
 

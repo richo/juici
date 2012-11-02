@@ -51,14 +51,14 @@ module Juici
     def reload_unfinished_work
       # At this point no workers have started yet, we can safely assume that
       # :started means aborted
-      Build.where(:status => :waiting).each do |build|
+      Build.where(:status => Juici::BuildStatus::WAIT).each do |build|
         $build_queue << build
       end
     end
 
     def reset_stale_children
-      Build.where(:status => :started).each do |build|
-        build[:status] = :waiting
+      Build.where(:status => Juici::BuildStatus::START).each do |build|
+        build[:status] = Juici::BuildStatus::WAIT
         build.save!
       end
     end

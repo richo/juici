@@ -11,6 +11,8 @@ module Juici
     end
 
     helpers do
+      include Ansible
+
       Dir[File.dirname(__FILE__) + "/helpers/**/*.rb"].each  do |file|
         load file
       end
@@ -57,6 +59,25 @@ module Juici
 
     post '/builds/new' do
       build = Controllers::Trigger.new(params[:project], params).build!
+      @redirect_to = build_url_for(build)
+      erb(:redirect, {}, {})
+    end
+
+    post '/builds/:project/rebuild/:id' do
+      build = Controllers::Trigger.new(params[:project], params).rebuild!
+      @redirect_to = build_url_for(build)
+      erb(:redirect, {}, {})
+    end
+
+    post '/builds/:user/:project/rebuild/:id' do
+      params[:project] = "#{params[:user]}/#{params[:project]}"
+      build = Controllers::Trigger.new(params[:project], params).rebuild!
+      @redirect_to = build_url_for(build)
+      erb(:redirect, {}, {})
+    end
+
+    post '/builds/kill' do
+      build = Controllers::Builds.new(params).kill
       @redirect_to = build_url_for(build)
       erb(:redirect, {}, {})
     end

@@ -1,20 +1,13 @@
 require 'json'
-# status enum
-#   :waiting
-#   :started
-#   :failed
-#   :success
-#
-#   ???
-#   :profit!
-#
+
 module Juici
   class Build
     # A wrapper around the build process
 
     include Mongoid::Document
-    include ::Juici.url_helpers("builds")
     include BuildLogic
+    include BuildStatus
+    extend FindLogic
     # TODO Builds should probably be children of projects in the URL?
 
     # Finder classmethods
@@ -24,13 +17,23 @@ module Juici
         desc(:_id)
     end
 
+    CLONABLE_FIELDS = [:command, :priority, :environment, :callbacks, :title, :parent]
+
+    def self.new_from(other)
+      new.tap do |b|
+        CLONABLE_FIELDS.each do |prop|
+          b[prop] = other[prop]
+        end
+      end
+    end
+
     field :parent, type: String
     field :command, type: String
     field :environment, type: Hash
     field :create_time, type: Time, :default => Proc.new { Time.now }
     field :start_time, type: Time, :default => nil
     field :end_time, type: Time, :default => nil
-    field :status, type: Symbol, :default => :waiting
+    field :status, type: Symbol, :default => WAIT.to_sym
     field :priority, type: Fixnum, :default => 1
     field :pid, type: Fixnum
     field :buffer, type: String
@@ -39,31 +42,31 @@ module Juici
     field :title, type: String, :default => Proc.new { Time.now.to_s }
 
     def set_status(value)
-      self[:status] = value
+      self.status= value
       save!
     end
 
     def start!
       self[:start_time] = Time.now
-      set_status :started
+      set_status START
     end
 
     def success!
       finish
-      set_status :success
+      set_status PASS
       process_callbacks
     end
 
     def failure!
       finish
-      set_status :failed
+      set_status FAIL
       process_callbacks
     end
 
     def finish
       self[:end_time] = Time.now
       self[:output] = get_output
-      $build_queue.purge(:pid, self)
+      $build_queue.purge(:pid, self) if $build_queue
     end
 
     def build!
@@ -87,18 +90,22 @@ module Juici
 
     def worktree
       File.join(Config.workspace, parent)
+    rescue TypeError => e
+      warn! "Invalid workdir"
+      failure!
+      raise AbortBuild
     end
 
     # View helpers
     def heading_color
       case status
-      when :waiting
+      when WAIT
         "build-heading-pending"
-      when :failed
+      when FAIL
         "build-heading-failed"
-      when :success
+      when PASS
         "build-heading-success"
-      when :started
+      when START
         "build-heading-started"
       end
     end
@@ -127,7 +134,9 @@ module Juici
 
     def process_callbacks
       callbacks.each do |callback_url|
-        Callback.new(self, callback_url).process!
+        c = Callback.new(callback_url)
+        c.payload = self.to_callback_json
+        c.process!
       end
     end
 
@@ -136,12 +145,35 @@ module Juici
       {
         "project" => self[:parent],
         "status" => self[:status],
-        "url" => build_url_for(self)
+        "url" => build_url_for(self),
+        "time" => time_elapsed
       }.to_json
     end
 
     def callbacks
       self[:callbacks] || []
+    end
+
+    def time_elapsed
+      if self[:end_time]
+        self[:end_time] - self[:start_time]
+      elsif self[:start_time]
+        Time.now - self[:start_time]
+      else
+        nil
+      end
+    rescue
+      -1 # Throw an obviously impossible build time.
+         # This will only occur as a result of old builds.
+    end
+
+    # Use symbols internally
+    def status
+      self[:status].to_s
+    end
+
+    def status=(s)
+      self[:status] = s.to_sym
     end
 
   end

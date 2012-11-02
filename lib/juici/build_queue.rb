@@ -51,11 +51,16 @@ module Juici
         Juici.dbgp "Starting another child process"
         next_child.tap do |child|
           lock.synchronize {
-            pid = child.build!
-            Juici.dbgp "Started child: #{pid}"
-            @child_pids << pid
-            @builds_by_pid[pid] = child
+            if pid = child.build!
+              Juici.dbgp "Started child: #{pid}"
+              @child_pids << pid
+              @builds_by_pid[pid] = child
+            else
+              Juici.dbgp "Child #{child} failed to start"
+            end
           }
+          bump! # Ruby's recursion isn't great, but re{try,do} may as well be
+                # undefined behaviour here.
         end
       else
         Juici.dbgp "I have quite enough to do"

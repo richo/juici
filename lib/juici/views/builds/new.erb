@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row-fluid">
 <div class="span6">
   <form class="well" action="/builds/new" method="post">
     <label>Project Name</label>
@@ -10,9 +10,11 @@
     <input type="text" name="priority" class="span3" value="1">
     <label>Command</label>
     <textarea name="command" class="span3"></textarea>
-    <%# TODO -> When callbacks get implemented %>
-    <%# <label>Callback URL</label> %>
-    <%# <input type="text" name="callback" class="span3"> %>
+    <label>Title</label>
+    <input type="text" name="title" class="span3" value="">
+    <%# <label>Callback</label> %>
+    <%# <input type="text" name="callback" class="span3" value=""> %>
+    <%# TODO -> Support multiple callbacks %>
     <label><%# HACK %></label>
     <button type="submit" class="btn">Submit</button>
   </form>
