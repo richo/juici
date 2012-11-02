@@ -107,8 +107,19 @@ specifically implement it, your process won't see any of the signal handling
 madness. The shell(`/bin/sh`) will see everything, and if killed, your
 processes will become orphaned, but carry on.
 
+## Authors
+
+* [Richo Healey](https://github.com/rcho)
+* [Alec Sloman](https://github.com/alecsloman)
+
 ## Contact
 
 JuiCI's code lives on [Github](https://github.com/richo/juici)
 and the [author](mailto:richo@psych0tik.net) can be contacted on
  [Twitter](https://twitter.com/rich0H)
+
+## Legalese
+
+(c) Richo Healey 2012, richo@psych0tik.net
+
+Released under the terms of the MIT license.
