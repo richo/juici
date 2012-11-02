@@ -1,4 +1,4 @@
-<h3><em><%= project.name %></em> - <a href="/builds/new?project=<%= project.name %>"><em>New Build</em></a></h3>
+<h3><em><%= project.name %></em><a class="btn pull-right" href="/builds/new?project=<%= project.name %>">New Build</a><a style="margin-right:6px" class="btn pull-right" href="<%= build_url_for(build) %>">Link to this build</a></h3>
 <div class="accordion" id="accordion0">
-  <%= erb(:"partials/builds/show", :locals => { :build => build, :idx => 0 }) %>
+  <%= erb(:"partials/builds/show", :locals => { :build => build, :idx => 0, :show => true }) %>
 </div>

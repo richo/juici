@@ -3,19 +3,14 @@ module Juici::Controllers
 
     def list
       params[:page] = params[:page] ? params[:page].to_i : 0
-      pages = {}
-
-      if params[:page] > 0
-        pages[:prev] = params[:page] - 1
-      end
-      #if lol
-      pages[:next] = params[:page] + 1
-      #end
 
       project = ::Juici::Project.find_or_raise(NotFound, name: params[:project])
 
-      builds = ::Juici::Build.where(parent: project.name).
-        desc(:_id).
+      builds = ::Juici::Build.where(parent: project.name)
+
+      pages = (builds.count.to_f / ::Juici::Config.builds_per_page).ceil
+
+      builds = builds.desc(:_id).
         limit(::Juici::Config.builds_per_page).
         skip(params[:page].to_i * ::Juici::Config.builds_per_page)
 
