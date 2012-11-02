@@ -21,7 +21,7 @@ module Juici
         rescue Errno::ECHILD
           nil
         end
-        $build_queue.bump! if $build_queue
+        $build_queue.bump! if $build_queue && @active
       end
     end
 
