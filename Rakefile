@@ -17,3 +17,15 @@ namespace :db do
     Mongoid.purge!
   end
 end
+
+task :gems do
+  %w[juici juici-interface].each do |gem|
+    `gem build #{gem}.gemspec`
+  end
+end
+
+task :clean do
+  Dir["juici-*.gem"].each do |gem|
+    File.unlink(gem)
+  end
+end

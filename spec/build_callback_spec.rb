@@ -33,7 +33,7 @@ describe "Juicy::Build::Callback" do
     build.start!
     build.success!
 
-    JSON.load(cb.payload)["status"].should == "success"
+    JSON.load(cb.payload)["status"].should == Juici::BuildStatus::PASS
     build.destroy
   end
 
@@ -47,7 +47,7 @@ describe "Juicy::Build::Callback" do
     build.start!
     build.failure!
 
-    JSON.load(cb.payload)["status"].should == "failed"
+    JSON.load(cb.payload)["status"].should == Juici::BuildStatus::FAIL
     build.destroy
   end
 
