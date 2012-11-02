@@ -66,11 +66,11 @@ button:before, button:after, .btn:before, .btn:after {
   content: " ** ";
 }
 
-.build-heading-pending  {
+.build-heading-started  {
   color: #DFFF80;
   border: 2px dashed #DFFF80;
 }
-.build-heading-pending:hover  {
+.build-heading-started:hover  {
   color: #ccff33;
   border: 2px dashed #ccff33;
 }
@@ -93,8 +93,8 @@ button:before, button:after, .btn:before, .btn:after {
   background-color: #334fff;
 }
 
-.build-heading-started  { color: #CC0 }
-.build-heading-started:hover  { color: #CC0 }
+.build-heading-pending  { color: gray; }
+.build-heading-pending:hover  { color: gray; }
 
 .build-output {
   padding: 20px;
@@ -121,6 +121,7 @@ button:before, button:after, .btn:before, .btn:after {
 .link-to-build { padding: 10px 0 10px 0; }
 
 .bowlG{
+  margin-top: 2px;
   position:relative;
   width:14px;
   height:14px;
@@ -134,6 +135,7 @@ button:before, button:after, .btn:before, .btn:after {
   -moz-border-radius:14px;
   -webkit-border-radius:14px;
   border-radius:14px;
+  box-shadow: 0 0 3px #DFFF80;
 }
 
 .ball_holderG{
@@ -170,6 +172,7 @@ button:before, button:after, .btn:before, .btn:after {
   -moz-border-radius:5px;
   -webkit-border-radius:5px;
   border-radius:5px;
+  box-shadow: 0 0 3px #DFFF80;
 }
 
 @-webkit-keyframes ball_moveG{

@@ -1,8 +1,7 @@
 <div class="accordion-heading">
   <a class="accordion-toggle <%= build.heading_color %>" data-toggle="collapse" data-parent="#accordion<%= idx+1 %>" href="#collapse_<%= idx %>">
     <%= build.display_title %>&nbsp;<% build[:warnings].each do |warning| %><span class="label label-important"><%= warning %></span><% end %>
-    <span class="pull-right"><%= build.time_elapsed %></span>
-    <% if build[:status] == :waiting %>
+    <% if build[:status] == :started %>
       <div class="bowlG pull-right"><div class="bowl_ringG"><div class="ball_holderG"><div class="ballG"></div></div></div></div>
     <% end %>
   </a>
