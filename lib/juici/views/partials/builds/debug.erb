@@ -1,30 +1,22 @@
 <div class="debug-output">
 <% if build[:environment] %>
-  <h3>Environment:</h3>
-  <pre class="prettyprint">
+  <h3 class="block-header">Environment:</h3>
   <% build[:environment].each do |k, v| %>
-   <%= "#{k}=#{v}" %>
+    <p><strong><%="#{k} = " %></strong><%="#{v}" %></p>
   <% end %>
-  </pre>
-<% end %>
+<% end %>w
 <% if build[:priority] %>
-  <h3>Priority:</h3>
-  <pre class="prettyprint">
+  <h3 class="block-header">Priority:</h3>
   <%= build[:priority] %>
-  </pre>
 <% end %>
 <% if build[:command] %>
-  <h3>Command:</h3>
-  <pre class="prettyprint">
+  <h3 class="block-header">Command:</h3>
   <%= build[:command] %>
-  </pre>
 <% end %>
 <% if build[:callbacks] %>
-  <h3>Callbacks:</h3>
-  <pre class="prettyprint">
+  <h3 class="block-header">Callbacks:</h3>
   <% build[:callbacks].each do |callback| %>
-<%= callback %>
+    <%= callback %>
   <% end %>
-  </pre>
 <% end %>
 </div>

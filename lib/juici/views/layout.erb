@@ -27,7 +27,7 @@
           <div class="nav-collapse">
             <ul class="nav">
               <% active rescue active = nil %>
-              <li class="<%= "active" if active == :index %>"><a class="brand" href="/">JuiCI</a></li>
+              <li class="main <%= "active" if active == :index %>"><a href="/">juiCI</a></li>
               <li class="<%= "active" if active == :new_build %>"><a href="/builds/new">New Build</a></li>
               <li class="<%= "active" if active == :about %>"><a href="/about">About</a></li>
               <li class="<%= "active" if active == :support %>"><a href="/support">Support</a></li>
