@@ -1,0 +1,23 @@
+<h4 class="accordion-toggle ">
+  <%= display_title rescue build.display_title %>&nbsp;<% build[:warnings].each do |warning| %><span class="label label-important"><%= warning %></span><% end %>
+</h4>
+<div class="row-fluid" style="padding-top:20px">
+  <div><p>Note that any changes made here will only take effect when this project starts building. Running builds will not inherit these changes, but you'll likey confuse the hell out of anyone trying to debug it.</p></div>
+  <form action="<%= edit_url_for(build) %>" method="post" class="submit-build">
+    <div class="span4">
+      <h3>Misc</h3>
+      <% ::Juici::Build::EDITABLE_ATTRIBUTES[:string].each do |attr| %>
+        <%# TODO css transform to make this pretty %>
+        <label><%= attr %></label>
+        <input type="text" name="<%= attr %>" value="<%= build[attr] %>">
+      <% end %>
+      <button type="submit" class="btn">Submit</button>
+    </div>
+    <div class="span4">
+      <h3>Environment</h3>
+    </div>
+    <div class="span4">
+      <h3>Callbacks</h3>
+    </div>
+  </form>
+</div>

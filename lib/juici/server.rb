@@ -109,6 +109,32 @@ module Juici
       end
     end
 
+    get '/builds/:project/edit/:id' do
+      Controllers::Builds.new(params).edit do |template, opts|
+        erb(template, {}, opts)
+      end
+    end
+
+    get '/builds/:user/:project/edit/:id' do
+      params[:project] = "#{params[:user]}/#{params[:project]}"
+      bControllers::Builds.new(params).edit do |template, opts|
+        erb(template, {}, opts)
+      end
+    end
+
+    post '/builds/:project/edit/:id' do
+      build = Controllers::Builds.new(params).update!
+      @redirect_to = build_url_for(build)
+      erb(:redirect, {}, {})
+    end
+
+    post '/builds/:user/:project/edit/:id' do
+      params[:project] = "#{params[:user]}/#{params[:project]}"
+      build = Controllers::Builds.new(params).update!
+      @redirect_to = build_url_for(build)
+      erb(:redirect, {}, {})
+    end
+
     get '/builds/:project/show/:id' do
       Controllers::Builds.new(params).show do |template, opts|
         erb(template, {}, opts)
