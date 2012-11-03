@@ -117,7 +117,7 @@ module Juici
 
     get '/builds/:user/:project/edit/:id' do
       params[:project] = "#{params[:user]}/#{params[:project]}"
-      bControllers::Builds.new(params).edit do |template, opts|
+      Controllers::Builds.new(params).edit do |template, opts|
         erb(template, {}, opts)
       end
     end
