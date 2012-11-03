@@ -19,9 +19,16 @@ module Juici
 
   private
 
+    def build_environment
+      # Process#spawn always uses the parent environment, merging with the
+      # environment parameter to get the child env, treating keys with value
+      # nil as values to remove.
+      self[:environment]
+    end
+
     def spawn(cmd, dir)
       @buffer = Tempfile.new('juici-xxxx')
-      Process.spawn(environment, cmd,
+      Process.spawn(build_environment, cmd,
         :chdir => dir,
         :in  => "/dev/null",
         :out => @buffer.fileno,

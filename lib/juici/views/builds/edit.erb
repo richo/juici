@@ -15,6 +15,11 @@
     </div>
     <div class="span4">
       <h3>Environment</h3>
+      <% build[:environment].each do |attr, value| %>
+        <%# TODO css transform to make this pretty %>
+        <label><%= attr %></label>
+        <input type="text" name="environment[<%= attr %>]" value="<%= build[:environment][attr] %>">
+      <% end %>
     </div>
     <div class="span4">
       <h3>Callbacks</h3>

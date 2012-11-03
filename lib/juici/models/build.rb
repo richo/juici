@@ -180,5 +180,20 @@ module Juici
       self[:status] = s.to_sym
     end
 
+    def environment
+      self[:environment].reject { |k, v| v.nil? }
+    end
+
+    def environment=(other)
+      # If we already have an environment, ensure that any keys we're removing get nil'd out
+      # new = other.dup # TODO
+      # if old = self[:environment]
+      #   old.each do |k, v|
+      #     new[k] = nil unless new.include? k
+      #   end
+      # end
+      self[:environment] = other
+    end
+
   end
 end

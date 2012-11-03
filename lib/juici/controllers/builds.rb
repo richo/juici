@@ -56,6 +56,10 @@ module Juici::Controllers
       ::Juici::Build::EDITABLE_ATTRIBUTES[:string].each do |attr|
         build[attr] = params[attr] if params[attr]
       end
+      if params[:environment].is_a? Hash
+        build[:environment] = params[:environment]
+      end
+
       # binding.pry
       build.tap do |b|
         b.save!
