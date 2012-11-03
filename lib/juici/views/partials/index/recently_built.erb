@@ -1,4 +1,4 @@
-<h1 class="block-header builds-header builds-header--failure">FAIL! <span class="pull-right table-flipper">（╯°□°）╯︵ ┻━┻</span></h1>
+<h1 class="block-header builds-header builds-header--failure">fail!<span class="pull-right table-flipper">（╯°□°）╯︵ ┻━┻</span></h1>
     <ul class="builds">
       <% ::Juici::Build.get_recent(5, :status.in => [:failed]).each do |build| %>
       <li>
@@ -9,7 +9,7 @@
 
   <hr>
 
-  <h1 class="block-header builds-header builds-header--success">SUCCEED!<span class="pull-right table-flipper">┬─┬ノ( º _ ºノ)</span></h1>
+  <h1 class="block-header builds-header builds-header--success">pass!<span class="pull-right table-flipper">┬─┬ノ( º _ ºノ)</span></h1>
   <ul class="builds">
     <% ::Juici::Build.get_recent(5, :status.in => [:success]).each do |build| %>
       <li>

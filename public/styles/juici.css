@@ -9,7 +9,7 @@ a:hover { color: red; text-decoration: none; }
 .nav > li.active > a { background-color: #00dfe0 !important; }
 .accordion-inner {border-top: none;}
 .currently-building { white-space: pre-wrap; word-wrap: break-word; }
-.block-header { font-size: 12px; line-height: 24px; color: black; background-color: #2dffff; font-weight: bold; padding: 0 3px 0 3px; text-transform: lowercase; }
+.block-header { font-size: 12px; line-height: 24px; color: black; background-color: #2dffff; font-weight: bold; padding: 0 3px 0 3px; }
 .builds-header { margin: 10px 0 0 0; }
 .builds-header--failure { color: #fff; background-color: #c800c9; }
 .builds-header--success { background-color: #7e9eff; }
