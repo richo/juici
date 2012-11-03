@@ -18,6 +18,10 @@ module Juici
     end
 
     CLONABLE_FIELDS = [:command, :priority, :environment, :callbacks, :title, :parent]
+    EDITABLE_ATTRIBUTES = {
+      :string => [:priority, :title],
+      :array  => [:environment, :callbacks]
+    }
 
     def self.new_from(other)
       new.tap do |b|
