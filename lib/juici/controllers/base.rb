@@ -6,6 +6,9 @@ module Juici::Controllers
     attr_accessor :params
     def initialize(params)
       @params = params
+      if params[:_user] && params[:_project]
+        params[:project] = "#{params[:_user]}/#{params[:_project]}"
+      end
     end
 
     def build_opts(opts)
