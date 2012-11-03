@@ -59,37 +59,64 @@ describe Juici::Controllers::Builds do
       updated_build[:_id].should == build[:_id]
     end
 
-    it "should update the environment" do
-      # FIXME This is a kludge to work around #38
-      ::Juici::Project.find_or_create_by(name: "test project")
-      build = Juici::Build.new(parent: "test project", environment: {"foo" => "bar"})
-      build.save!
+    describe "environment" do
+      it "should update the environment" do
+        # FIXME This is a kludge to work around #38
+        ::Juici::Project.find_or_create_by(name: "test project")
+        build = Juici::Build.new(parent: "test project", environment: {"foo" => "bar"})
+        build.save!
 
-      Juici::Controllers::Builds.new({:id => build[:_id], :project => "test project", :environment => {"foo" => "thing", "bar" => "baz"}}).update!
-      build.reload
+        Juici::Controllers::Builds.new({:id => build[:_id], :project => "test project", :environment => {"foo" => "thing", "bar" => "baz"}}).update!
+        build.reload
 
-      build[:environment]["foo"].should == "thing"
-      build[:environment]["bar"].should == "baz"
+        build[:environment]["foo"].should == "thing"
+        build[:environment]["bar"].should == "baz"
+      end
+
+      it "shouldn't break nil keys in the environment" do
+        # FIXME This is a kludge to work around #38
+        ::Juici::Project.find_or_create_by(name: "test project")
+        build = Juici::Build.new(parent: "test project", environment: {"foo" => nil})
+        build.save!
+
+        Juici::Controllers::Builds.new({:id => build[:_id], :project => "test project", :environment => {"foo" => "", "bar" => "baz"}}).update!
+        build.reload
+
+        build[:environment]["foo"].should be_nil
+        build[:environment]["bar"].should == "baz"
+      end
+
+
+      it "Should not touch values if given invalid values" do
+        pending("Needs more research on mongoid")
+      end
     end
 
-    it "shouldn't break nil keys in the environment" do
-      # FIXME This is a kludge to work around #38
-      ::Juici::Project.find_or_create_by(name: "test project")
-      build = Juici::Build.new(parent: "test project", environment: {"foo" => nil})
-      build.save!
+    describe "callbacks" do
+      it "should update callbacks" do
+        # FIXME This is a kludge to work around #38
+        ::Juici::Project.find_or_create_by(name: "test project")
+        build = Juici::Build.new(parent: "test project", environment: {"foo" => nil})
+        build.save!
 
-      Juici::Controllers::Builds.new({:id => build[:_id], :project => "test project", :environment => {"foo" => "", "bar" => "baz"}}).update!
-      build.reload
+        Juici::Controllers::Builds.new({:id => build[:_id], :project => "test project", :callbacks => {"1" => "http://rawr", "2" => "butts lol"}}).update!
+        build.reload
 
-      build[:environment]["foo"].should be_nil
-      build[:environment]["bar"].should == "baz"
+        build[:callbacks].should include("http://rawr", "butts lol")
+      end
+
+      it "should delete empty callbacks" do
+        # FIXME This is a kludge to work around #38
+        ::Juici::Project.find_or_create_by(name: "test project")
+        build = Juici::Build.new(parent: "test project", environment: {"foo" => nil})
+        build.save!
+
+        Juici::Controllers::Builds.new({:id => build[:_id], :project => "test project", :callbacks => {"1" => "http://rawr", "2" => ""}}).update!
+        build.reload
+
+        build[:callbacks].length.should == 1
+        build[:callbacks].should include("http://rawr")
+      end
     end
-
-
-    it "Should not touch values if given invalid values" do
-      pending("Needs more research on mongoid")
-    end
-
   end
-
 end

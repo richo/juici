@@ -23,6 +23,10 @@
     </div>
     <div class="span4">
       <h3>Callbacks</h3>
+      <% build[:callbacks].each_with_index do |callback, idx| %>
+        <%# TODO css transform to make this pretty %>
+        <input type="text" name="callbacks[<%= idx %>]" value="<%= callback %>">
+      <% end %>
     </div>
   </form>
 </div>

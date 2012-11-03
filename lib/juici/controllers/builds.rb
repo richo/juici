@@ -68,6 +68,11 @@ module Juici::Controllers
         build[:environment] = params[:environment]
       end
 
+      if params[:callbacks].is_a? Hash
+        cbs = params[:callbacks].values.reject { |v| v.empty? }
+        build[:callbacks] = cbs
+      end
+
       # binding.pry
       build.tap do |b|
         b.save!
