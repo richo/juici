@@ -1,6 +1,14 @@
 module Juici::Controllers
   class Index
 
+    def self.routes
+      {
+        '/' => :index,
+        '/about' => :about,
+        '/support' => :support
+      }
+    end
+
     def index
       yield [:index,  {:active => :index}]
     end

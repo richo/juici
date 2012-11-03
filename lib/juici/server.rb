@@ -41,27 +41,11 @@ module Juici
     set :public_folder, "public"
     set :static, true
 
-    get '/' do
-      Controllers::Index.new.index do |template, opts|
-        erb(template, {}, opts)
-      end
-    end
-
-    get '/about' do
-      Controllers::Index.new.about do |template, opts|
-        erb(template, {}, opts)
-      end
-    end
-
-    get '/builds' do
-      Controllers::Index.new.builds do |template, opts|
-        erb(template, {}, opts)
-      end
-    end
-
-    get '/support' do
-      Controllers::Index.new.support do |template, opts|
-        erb(template, {}, opts)
+    Controllers::Index.routes do |route, sym|
+      get route do
+        Controllers::Index.new.send(sym) do |template, opts|
+          erb(template, {}, opts)
+        end
       end
     end
 
