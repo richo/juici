@@ -2,7 +2,7 @@
     <ul class="builds">
       <% ::Juici::Build.get_recent(5, :status.in => [:failed]).each do |build| %>
       <li>
-        <a class="failed" href="<%= build_url_for(build) %>"><%= build.link_title %></a>
+        <a class="recently-built--fail" href="<%= build_url_for(build) %>"><%= build.link_title %></a>
       </li>
     <% end %>
     </ul>
@@ -13,7 +13,7 @@
   <ul class="builds">
     <% ::Juici::Build.get_recent(5, :status.in => [:success]).each do |build| %>
       <li>
-        <a class="successful" href="<%= build_url_for(build) %>"><%= build.link_title %></a>
+        <a class="recently-built--pass" href="<%= build_url_for(build) %>"><%= build.link_title %></a>
       </li>
     <% end %>
   </ul>

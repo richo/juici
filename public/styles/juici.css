@@ -20,23 +20,24 @@ a:hover { color: red; text-decoration: none; }
 .builds { list-style: none; overflow: auto; padding: 0; margin: 0; }
 .builds a { display: block; font-weight: normal; text-decoration: none; padding: 34px 3px 3px 3px; border-top: 2px solid #000; }
 
-.failed {
+.recently-built--fail {
   color: black;
   background-color: #ff7bff;
+  padding: 16px 3px 3px 3px !important;
 }
 
-.failed:hover {
+.recently-built--fail:hover {
   color: white;
   background-color: #e100e1;
 }
 
-.successful {
+.recently-built--pass {
   color: white;
   background-color: #595959;
   padding: 16px 3px 3px 3px !important;
 }
 
-.successful:hover {
+.recently-built-pass:hover {
   color: white;
   background-color: #3f3f3f;
 }
