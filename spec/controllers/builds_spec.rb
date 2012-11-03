@@ -59,6 +59,33 @@ describe Juici::Controllers::Builds do
       updated_build[:_id].should == build[:_id]
     end
 
+    it "should update the environment" do
+      # FIXME This is a kludge to work around #38
+      ::Juici::Project.find_or_create_by(name: "test project")
+      build = Juici::Build.new(parent: "test project", environment: {"foo" => "bar"})
+      build.save!
+
+      Juici::Controllers::Builds.new({:id => build[:_id], :project => "test project", :environment => {"foo" => "thing", "bar" => "baz"}}).update!
+      build.reload
+
+      build[:environment]["foo"].should == "thing"
+      build[:environment]["bar"].should == "baz"
+    end
+
+    it "shouldn't break nil keys in the environment" do
+      # FIXME This is a kludge to work around #38
+      ::Juici::Project.find_or_create_by(name: "test project")
+      build = Juici::Build.new(parent: "test project", environment: {"foo" => nil})
+      build.save!
+
+      Juici::Controllers::Builds.new({:id => build[:_id], :project => "test project", :environment => {"foo" => "", "bar" => "baz"}}).update!
+      build.reload
+
+      build[:environment]["foo"].should be_nil
+      build[:environment]["bar"].should == "baz"
+    end
+
+
     it "Should not touch values if given invalid values" do
       pending("Needs more research on mongoid")
     end

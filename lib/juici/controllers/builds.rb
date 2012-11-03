@@ -56,7 +56,15 @@ module Juici::Controllers
       ::Juici::Build::EDITABLE_ATTRIBUTES[:string].each do |attr|
         build[attr] = params[attr] if params[attr]
       end
+
       if params[:environment].is_a? Hash
+        # Special case keys we had nil'd out
+        params[:environment].each do |k, v|
+          # This will not let users set keys to empty strings. XXX
+          if v.empty? && build[:environment][k].nil?
+            params[:environment][k] = nil
+          end
+        end
         build[:environment] = params[:environment]
       end
 
