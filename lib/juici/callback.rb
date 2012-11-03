@@ -17,6 +17,9 @@ module Juici
 
         http.request request # Net::HTTPResponse object
       end
+    rescue SocketError => e
+      # We don't get a reference to build any more, can't warn :(
+      # TODO Throw a warning on the build
     end
 
   end
