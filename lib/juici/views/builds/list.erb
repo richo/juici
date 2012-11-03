@@ -1,9 +1,9 @@
 
 <div class="row-fluid">
   <!-- Pagination -->
-  <div class="span1">
+  <div class="span1 pagination-bloops">
     <% pages.times.with_index do |page| %>
-      <a href="?page=<%= page %>" class="bloop<%= " active" if page == params[:page] %>"><%= page %></a>
+      <a href="?page=<%= page %>" class="bloop<%= " active" if page == params[:page] %>" style="height: <%= 538.0 / pages %>px;"><%= page %></a>
     <% end %>
   </div>
   <!-- Main contents -->

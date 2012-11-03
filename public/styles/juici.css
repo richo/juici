@@ -105,6 +105,10 @@ button:before, button:after, .btn:before, .btn:after {
   border-radius: 3px;
 }
 
+.pagination-bloops {
+  margin-top: 47px;
+}
+
 .bloop {
   color: transparent;
   text-decoration: none;
