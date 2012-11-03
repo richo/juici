@@ -108,7 +108,7 @@ module Juici
       end
     end
     get('/builds/:project/show/:id', &GET_BUILDS_SHOW)
-    get('/builds/:user/:project/show/:id', &GET_BUILDS_SHOW)
+    get('/builds/:_user/:_project/show/:id', &GET_BUILDS_SHOW)
 
     POST_TRIGGER_PROJECT = Proc.new do
       Controllers::Trigger.new(params[:project], params).build!
