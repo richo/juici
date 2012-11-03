@@ -1,10 +1,4 @@
 <div class="debug-output">
-<% if build[:environment] %>
-  <h3 class="block-header">environment:</h3>
-  <% build[:environment].reject{|k, v| v.nil?}.each do |k, v| %>
-    <p><strong><%="#{k} = " %></strong><%="#{v}" %></p>
-  <% end %>
-<% end %>
 <% if build[:priority] %>
   <h3 class="block-header">priority:</h3>
   <%= build[:priority] %>
@@ -12,6 +6,12 @@
 <% if build[:command] %>
   <h3 class="block-header">command:</h3>
   <%= build[:command] %>
+<% end %>
+<% if build[:environment] %>
+  <h3 class="block-header">environment:</h3>
+  <% build[:environment].reject{|k, v| v.nil?}.each do |k, v| %>
+    <p><strong><%="#{k} = " %></strong><%="#{v}" %></p>
+  <% end %>
 <% end %>
 <% if build[:callbacks] %>
   <h3 class="block-header">callbacks:</h3>
