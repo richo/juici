@@ -59,6 +59,10 @@ describe Juici::Controllers::Builds do
       updated_build[:_id].should == build[:_id]
     end
 
+    it "Should not touch values if given invalid values" do
+      pending("Needs more research on mongoid")
+    end
+
   end
 
 end
