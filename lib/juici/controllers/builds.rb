@@ -42,5 +42,25 @@ module Juici::Controllers
       ["builds"]
     end
 
+    def edit
+      project = ::Juici::Project.find_or_raise(NotFound, name: params[:project])
+      build   = ::Juici::Build.find_or_raise(NotFound, parent: project.name, _id: params[:id])
+      # return 404 unless project && build
+      yield [:"builds/edit", {:project => project, :build => build}]
+    end
+
+    def update!
+      project = ::Juici::Project.find_or_raise(NotFound, name: params[:project])
+      build   = ::Juici::Build.find_or_raise(NotFound, parent: project.name, _id: params[:id])
+
+      ::Juici::Build::EDITABLE_ATTRIBUTES[:string].each do |attr|
+        build[attr] = params[attr] if params[attr]
+      end
+      # binding.pry
+      build.tap do |b|
+        b.save!
+      end
+    end
+
   end
 end
