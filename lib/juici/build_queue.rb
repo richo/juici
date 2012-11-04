@@ -40,6 +40,10 @@ module Juici
       end
     end
 
+    def delete(id)
+      purge(:_id, OpenStruct.new(:_id => id))
+    end
+
     # Magic hook that starts a process if there's a good reason to.
     # Stopgap measure that means you can knock on this if there's a chance we
     # should start a process
