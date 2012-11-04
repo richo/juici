@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.description = s.summary
 
   s.add_dependency "sinatra"
+  s.add_dependency "thin"
   s.add_dependency "json"
   s.add_dependency "mongoid"
   s.add_dependency "bson_ext"
