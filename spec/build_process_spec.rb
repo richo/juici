@@ -62,4 +62,35 @@ describe "Juici build abstraction" do
     build.warnings.should include("Killed!")
   end
 
+  it "Can create and fetch new bundles" do
+    watcher = Juici::Watcher.instance.start
+    build = Juici::Build.new(parent: "test project",
+                             environment: ::Juici::BuildEnvironment.new.to_hash,
+                             command: <<-EOS)
+#!/bin/sh
+set -e
+
+cat > Gemfile <<EOF
+source :rubygems
+gem "m2a"
+EOF
+
+env
+
+bundle install
+bundle list
+bundle config
+EOS
+
+    build.save!
+    $build_queue << build
+
+    Timeout::timeout(10) do
+      poll_build(build)
+
+      build.status.should == Juici::BuildStatus::PASS
+      build[:output].chomp.should match /m2a/
+    end
+  end
+
 end
