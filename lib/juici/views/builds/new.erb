@@ -1,3 +1,4 @@
+<script src="/scripts/builds.js"></script>
 <div class="row-fluid">
 
   <div class="span4">
@@ -18,23 +19,26 @@
       <div class="row-fluid">
 
         <!-- First Column -->
-        <div class="span3">
+        <div class="span8">
+          <h4>General</h4>
           <label>Project Name</label>
           <input type="text" name="project" value="<%= params[:project] %>" <%= "readonly" if params[:project] %>>
           <label>Environment</label>
           <input type="text" name="environment" placeholder="expects a valid json hash" value="">
           <label>Priority</label>
           <input type="text" name="priority" value="1">
-        </div><!-- End first column -->
-
-        <div class="span8 offset1">
           <label>Command</label>
-          <textarea name="command" class="input-xxlarge" rows="4"></textarea>
+          <textarea name="command" class="input-xlarge" rows="4"></textarea>
           <%# TODO -> When callbacks get implemented %>
           <%# <label>Callback URL</label> %>
           <%# <input type="text" name="callback" class="span3"> %>
           <!-- <label><%# HACK %></label> -->
           <button type="submit">START BUILD</button>
+        </div><!-- End first column -->
+
+        <div class="span4" id="callbacks">
+          <h4>Callbacks  <a href="#" id="new-callback">+</a></h4>
+          <input type="text" name="callbacks[1]">
         </div>
 
       </div>

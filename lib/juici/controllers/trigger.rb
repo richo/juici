@@ -67,7 +67,12 @@ module Juici::Controllers
     end
 
     def callbacks
-      JSON.load(params['callbacks'])
+      case params['callbacks']
+      when String
+        JSON.load(params['callbacks'])
+      when Hash
+        params['callbacks'].values
+      end
     rescue
       []
     end
