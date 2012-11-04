@@ -19,7 +19,7 @@ def poll_build(build)
   loop do
     sleep(0.1)
     build.reload
-    break if build[:status] != Juici::BuildStatus::START
+    break if build.status != Juici::BuildStatus::START
   end
 end
 
