@@ -27,6 +27,19 @@ bundle exec bin/juici
 
 is all you need to have a working instance (provided that you have mongo installed)
 
+### Gotchas
+
+Make sure you don't do something innocuous like
+
+```bash
+bundle install --path .bundle
+```
+
+this might look sane (and it is, kinda) but owing to a quick in bundler, it
+will break any ruby code you try to build.
+
+I'm working on a workaround, but in the meantime the fix is to not do it!
+
 ## Usage
 
 JuiCI is very focused on minimal configuration; meaning that beyond starting
