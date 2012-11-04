@@ -21,11 +21,13 @@ describe "Juici build abstraction" do
     # Wait a reasonable time for build to finish
     # TODO: This can leverage the hooks system
     # TODO: Easer will be to have worker.block or something
-    sleep 2
+    Timeout::timeout(2) do
+      poll_build(build)
 
-    build.reload
-    build.status.should == Juici::BuildStatus::PASS
-    build[:output].chomp.should == "test build succeeded"
+      build.reload
+      build.status.should == Juici::BuildStatus::PASS
+      build[:output].chomp.should == "test build succeeded"
+    end
   end
 
   it "Should catch failed builds" do
@@ -38,11 +40,13 @@ describe "Juici build abstraction" do
     # Wait a reasonable time for build to finish
     # TODO: This can leverage the hooks system
     # TODO: Easer will be to have worker.block or something
-    sleep 2
+    Timeout::timeout(2) do
+      poll_build(build)
 
-    build.reload
-    build.status.should == Juici::BuildStatus::FAIL
-    build[:output].chomp.should == ""
+      build.reload
+      build.status.should == Juici::BuildStatus::FAIL
+      build[:output].chomp.should == ""
+    end
   end
 
   it "Should kill builds" do
