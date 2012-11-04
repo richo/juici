@@ -1,34 +1,20 @@
-<% if proj = ::Juici::Project.where(name: project).first %>
-  <script>
-    $(document).ready(function() {
-      $(".collapse").collapse();
-    });
-  </script>
-  <h3><em><%= proj.name %></em> - <a href="/builds/new?project=<%= proj.name %>"><em>New Build</em></a></h3>
-  <% ::Juici::Build.where(parent: proj.name).sort.reverse.each_with_index do |build, idx| %>
-    <div class="accordion" id="accordion<%= idx %>">
-      <div class="accordion-heading">
-        <a class="accordion-toggle <%= build.heading_color %>" data-toggle="collapse" data-parent="#accordion<%= idx+1 %>" href="#collapse_<%= idx %>">
-          <%= build.display_title %>&nbsp;<% build[:warnings].each do |warning| %><span class="label label-important"><%= warning %></span><% end %>
-        </a>
+
+<div class="row-fluid">
+  <!-- Pagination -->
+  <div class="span1">
+    <% pages.times.with_index do |page| %>
+      <a href="?page=<%= page %>" class="bloop<%= " active" if page == params[:page] %>"><%= page %></a>
+    <% end %>
+  </div>
+  <!-- Main contents -->
+  <div class="span11">
+    <!-- Create a new build -->
+    <h3 class="project-title"><a href="<%= build_url_for(project) %>"><%= project.name %></a><a class="btn pull-right" href="/builds/new?project=<%= project.name %>">New Build</a></h3>
+    <!-- Build history -->
+    <% builds.each_with_index do |build, idx| %>
+      <div class="accordion" id="accordion<%= idx %>">
+        <%= erb(:"partials/builds/show", :locals => { :build => build, :idx => idx }) %>
       </div>
-      <div id="collapse_<%= idx %>" class="accordion-body collapse in">
-        <div class="row">
-          <div class="span8">
-            <div>
-              <a href="<%= build_url_for(build) %>">Link to this build</a>
-            </div>
-            <div class="accordion-inner build-output">
-<%= build.output if build.respond_to? :output %>
-            </div>
-          </div>
-          <div class="span4">
-<%= erb(:"partials/builds/debug", :locals => { :build => build }) %>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-<% else %>
-  No such project.
-<% end %>
+    <% end %>
+  </div>
+</div>

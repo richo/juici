@@ -9,6 +9,7 @@ module Juici
       @child_pids = []
       # This is never expired, for now
       @builds_by_pid = {}
+      @started = false
     end
 
     def shutdown!
@@ -39,17 +40,28 @@ module Juici
       end
     end
 
+    def delete(id)
+      purge(:_id, OpenStruct.new(:_id => id))
+    end
+
     # Magic hook that starts a process if there's a good reason to.
     # Stopgap measure that means you can knock on this if there's a chance we
     # should start a process
     def bump!
+      return unless @started
       update_children
       if not_working? && work_to_do?
         Juici.dbgp "Starting another child process"
         next_child.tap do |child|
-          pid = child.build!
-          @child_pids << pid
-          @builds_by_pid[pid] = child
+          if pid = child.build!
+            Juici.dbgp "Started child: #{pid}"
+            @child_pids << pid
+            @builds_by_pid[pid] = child
+          else
+            Juici.dbgp "Child #{child} failed to start"
+            bump! # Ruby's recursion isn't great, but re{try,do} may as well be
+                  # undefined behaviour here.
+          end
         end
       else
         Juici.dbgp "I have quite enough to do"
@@ -78,6 +90,21 @@ module Juici
 
     def work_to_do?
       @builds.length > 0
+    end
+
+    def currently_building
+      @child_pids.map do |pid|
+        get_build_by_pid(pid)
+      end
+    end
+
+    def start!
+      @started = true
+      bump!
+    end
+
+    def builds
+      @builds
     end
 
   end

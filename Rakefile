@@ -14,6 +14,18 @@ namespace :db do
   desc "Destroy the test db specified in mongoid.yml"
   task :destroy do
     Juici::Database.initialize!
-    Mongoid.master.collections.select {|c| c.name !~ /system/ }.each(&:drop)
+    Mongoid.purge!
+  end
+end
+
+task :gems do
+  %w[juici juici-interface].each do |gem|
+    `gem build #{gem}.gemspec`
+  end
+end
+
+task :clean do
+  Dir["juici-*.gem"].each do |gem|
+    File.unlink(gem)
   end
 end

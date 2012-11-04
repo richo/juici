@@ -1,2 +1,213 @@
-body { padding-top: 60px; }
-.build-output { white-space: pre-wrap; }
+body { background: black url(../images/black_denim.png); color: #a8a8a8; font-family: "Monaco"; font-size: 12px; padding-top: 60px; }
+
+a { color: white; font-weight: bold; }
+a:hover { color: red; text-decoration: none; }
+
+.navbar, .navbar-inner, .nav { background: #2dffff !important; border-bottom-color: #00dfe0; }
+.nav > li > a { color: black !important; text-shadow: none !important; }
+.nav > li:hover { background-color: #00dfe0; }
+.nav > li.active > a { background-color: #00dfe0 !important; }
+.accordion-inner {border-top: none;}
+.currently-building { white-space: pre-wrap; word-wrap: break-word; }
+.block-header { font-size: 12px; line-height: 24px; color: black; background-color: #2dffff; font-weight: bold; padding: 0 3px 0 3px; }
+.builds-header { margin: 10px 0 0 0; }
+.builds-header--failure { color: #fff; background-color: #c800c9; }
+.builds-header--success { background-color: #7e9eff; }
+.project-title { margin-top: 0; }
+
+/* Builds */
+.table-flipper { color: white; }
+.builds { list-style: none; overflow: auto; padding: 0; margin: 0; }
+.builds a { display: block; font-weight: normal; text-decoration: none; padding: 34px 3px 3px 3px; border-top: 2px solid #000; }
+
+.recently-built--fail {
+  color: black;
+  background-color: #ff7bff;
+  padding: 16px 3px 3px 3px !important;
+}
+
+.recently-built--fail:hover {
+  color: white;
+  background-color: #e100e1;
+}
+
+.recently-built--pass {
+  color: white;
+  background-color: #595959;
+  padding: 16px 3px 3px 3px !important;
+}
+
+.recently-built-pass:hover {
+  color: white;
+  background-color: #3f3f3f;
+}
+
+.submit-build label {
+  font-size: 12px;
+  color: #8091ff;
+}
+
+button, .btn {
+  font-size: 12px;
+  font-weight: normal;
+  border: 2px solid rgba(255,255,255,0.25);
+  padding: 5px;
+  border-radius: 0;
+  background: #8091ff !important;
+  text-shadow: none !important;
+  color: #000 !important;
+  font-family: "Monaco";
+}
+
+button:hover, .btn:hover {
+  background: red !important;
+  color: #FFF;
+}
+
+button:before, button:after, .btn:before, .btn:after {
+  content: " ** ";
+}
+
+.build-heading-started  {
+  color: #DFFF80;
+  border: 2px dashed #DFFF80;
+}
+.build-heading-started:hover  {
+  color: #ccff33;
+  border: 2px dashed #ccff33;
+}
+
+.build-heading-failed {
+  color: black;
+  background-color: #ff7bff;
+}
+.build-heading-failed:hover {
+  color: white;
+  background-color: #e100e1;
+}
+
+.build-heading-success  {
+  color: white;
+  background: #8091ff;
+}
+.build-heading-success:hover {
+  color: white;
+  background-color: #334fff;
+}
+
+.build-heading-pending  { color: gray; }
+.build-heading-pending:hover  { color: gray; }
+
+.build-output {
+  padding: 20px;
+  background-color: black;
+  border: 1px solid #2dffff;
+  box-shadow: 0 0 2px #2dffff;
+  border-radius: 3px;
+}
+
+.bloop {
+  color: transparent;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: normal;
+  display: block;
+  height: 79px;
+  width: 20px;
+  margin: 3px auto 0 auto;
+  background-color: #ff7bff;
+}
+.bloop:hover, .bloop.active { color: transparent; background-color: #c800c9; }
+
+.disclosure { display: inline-block; width: 20px; }
+.link-to-build { padding: 10px 0 10px 0; }
+
+.bowlG{
+  margin-top: 2px;
+  position:relative;
+  width:14px;
+  height:14px;
+}
+
+.bowl_ringG{
+  position:absolute;
+  width:14px;
+  height:14px;
+  border:1px solid #DFFF80;
+  -moz-border-radius:14px;
+  -webkit-border-radius:14px;
+  border-radius:14px;
+  box-shadow: 0 0 3px #DFFF80;
+}
+
+.ball_holderG{
+  position:absolute;
+  width:4px;
+  height:14px;
+  left:5px;
+  top:0px;
+  -webkit-animation-name:ball_moveG;
+  -webkit-animation-duration:1.8s;
+  -webkit-animation-iteration-count:infinite;
+  -webkit-animation-timing-function:linear;
+  -moz-animation-name:ball_moveG;
+  -moz-animation-duration:1.8s;
+  -moz-animation-iteration-count:infinite;
+  -moz-animation-timing-function:linear;
+  -o-animation-name:ball_moveG;
+  -o-animation-duration:1.8s;
+  -o-animation-iteration-count:infinite;
+  -o-animation-timing-function:linear;
+  -ms-animation-name:ball_moveG;
+  -ms-animation-duration:1.8s;
+  -ms-animation-iteration-count:infinite;
+  -ms-animation-timing-function:linear;
+}
+
+.ballG{
+  position:absolute;
+  left:0px;
+  top:-3px;
+  width:6px;
+  height:6px;
+  background:#DFFF80;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  border-radius:5px;
+  box-shadow: 0 0 3px #DFFF80;
+}
+
+@-webkit-keyframes ball_moveG{
+0%{
+-webkit-transform:rotate(0deg)}
+
+100%{
+-webkit-transform:rotate(360deg)}
+
+}
+
+@-moz-keyframes ball_moveG{
+0%{
+-moz-transform:rotate(0deg)}
+
+100%{
+-moz-transform:rotate(360deg)}
+
+}
+
+@-o-keyframes ball_moveG{
+0%{
+-o-transform:rotate(0deg)}
+
+100%{
+-o-transform:rotate(360deg)}
+
+}
+
+@-ms-keyframes ball_moveG{
+0%{
+-ms-transform:rotate(0deg)}
+
+100%{
+-ms-transform:rotate(360deg)}
+}

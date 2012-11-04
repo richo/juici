@@ -4,4 +4,8 @@ class Juici::Config; class << self
     "/tmp/juici/workspace"
   end
 
+  def builds_per_page
+    10
+  end
+
 end; end

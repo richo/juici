@@ -33,7 +33,9 @@ describe Juici::BuildQueue do
   end
 
   it "Should remove a given build by id" do
-    pending("To be implemented")
+    @builds = builds_with(_id: [1, 2, 3, 4, 5, 6])
+    subject.delete(3)
+    @builds.collect(&:_id).should == [1, 2, 4, 5, 6]
   end
 
   it "Should return a low priority job from #next_child" do

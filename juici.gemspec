@@ -1,8 +1,10 @@
 # vim: ft=ruby
+#
+require File.expand_path("../lib/juici/version", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "juici"
-  s.version     = "0.0.0"
+  s.version     = Juici::VERSION
   s.authors     = ["Richo Healey"]
   s.email       = ["richo@psych0tik.net"]
   s.homepage    = "http://github.com/richo/juici"
@@ -10,10 +12,12 @@ Gem::Specification.new do |s|
   s.description = s.summary
 
   s.add_dependency "sinatra"
+  s.add_dependency "thin"
   s.add_dependency "json"
-  s.add_dependency "mongoid", "~> 2"
+  s.add_dependency "mongoid"
   s.add_dependency "bson_ext"
   s.add_dependency "github-markdown"
+  s.add_dependency "ansible"
 
   s.add_development_dependency "rake"
   s.add_development_dependency "mocha"

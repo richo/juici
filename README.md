@@ -27,6 +27,19 @@ bundle exec bin/juici
 
 is all you need to have a working instance (provided that you have mongo installed)
 
+### Gotchas
+
+Make sure you don't do something innocuous like
+
+```bash
+bundle install --path .bundle
+```
+
+this might look sane (and it is, kinda) but owing to a quick in bundler, it
+will break any ruby code you try to build.
+
+I'm working on a workaround, but in the meantime the fix is to not do it!
+
 ## Usage
 
 JuiCI is very focused on minimal configuration; meaning that beyond starting
@@ -68,6 +81,20 @@ called with an (as yet unformalised) json body as the body if/when the build
 reaches that state. Alternately you may specify "any" as the callback state and
 it will be called on all state changes.
 
+## Integration
+
+Apps written in ruby wanting to interact with Juici can include the
+`juici-interface` gem, which presently exposes a few constants to line up with
+JuiCI's internal state.
+Over time this will be expanded, but for now they are:
+
+```ruby
+Juici::BuildStatus::PASS
+Juici::BuildStatus::FAIL
+Juici::BuildStatus::START
+Juici::BuildStatus::WAIT
+```
+
 ## Security
 
 JuiCI poses some interesting security conecerns. First off, it will allow
@@ -93,8 +120,19 @@ specifically implement it, your process won't see any of the signal handling
 madness. The shell(`/bin/sh`) will see everything, and if killed, your
 processes will become orphaned, but carry on.
 
+## Authors
+
+* [Richo Healey](https://github.com/rcho)
+* [Alec Sloman](https://github.com/alecsloman)
+
 ## Contact
 
 JuiCI's code lives on [Github](https://github.com/richo/juici)
 and the [author](mailto:richo@psych0tik.net) can be contacted on
  [Twitter](https://twitter.com/rich0H)
+
+## Legalese
+
+(c) Richo Healey 2012, richo@psych0tik.net
+
+Released under the terms of the MIT license.

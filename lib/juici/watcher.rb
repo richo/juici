@@ -1,39 +1,47 @@
 module Juici
-  class Watcher < Thread
+  class Watcher
 
-    def self.start!
-      new do
-        self.mainloop
-      end
+    def self.instance
+      @@instance ||= self.new
     end
 
-    def self.mainloop
-      #XXX No classvariables ever!
-      loop do
+    def initialize
+      @active = true
+    end
+
+    def register_handler
+      Signal.trap("CHLD") do
         begin
-          pid, status = catch_child
+          if @active
+            pid, status = Process.wait2(-1)
+            $build_queue.purge(:pid, OpenStruct.new(:pid => pid))
+            ::Juici.dbgp "Trying to find pid: #{pid}"
+            handle(pid, status)
+          end
         rescue Errno::ECHILD
-          # No children available, sleep for a while until some might exist
-          # TODO: It'd be a nice optimisation to actually die here, and
-          # optionally start a worker if we're the first child
-          sleep 5
-          next
+          nil
         end
-        next unless pid
-        build = $build_queue.get_build_by_pid(pid)
-
-        if status == 0
-          build.success!
-        else
-          build.failure!
-        end
-        $build_queue.bump! if $build_queue
+        $build_queue.bump! if $build_queue && @active
       end
     end
 
-    # Hook for testing
-    def self.catch_child
-      Process.wait2(-1, Process::WNOHANG)
+    def handle(pid, status)
+      build = $build_queue.get_build_by_pid(pid)
+
+      if status == 0
+        build.success!
+      else
+        build.failure!
+      end
+      $build_queue.bump! if $build_queue
+    end
+
+    def shutdown!
+      @active = false
+    end
+
+    def start
+      register_handler
     end
 
   end

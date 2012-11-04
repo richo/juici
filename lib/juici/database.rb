@@ -1,4 +1,3 @@
-require 'mongo'
 require 'mongoid'
 module Juici
   class Database
@@ -12,6 +11,9 @@ module Juici
       end
 
       def initialize!
+        if ::Juici.respond_to? :dbgp
+          ::Juici.dbgp "initializing Mongoid with environment: #{ENV['RACK_ENV']}"
+        end
         if ENV['RACK_ENV'] == "development"
           Mongoid.logger.level = Logger::INFO
         end

@@ -1,11 +1,20 @@
 require 'fileutils'
 require 'tempfile'
 module Juici
-   module BuildLogic
+  module BuildLogic
 
     def spawn_build
       raise "No such work tree" unless FileUtils.mkdir_p(worktree)
       spawn(command, worktree)
+    rescue AbortBuild
+      :buildaborted
+    end
+
+    def kill!
+      warn! "Killed!"
+      if pid = self[:pid]
+        Process.kill(15, pid)
+      end
     end
 
   private

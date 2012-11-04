@@ -1,38 +1,43 @@
-<div class="row">
-<div class="span6">
-  <form class="well" action="/builds/new" method="post">
-    <label>Project Name</label>
-    <input type="text" name="project" class="span3" value="<%= params[:project] %>" <%= "readonly" if params[:project] %>>
-    <label>Environment</label>
-    <input type="text" name="environment" class="span3" value="">
-    <span class="help-block">nb: Expects a valid json hash</span>
-    <label>Priority</label>
-    <input type="text" name="priority" class="span3" value="1">
-    <label>Command</label>
-    <textarea name="command" class="span3"></textarea>
-    <%# TODO -> When callbacks get implemented %>
-    <%# <label>Callback URL</label> %>
-    <%# <input type="text" name="callback" class="span3"> %>
-    <label><%# HACK %></label>
-    <button type="submit" class="btn">Submit</button>
-  </form>
-</div>
-<div class="span6">
-  <p>From here you can create a new build</p>
-  <p>Name is a unique identifier for the project. It doesn't need to already exist, but builds for a like project need to be named identically</p>
-  <p>Environment is a json hash of KEY - VALUE pairs, to be passed into the child environment</p>
-  <p>Command is where the magic happens. Often they'll be longwinded, but a reasonable boilerplate might look something like<p>
-  <pre class="prettyprint linenums">
-if [ ! -d .git ]; then
-  git init .
-  git remote add origin git://github.com/$user/$project.git
-fi
+<div class="row-fluid">
 
-git fetch origin
-git checkout -fq origin/master
+  <div class="span4">
+    <%= erb(:"partials/index/recently_built") %>
+  </div>
 
-bundle install --path .bundle
-bundle exec rake spec
-  </pre>
-</div>
+  <div class="span8">
+
+    <h1 class="block-header">new</h1>
+    <p>From here you can create a new build</p>
+    <p>Name is a unique identifier for the project. It doesn't need to already exist, but builds for a like project need to be named identically</p>
+    <p>Environment is a json hash of KEY - VALUE pairs, to be passed into the child environment</p>
+    <p>Command is where the magic happens. Often they'll be longwinded, but a reasonable boilerplate might look <a href="#">something like this.</a><p>
+    <hr>
+
+    <form action="/builds/new" method="post" class="submit-build">
+
+      <div class="row-fluid">
+
+        <!-- First Column -->
+        <div class="span3">
+          <label>Project Name</label>
+          <input type="text" name="project" value="<%= params[:project] %>" <%= "readonly" if params[:project] %>>
+          <label>Environment</label>
+          <input type="text" name="environment" placeholder="expects a valid json hash" value="">
+          <label>Priority</label>
+          <input type="text" name="priority" value="1">
+        </div><!-- End first column -->
+
+        <div class="span8 offset1">
+          <label>Command</label>
+          <textarea name="command" class="input-xxlarge" rows="4"></textarea>
+          <%# TODO -> When callbacks get implemented %>
+          <%# <label>Callback URL</label> %>
+          <%# <input type="text" name="callback" class="span3"> %>
+          <!-- <label><%# HACK %></label> -->
+          <button type="submit">START BUILD</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
 </div>

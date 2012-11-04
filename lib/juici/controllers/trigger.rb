@@ -1,15 +1,31 @@
-module Juici
-  class TriggerController
+module Juici::Controllers
+  class Trigger
 
     attr_reader :project, :params
     def initialize(project, params)
-      @project = Project.find_or_create_by(name: project)
+      @project = ::Juici::Project.find_or_create_by(name: project)
       @params = params
     end
 
+    # Find an existing build, duplicate the sane parts of it.
+    def rebuild!
+      unless project = ::Juici::Project.where(name: params[:project]).first
+        not_found
+      end
+      unless build = ::Juici::Build.where(parent: project.name, _id: params[:id]).first
+        not_found
+      end
+
+      ::Juici::Build.new_from(build).tap do |new_build|
+        new_build.save!
+        $build_queue << new_build
+        $build_queue.bump!
+      end
+    end
+
     def build!
-      environment = BuildEnvironment.new
-      Build.new(parent: project.name).tap do |build|
+      environment = ::Juici::BuildEnvironment.new
+      ::Juici::Build.new(parent: project.name).tap do |build|
         # The seperation of concerns around this madness is horrifying
         unless environment.load_json!(params['environment'])
           build.warn!("Failed to parse environment")
