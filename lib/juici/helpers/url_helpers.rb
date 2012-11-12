@@ -23,6 +23,13 @@ def kill_url_for(entity)
   end
 end
 
+def cancel_url_for(entity)
+  URI.escape case entity
+  when ::Juici::Build
+    "/builds/cancel"
+  end
+end
+
 def edit_url_for(entity)
   URI.escape case entity
   when ::Juici::Build

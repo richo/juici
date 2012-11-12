@@ -4,6 +4,10 @@
 <span><%= form_at(kill_url_for(build),
                   {:project => build[:parent], :id => build[:_id]},
                   :submit => "Kill!") %></span>
+<% elsif build.status == Juici::BuildStatus::WAIT %>
+<span><%= form_at(cancel_url_for(build),
+                  {:project => build[:parent], :id => build[:_id]},
+                  :submit => "Cancel") %></span>
 <% end %>
 <span><a class="btn" href="<%= edit_url_for(build) %>">Edit</a></span>
 </div>

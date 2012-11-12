@@ -33,6 +33,15 @@ module Juici::Controllers
       return build
     end
 
+    def cancel
+      project = ::Juici::Project.find_or_raise(NotFound, name: params[:project])
+      build   = ::Juici::Build.find_or_raise(NotFound, parent: project.name, _id: params[:id])
+
+      ::Juici.dbgp "Cancelling build #{build[:_id]}"
+      build.cancel if build.status == ::Juici::BuildStatus::WAIT
+      return build
+    end
+
     def new
       yield [:"builds/new", {:active => :new_build}]
     end

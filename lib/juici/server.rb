@@ -90,6 +90,12 @@ module Juici
       erb(:redirect, {}, {})
     end
 
+    post '/builds/cancel' do
+      build = Controllers::Builds.new(params).cancel
+      @redirect_to = build_url_for(build)
+      erb(:redirect, {}, {})
+    end
+
     get '/builds/new' do
       Controllers::Builds.new(params).new do |template, opts|
         erb(template, {}, opts)

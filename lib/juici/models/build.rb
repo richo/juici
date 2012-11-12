@@ -73,6 +73,12 @@ module Juici
       $build_queue.purge(:pid, self) if $build_queue
     end
 
+    def cancel
+      warn! "Cancelled"
+      set_status FAIL
+      $build_queue.delete(self[:_id]) if $build_queue
+    end
+
     def build!
       start!
       case pid = spawn_build
