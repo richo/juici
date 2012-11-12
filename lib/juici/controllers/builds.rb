@@ -25,12 +25,11 @@ module Juici::Controllers
     end
 
     def kill
-      unless project = ::Juici::Project.where(name: params[:project]).first
-        not_found
-      end
-      build   = ::Juici::Build.where(parent: project.name, _id: params[:id]).first
+      project = ::Juici::Project.find_or_raise(NotFound, name: params[:project])
+      build   = ::Juici::Build.find_or_raise(NotFound, parent: project.name, _id: params[:id])
+
       ::Juici.dbgp "Killing off build #{build[:_id]}"
-      build.kill! if build[:status] == :started
+      build.kill! if build.status == ::Juici::BuildStatus::START
       return build
     end
 
