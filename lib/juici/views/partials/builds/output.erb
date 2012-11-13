@@ -1,1 +1,1 @@
-<div class="build-output"><%= ansi_escaped(build.output) if build.respond_to? :output %></div>
+<div class="build-output"><%= ansi_escaped(escaped(build.output)) if build.respond_to? :output %></div>
