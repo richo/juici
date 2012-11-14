@@ -1,3 +1,4 @@
+require 'cgi'
 def escaped(content)
-  URI.escape content
+  CGI.escapeHTML content
 end
