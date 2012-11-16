@@ -10,7 +10,7 @@
 <% if build[:environment] %>
   <h3 class="block-header">environment:</h3>
   <% build[:environment].reject{|k, v| v.nil?}.each do |k, v| %>
-    <p><strong><%="#{k} = " %></strong><%="#{v}" %></p>
+    <p><strong><%="#{k}=" %></strong><%="#{v}" %></p>
   <% end %>
 <% end %>
 <% if build[:callbacks] %>
