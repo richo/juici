@@ -11,7 +11,10 @@ Gem::Specification.new do |s|
   s.summary     = "Interface definition for JuiCI callbacks and API"
   s.description = s.summary
 
+  s.files         = []
   s.files         = "lib/juici/interface.rb"
+  s.files         << `git ls-files lib/juici/interface`.split("\n")
+  s.files.flatten!
   s.require_paths = ["lib"]
   s.executables   = "juicic"
 end

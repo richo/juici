@@ -16,6 +16,7 @@ module Juici
 end
 
 # Load juici core, followed by extras
+# ["", "interface", "controllers", "models"].each do |el|
 ["", "controllers", "models"].each do |el|
   Dir[File.dirname(__FILE__) + "/juici/#{el}/*.rb"].each  do |file|
     Juici.dbgp "Loading #{file}"
