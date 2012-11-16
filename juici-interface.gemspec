@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
 
   s.files         = "lib/juici/interface.rb"
   s.require_paths = ["lib"]
+  s.executables   = "bin/juicic"
 end
 
 
