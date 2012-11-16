@@ -5,4 +5,9 @@ module Juici
     START = "started"
     WAIT = "waiting"
   end
+
+  module Routes
+    NEW_BUILD = '/builds/new'
+  end
+
 end

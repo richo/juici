@@ -96,7 +96,7 @@ module Juici
       erb(:redirect, {}, {})
     end
 
-    get '/builds/new' do
+    get ::Juici::Routes::NEW_BUILD do
       Controllers::Builds.new(params).new do |template, opts|
         erb(template, {}, opts)
       end
