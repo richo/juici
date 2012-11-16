@@ -1,13 +1,6 @@
 module Juici
-  module BuildStatus
-    PASS = "success"
-    FAIL = "failed"
-    START = "started"
-    WAIT = "waiting"
-  end
+end
 
-  module Routes
-    NEW_BUILD = '/builds/new'
-  end
-
+Dir[File.dirname(__FILE__) + "/interface/*.rb"].each  do |file|
+  require file
 end
