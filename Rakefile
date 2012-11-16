@@ -18,12 +18,14 @@ namespace :db do
   end
 end
 
+desc "Build all gems"
 task :gems do
   %w[juici juici-interface].each do |gem|
     `gem build #{gem}.gemspec`
   end
 end
 
+desc "Delete all built gems"
 task :clean do
   Dir["juici-*.gem"].each do |gem|
     File.unlink(gem)
