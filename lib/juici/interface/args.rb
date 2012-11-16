@@ -9,19 +9,19 @@ module Juici
         case argv.shift
         when "--command"
           command = argv.shift
-          options[:command] = if command == "-"
+          opts[:command] = if command == "-"
                                 File.read(command)
                               else
                                 command
                               end
         when "--host"
-          options[:host] = argv.shift
+          opts[:host] = argv.shift
         when "--title"
-          options[:title] = argv.shift
+          opts[:title] = argv.shift
         when "--project"
-          options[:project] = argv.shift
+          opts[:project] = argv.shift
         when "--priority"
-          options[:priority] = argv.shift
+          opts[:priority] = argv.shift
         end
       end
     end
