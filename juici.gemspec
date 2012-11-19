@@ -4,7 +4,7 @@ require File.expand_path("../lib/juici/version", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "juici"
-  s.version     = Juici::VERSION
+  s.version     = "0.0.0"
   s.authors     = ["Richo Healey"]
   s.email       = ["richo@psych0tik.net"]
   s.homepage    = "http://github.com/richo/juici"
@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = 'juici'
+  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 end
 

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    juici (0.0.1.alpha1)
+    juici (0.0.0)
       ansible
       bson_ext
       github-markdown
