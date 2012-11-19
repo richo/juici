@@ -3,5 +3,6 @@ $:.unshift(File.expand_path("../../lib", __FILE__))
 require 'juici'
 
 port = ENV['PORT'] || 9000
+host = ENV['HOST'] || '0.0.0.0'
 
-Juici::Server.start('localhost', port)
+Juici::Server.start(host, port)
