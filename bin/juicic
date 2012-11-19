@@ -15,7 +15,7 @@ def main(args)
     when "--command"
       command = args.shift
       options[:command] = if command == "-"
-        File.read(command)
+        STDIN.read
       else
         command
       end
