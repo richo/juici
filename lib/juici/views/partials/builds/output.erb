@@ -1,1 +1,9 @@
-<div class="build-output"><%= ansi_escaped(escaped(build.output)) if build.respond_to? :output %></div>
+<div class="build-output">
+<%= case build.status
+   when ::Juici::BuildStatus::PASS, ::Juici::BuildStatus::FAIL
+     ansi_escaped(escaped(build.output)) if build.respond_to? :output
+   when ::Juici::BuildStatus::START
+     ansi_escaped(escaped(build.get_output))
+   end
+%>
+ </div>
