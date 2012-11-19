@@ -6,7 +6,9 @@ require 'juici/interface'
 # TODO Refactor
 def main(args)
   action = args.shift.to_sym
-  options = {}
+  options = {
+    callbacks: []
+  }
 
   until args.empty?
     case args.shift
@@ -25,6 +27,8 @@ def main(args)
       options[:project] = args.shift
     when "--priority"
       options[:priority] = args.shift
+    when "--callback"
+      options[:callbacks] << args.shift
     end
   end
 
