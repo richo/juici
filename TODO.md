@@ -26,3 +26,8 @@ need
 * RSS api
 
 * Import of Xdefaults/itermcolors.plist for output colors
+
+## Postable routes
+
+* /$entity/:instance/_action
+
