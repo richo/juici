@@ -6,9 +6,10 @@ require 'mocha'
 require 'fileutils'
 require 'timeout'
 
-Dir["#{File.expand_path(File.dirname(__FILE__))}/helpers/**/*.rb"].each do |f|
-  puts "Requiring #{f}"
-  require f
+module Juici::Helpers
+  Dir[File.expand_path("../../lib/juici/helpers/**/*.rb", __FILE__)].each do |f|
+    load f
+  end
 end
 
 RSpec.configure do |config|
