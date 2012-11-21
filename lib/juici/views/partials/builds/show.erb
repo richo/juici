@@ -5,6 +5,7 @@
       <% if build[:status] == :started %>
         <div class="bowlG pull-right"><div class="bowl_ringG"><div class="ball_holderG"><div class="ballG"></div></div></div></div>
       <% end %>
+      <span class="pull-right"><%= build.time_elapsed %></span>
     </a>
   </div>
   <a class="btn span2" href="<%= build_url_for(build) %>">Build Link</a>
