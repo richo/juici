@@ -11,12 +11,24 @@
   <div class="span1">
     <% pages.times.with_index do |page| %>
       <a href="?page=<%= page %>" class="bloop<%= " active" if page == params[:page] %>"><%= page %></a>
-    <% end %>
+    <% end rescue nil%>
   </div>
   <!-- Main contents -->
   <div class="span11">
     <!-- Create a new build -->
-    <h3 class="project-title"><a href="<%= build_url_for(project) %>"><%= project.name %></a><a class="btn pull-right" href="/builds/new?project=<%= project.name %>">New Build</a></h3>
+    <div class="row-fluid">
+      <div class="span3">
+        <h3 class="project-title"><a href="<%= build_url_for(project) %>"><%= project.name %></a></h3>
+      </div>
+      <div class="span3 offset4">
+        <%= form_at(search_url_for(project), [], {:method => "get", :no_submit => true}) do |form|
+          form << %Q{<input type="text" name="build_title" placeholder="Search">\n}
+        end %>
+      </div>
+      <div class="span2">
+        <a class="btn" href="/builds/new?project=<%= project.name %>">New Build</a>
+      </div>
+    </div>
     <!-- Build history -->
     <% builds.each_with_index do |build, idx| %>
       <div class="accordion accordion-set-url" id="accordion<%= idx %>">
