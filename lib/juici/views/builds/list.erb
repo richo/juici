@@ -11,7 +11,7 @@
   <div class="span1">
     <% pages.times.with_index do |page| %>
       <a href="?page=<%= page %>" class="bloop<%= " active" if page == params[:page] %>"><%= page %></a>
-    <% end %>
+    <% end rescue nil%>
   </div>
   <!-- Main contents -->
   <div class="span11">
