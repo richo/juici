@@ -3,7 +3,7 @@ module Juici::Controllers
 
     def search
       project = ::Juici::Project.find_or_raise(NotFound, name: params[:project])
-      builds  = ::Juici::Build.where(parent: project.name, title: params[:build_title])
+      builds  = ::Juici::Build.where(parent: project.name, title: params[:build_title]).desc(:_id)
 
       yield [:"builds/list", build_opts({:project => project, :builds => builds})]
     end
