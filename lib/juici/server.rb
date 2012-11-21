@@ -154,6 +154,19 @@ module Juici
       end
     end
 
+    get '/projects/:project/_search' do
+      Controllers::Projects.new(params).search do |template, opts|
+        erb(template, {}, opts)
+      end
+    end
+
+    get '/projects/:user/:project/_search' do
+      params[:project] = "#{params[:user]}/#{params[:project]}"
+      Controllers::Projects.new(params).search do |template, opts|
+        erb(template, {}, opts)
+      end
+    end
+
     post '/trigger/:project' do
       Controllers::Trigger.new(params[:project], params).build!
     end

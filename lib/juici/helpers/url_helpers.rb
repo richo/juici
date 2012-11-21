@@ -36,3 +36,10 @@ def edit_url_for(entity)
     "/builds/#{entity[:parent]}/edit/#{entity[:_id]}"
   end
 end
+
+def search_url_for(entity)
+  URI.escape case entity
+  when ::Juici::Project
+    "/projects/#{entity.name}/_search"
+  end
+end
