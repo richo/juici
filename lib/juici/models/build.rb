@@ -10,13 +10,6 @@ module Juici
     extend FindLogic
     # TODO Builds should probably be children of projects in the URL?
 
-    # Finder classmethods
-    def self.get_recent(n, opts={})
-      self.where(opts).
-        limit(n).
-        desc(:_id)
-    end
-
     CLONABLE_FIELDS = [:command, :priority, :environment, :callbacks, :title, :parent]
     EDITABLE_ATTRIBUTES = {
       :string => [:priority, :title],

@@ -7,5 +7,11 @@ module Juici
       end
     end
 
+    def get_recent(n, opts={})
+      self.where(opts).
+        limit(n).
+        desc(:_id)
+    end
+
   end
 end
