@@ -7,7 +7,7 @@ It's designed to work well with [agent99](https://github.com/99designs/agent99) 
 ## Features
 
 * callbacks are created as builds are requested
-* Builds are executed sequentially in a series of parallel queues.
+* Build are executed in parrallel, with one concurrent build per workspace
 * Queues can be dynamically created
 * Build status visualised
 
@@ -48,13 +48,25 @@ anything special to build a new project. Just request a build; however this
 means that on your first build you will need to send the commands to create
 your test environment)
 
+There is a sample implementation of a JuiCI client bundled with the JuiCI source code, or exposed in the `juici-interface` gem.
+
 Example:
 
 ```bash
-curl --data-ascii @/dev/stdin <<EOF
-payload={"environment":{
-"SHA1":"e8b179f75bbc8717c948af052353424d458af981"},
-"command":"[ -d .git ] || (git init .; git remote add origin git://github.com/richo/twat.git); git fetch; git checkout $SHA1; bundle install; bundle exec rake spec"
+juicic build --host $hostname --command - --title "test build" \
+             --project "some project" <<EOF
+if [ -d .git ]; then
+  git init .
+  git remote add origin git://github.com/richo/twat.git
+fi
+
+git fetch
+git checkout -fq origin/master
+
+set -e
+
+bundle install
+bundle exec rake spec"
 EOF
 ```
 
