@@ -17,12 +17,13 @@
     </div>
   </div>
   <div class="span4">
-    <h4 class="block-header builds-header">currently building</h4>
+    <h4 class="block-header builds-header">currently queued</h4>
       <ul class="builds">
-        <% $build_queue.currently_building.each do |build| %>
+        <% $build_queue.builds.each_with_index do |build, idx| %>
           <li>
             <a class="<%= build.heading_color %>" href="<%= build_url_for(build) %>"><%= build.link_title %></a>
           </li>
+          <% break if idx == 5 %>
         <% end %>
       </ul>
     <%= erb(:"partials/index/recently_built") %>
