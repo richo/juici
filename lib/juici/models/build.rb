@@ -119,6 +119,8 @@ module Juici
         f.rewind
         f.read
       end
+    rescue Errno::ENOENT
+      ""
     end
 
     def display_title
