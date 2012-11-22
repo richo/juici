@@ -6,7 +6,7 @@ module Juici::Controllers
 
       project = ::Juici::Project.find_or_raise(NotFound, name: params[:project])
 
-      builds = ::Juici::Build.where(parent: project.name)
+      builds = ::Juici::Builds.for(project.name).find
 
       pages = (builds.count.to_f / ::Juici::Config.builds_per_page).ceil
 
@@ -19,14 +19,14 @@ module Juici::Controllers
 
     def show
       project = ::Juici::Project.find_or_raise(NotFound, name: params[:project])
-      build   = ::Juici::Build.find_or_raise(NotFound, parent: project.name, _id: params[:id])
+      build   = ::Juici::Builds.for(project.name).find_or_raise(NotFound, _id: params[:id])
       # return 404 unless project && build
       yield [:"builds/show", build_opts({:project => project, :build => build})]
     end
 
     def kill
       project = ::Juici::Project.find_or_raise(NotFound, name: params[:project])
-      build   = ::Juici::Build.find_or_raise(NotFound, parent: project.name, _id: params[:id])
+      build   = ::Juici::Builds.for(project.name).find_or_raise(NotFound, _id: params[:id])
 
       ::Juici.dbgp "Killing off build #{build[:_id]}"
       build.kill! if build.status == ::Juici::BuildStatus::START
@@ -35,7 +35,7 @@ module Juici::Controllers
 
     def cancel
       project = ::Juici::Project.find_or_raise(NotFound, name: params[:project])
-      build   = ::Juici::Build.find_or_raise(NotFound, parent: project.name, _id: params[:id])
+      build   = ::Juici::Builds.for(project.name).find_or_raise(NotFound, _id: params[:id])
 
       ::Juici.dbgp "Cancelling build #{build[:_id]}"
       build.cancel if build.status == ::Juici::BuildStatus::WAIT
@@ -52,14 +52,14 @@ module Juici::Controllers
 
     def edit
       project = ::Juici::Project.find_or_raise(NotFound, name: params[:project])
-      build   = ::Juici::Build.find_or_raise(NotFound, parent: project.name, _id: params[:id])
+      build   = ::Juici::Builds.for(project.name).find_or_raise(NotFound, _id: params[:id])
       # return 404 unless project && build
       yield [:"builds/edit", {:project => project, :build => build}]
     end
 
     def update!
       project = ::Juici::Project.find_or_raise(NotFound, name: params[:project])
-      build   = ::Juici::Build.find_or_raise(NotFound, parent: project.name, _id: params[:id])
+      build   = ::Juici::Builds.for(project.name).find_or_raise(NotFound, _id: params[:id])
 
       ::Juici::Build::EDITABLE_ATTRIBUTES[:string].each do |attr|
         build[attr] = params[attr] if params[attr]

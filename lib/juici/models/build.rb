@@ -1,8 +1,31 @@
 require 'json'
 
 module Juici
+
+  module Builds extend self
+    @klasses = {}
+    def for(workspace)
+      @klasses[workspace] ||= build_class_for(workspace)
+    end
+
+    def build_class_for(workspace)
+      Class.new(Build) do |klass|
+        store_in collection: workspace
+        def name
+          build_name
+        end
+      end
+    end
+  end
+
   class Build
+    @@collections = {}
     # A wrapper around the build process
+    #
+    # Container class for it's own materialised subclasses. Bear with me here..
+    def self.builds_for(workspace)
+      @@collections[workspace] ||= ::Juici.build_class_for(workspace)
+    end
 
     include Mongoid::Document
     include BuildLogic
@@ -10,7 +33,7 @@ module Juici
     extend FindLogic
     # TODO Builds should probably be children of projects in the URL?
 
-    CLONABLE_FIELDS = [:command, :priority, :environment, :callbacks, :title, :parent]
+    CLONABLE_FIELDS = [:command, :priority, :environment, :callbacks, :title]
     EDITABLE_ATTRIBUTES = {
       :string => [:priority, :title],
       :array  => [:environment, :callbacks]
@@ -24,7 +47,6 @@ module Juici
       end
     end
 
-    field :parent, type: String
     field :command, type: String
     field :environment, type: Hash
     field :create_time, type: Time, :default => Proc.new { Time.now }
@@ -92,7 +114,7 @@ module Juici
     end
 
     def worktree
-      File.join(Config.workspace, parent)
+      File.join(Config.workspace, name)
     rescue TypeError => e
       warn! "Invalid workdir"
       failure!
@@ -127,7 +149,7 @@ module Juici
     end
 
     def link_title
-      "#{self[:parent]}/#{display_title}"
+      "#{name}/#{display_title}"
     end
 
     def warn!(msg)
@@ -146,7 +168,7 @@ module Juici
 
     def to_callback_json
       {
-        "project" => self[:parent],
+        "project" => self.name,
         "status" => self[:status],
         "url" => build_url_for(self),
         "time" => time_elapsed

@@ -1,6 +1,6 @@
 <% builds.each_with_index do |build, idx| %>
   <div class="accordion" id="accordion<%= idx %>">
     <%= erb(:"partials/builds/show",
-            :locals => { :build => build, :idx => idx, :display_title => "#{build[:parent]} :: #{build.display_title}"}) %>
+            :locals => { :build => build, :idx => idx, :display_title => "#{build.name} :: #{build.display_title}"}) %>
   </div>
 <% end %>

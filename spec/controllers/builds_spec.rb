@@ -38,7 +38,7 @@ describe Juici::Controllers::Builds do
     it "Should update build objects when given data" do
       # FIXME This is a kludge to work around #38
       ::Juici::Project.find_or_create_by(name: "test project")
-      build = Juici::Build.new(parent: "test project", priority: 1, title: "test build")
+      build = Juici::Builds.for("test project").new(priority: 1, title: "test build")
       build.save!
 
       Juici::Controllers::Builds.new({:priority => 15, :title => "butts lol", :id => build[:_id], :project => "test project"}).update!
@@ -51,7 +51,7 @@ describe Juici::Controllers::Builds do
     it "Should not let you update a build's ID" do
       # FIXME This is a kludge to work around #38
       ::Juici::Project.find_or_create_by(name: "test project")
-      build = Juici::Build.new(parent: "test project")
+      build = Juici::Builds.for("test project").new
       build.save!
 
       updated_build = Juici::Controllers::Builds.new({:_id => "New id lol", :id => build[:_id], :project => "test project"}).update!

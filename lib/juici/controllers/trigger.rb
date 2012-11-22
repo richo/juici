@@ -12,11 +12,14 @@ module Juici::Controllers
       unless project = ::Juici::Project.where(name: params[:project]).first
         not_found
       end
-      unless build = ::Juici::Build.where(parent: project.name, _id: params[:id]).first
+
+      build_klass = ::Juici::Builds.for(project.name)
+
+      unless build = build_klass.where(_id: params[:id]).first
         not_found
       end
 
-      ::Juici::Build.new_from(build).tap do |new_build|
+      build_klass.new_from(build).tap do |new_build|
         new_build.save!
         $build_queue << new_build
         $build_queue.bump!
@@ -25,7 +28,7 @@ module Juici::Controllers
 
     def build!
       environment = ::Juici::BuildEnvironment.new
-      ::Juici::Build.new(parent: project.name).tap do |build|
+      ::Juici::Builds.for(project.name).new.tap do |build|
         # The seperation of concerns around this madness is horrifying
         unless environment.load_json!(params['environment'])
           build.warn!("Failed to parse environment")
