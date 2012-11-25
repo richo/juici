@@ -2,10 +2,6 @@
 
 * RSS feed for build status (spyware)
 
-* Paginated builds to avoid blocking up a connection
-
-* Proper callback support
-
 * Graphing of build times and statuses
 
 * Search
@@ -28,5 +24,3 @@ need
 * Neat method of either resuming or starting a build
 
 * RSS api
-
-* Import of Xdefaults/itermcolors.plist for output colors
