@@ -10,6 +10,10 @@
 
 * Search
 
+## API
+
+Deal gracefully with x_www_form_encoded as well as json body automatigically
+
 ## Only child model
 
 `lib/juici/watcher +21`
