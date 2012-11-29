@@ -55,7 +55,7 @@ Example:
 ```bash
 juicic build --host $hostname --command - --title "test build" \
              --project "some project" <<EOF
-if [ -d .git ]; then
+if [ ! -d .git ]; then
   git init .
   git remote add origin git://github.com/richo/twat.git
 fi
