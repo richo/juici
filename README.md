@@ -6,7 +6,7 @@ It's designed to work well with [agent99](https://github.com/99designs/agent99) 
 
 ## Features
 
-* callbacks are created as builds are requested
+* Callbacks are created as builds are requested
 * Build are executed in parrallel, with one concurrent build per workspace
 * Queues can be dynamically created
 * Build status visualised
@@ -25,7 +25,7 @@ bundle install
 bundle exec bin/juici
 ```
 
-is all you need to have a working instance (provided that you have mongo installed)
+is all you need to have a working instance (provided that you have mongo installed).
 
 ### Gotchas
 
@@ -43,7 +43,7 @@ I'm working on a workaround, but in the meantime the fix is to not do it!
 ## Usage
 
 JuiCI is very focused on minimal configuration; meaning that beyond starting
-the server and pointing it at a mongoDB instance, you do not need to do
+the server and pointing it at a MongoDB instance, you do not need to do
 anything special to build a new project. Just request a build; however this
 means that on your first build you will need to send the commands to create
 your test environment)
@@ -80,7 +80,7 @@ JuiCI supports the notion of priority. Builds given without a priority will be
 assigned priority 1 (to allow for marking a build as less important with
 priority 0).
 
-If juici recieves a new build with priority higher than any currently
+If juici receives a new build with priority higher than any currently
 unfinished, it will pause whatever it's doing and build the new project. If
 there is a tie for priority, a FIFO queue is assumed.
 
@@ -109,7 +109,7 @@ Juici::BuildStatus::WAIT
 
 ## Security
 
-JuiCI poses some interesting security conecerns. First off, it will allow
+JuiCI poses some interesting security concerns. First off, it will allow
 anyone with access to run arbitrary commands on your server. I have
 deliberately not implemented any kind of security inside JuiCI, it plays nicely
 as a Rack application, and middlewares are much better suited to this task.
@@ -124,7 +124,7 @@ environment before execution.
 
 ## A note on subprocesses
 
-JuiCI by default invokes everything in a subshell- indeed this is the only way
+JuiCI by default invokes everything in a subshell - indeed this is the only way
 to approach this if you want to execute more than one command.
 
 What this means to you as the user though is that unless you go to lengths to
