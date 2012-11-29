@@ -71,7 +71,7 @@ module Juici
       erb(:redirect, {}, {})
     end
 
-    post %r{^/builds/(?<project>\w+)/rebuild/(?<id>[^/]*)$} do |project, id|
+    post %r{^/builds/(?<project>[\w\/]+)/rebuild/(?<id>[^/]*)$} do |project, id|
       params[:project] = project
       params[:id] = id
       build = Controllers::Trigger.new(project, params).rebuild!
@@ -97,32 +97,32 @@ module Juici
       end
     end
 
-    get %r{^/builds/(?<project>\w+)/list$} do |project|
+    get %r{^/builds/(?<project>[\w\/]+)/list$} do |project|
       params[:project] = project
       Controllers::Builds.new(params).list do |template, opts|
         erb(template, {}, opts)
       end
     end
 
-    get %r{^/builds/(?<project>\w+)/edit/(?<id>[^/]*)$} do |project, id|
+    get %r{^/builds/(?<project>[\w\/]+)/edit/(?<id>[^/]*)$} do |project, id|
       Controllers::Builds.new(params).edit do |template, opts|
         erb(template, {}, opts)
       end
     end
 
-    post %r{^/builds/(?<project>\w+)/edit/(?<id>[^/]*)$} do |project, id|
+    post %r{^/builds/(?<project>[\w\/]+)/edit/(?<id>[^/]*)$} do |project, id|
       build = Controllers::Builds.new(params).update!
       @redirect_to = build_url_for(build)
       erb(:redirect, {}, {})
     end
 
-    get %r{^/builds/(?<project>\w+)/show/(?<id>[^/]*)$} do |project, id|
+    get %r{^/builds/(?<project>[\w\/]+)/show/(?<id>[^/]*)$} do |project, id|
       Controllers::Builds.new(params).show do |template, opts|
         erb(template, {}, opts)
       end
     end
 
-    post %r{^/trigger/(?<project>\w+)$} do |project, id|
+    post %r{^/trigger/(?<project>[\w\/]+)$} do |project, id|
       Controllers::Trigger.new(params[:project], params).build!
     end
 
