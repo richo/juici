@@ -79,6 +79,14 @@ module Juici
       erb(:redirect, {}, {})
     end
 
+    get '/builds/_all' do
+      builds = []
+      Juici::Build.each do |build|
+        builds << build.to_index_json
+      end
+      "[ #{builds.join(", ")} ]"
+    end
+
     post '/builds/kill' do
       build = Controllers::Builds.new(params).kill
       @redirect_to = build_url_for(build)
