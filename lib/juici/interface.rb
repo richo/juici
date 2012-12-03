@@ -9,6 +9,10 @@ module Juici
   module Routes extend self
     NEW_BUILD = '/builds/new'
 
+    def build_new
+      NEW_BUILD
+    end
+
     def build_list(project)
       "/builds/#{project}/list"
     end

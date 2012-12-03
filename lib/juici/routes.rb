@@ -2,6 +2,10 @@ module Juici
   module Router
     include Routes
 
+    def build_new_path
+      "/builds/new"
+    end
+
     def build_list_path
       %r{^/builds/(?<project>[\w\/]+)/list$}
     end

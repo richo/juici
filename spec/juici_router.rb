@@ -1,6 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe ::Juici::Router do
+  it "shoudl match for new_build" do
+    route = Juici::Router.build_new_path
+    route.should == ::Juici::Routes.build_new
+  end
+
   it "should match for build_list" do
     route = Juici::Router.build_list_path
     should.should match ::Juici::Routes.build_list("fo/test/o")
