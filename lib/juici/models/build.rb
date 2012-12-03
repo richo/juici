@@ -129,7 +129,7 @@ module Juici
     end
 
     def link_title
-      "#{self[:parent]}/#{display_title}"
+      "#{self[:parent]} > #{display_title}"
     end
 
     def warn!(msg)
