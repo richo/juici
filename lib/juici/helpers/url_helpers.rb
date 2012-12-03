@@ -5,14 +5,14 @@ def build_url_for(entity)
   when ::Juici::Workspace
     "/builds/#{entity.name}/list"
   when ::Juici::Build
-    "/builds/#{entity[:parent]}/show/#{entity[:_id]}"
+    "/builds/#{entity[:workspace]}/show/#{entity[:_id]}"
   end
 end
 
 def rebuild_url_for(entity)
   URI.escape case entity
   when ::Juici::Build
-    "/builds/#{entity[:parent]}/rebuild/#{entity[:_id]}"
+    "/builds/#{entity[:workspace]}/rebuild/#{entity[:_id]}"
   end
 end
 
@@ -33,6 +33,6 @@ end
 def edit_url_for(entity)
   URI.escape case entity
   when ::Juici::Build
-    "/builds/#{entity[:parent]}/edit/#{entity[:_id]}"
+    "/builds/#{entity[:workspace]}/edit/#{entity[:_id]}"
   end
 end

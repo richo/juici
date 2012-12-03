@@ -10,7 +10,7 @@ module Juici
     extend FindLogic
     # TODO Builds should probably be children of projects in the URL?
 
-    CLONABLE_FIELDS = [:command, :priority, :environment, :callbacks, :title, :parent]
+    CLONABLE_FIELDS = [:command, :priority, :environment, :callbacks, :title, :workspace]
     EDITABLE_ATTRIBUTES = {
       :string => [:priority, :title],
       :array  => [:environment, :callbacks]
@@ -24,7 +24,7 @@ module Juici
       end
     end
 
-    field :parent, type: String
+    field :workspace, type: String
     field :command, type: String
     field :environment, type: Hash
     field :create_time, type: Time, :default => Proc.new { Time.now }
@@ -92,7 +92,7 @@ module Juici
     end
 
     def worktree
-      File.join(Config.workspace, parent)
+      File.join(Config.build_dir, workspace)
     rescue TypeError => e
       warn! "Invalid workdir"
       failure!
@@ -129,7 +129,7 @@ module Juici
     end
 
     def link_title
-      "#{self[:parent]}/#{display_title}"
+      "#{self[:workspace]}/#{display_title}"
     end
 
     def warn!(msg)
@@ -148,7 +148,7 @@ module Juici
 
     def to_callback_json
       {
-        "project" => self[:parent],
+        "project" => self[:workspace],
         "status" => self[:status],
         "url" => build_url_for(self),
         "time" => time_elapsed
