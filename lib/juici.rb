@@ -16,7 +16,26 @@ module Juici
 end
 
 # Load juici core, followed by extras
-["", "controllers", "models"].each do |el|
+%w[
+  app
+  build_environment
+  build_logic
+  build_queue
+  callback
+  config
+  controllers
+  database
+  exceptions
+  find_logic
+  interface
+  routes
+  server
+  version
+  watcher
+].each do |file|
+  require File.expand_path("../juici/#{file}", __FILE__)
+end
+%w[controllers models].each do |el|
   Dir[File.dirname(__FILE__) + "/juici/#{el}/*.rb"].each  do |file|
     Juici.dbgp "Loading #{file}"
     require file
