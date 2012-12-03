@@ -1,5 +1,5 @@
 module Juici
-  class Project
+  class Workspace
     include Mongoid::Document
     extend FindLogic
 

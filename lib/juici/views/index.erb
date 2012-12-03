@@ -10,7 +10,7 @@
     <div>
       In the past, this instance of Juici has built code for:
       <ul>
-        <% ::Juici::Project.all.each do |p| %>
+        <% ::Juici::Workspace.all.each do |p| %>
           <li><a href="<%= build_url_for(p) %>"><%= p.name %></a></li>
         <% end %>
       </ul>

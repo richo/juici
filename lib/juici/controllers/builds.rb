@@ -4,7 +4,7 @@ module Juici::Controllers
     def list
       params[:page] = params[:page] ? params[:page].to_i : 0
 
-      project = ::Juici::Project.find_or_raise(NotFound, name: params[:project])
+      project = ::Juici::Workspace.find_or_raise(NotFound, name: params[:project])
 
       builds = ::Juici::Build.where(parent: project.name)
 
@@ -18,14 +18,14 @@ module Juici::Controllers
     end
 
     def show
-      project = ::Juici::Project.find_or_raise(NotFound, name: params[:project])
+      project = ::Juici::Workspace.find_or_raise(NotFound, name: params[:project])
       build   = ::Juici::Build.find_or_raise(NotFound, parent: project.name, _id: params[:id])
       # return 404 unless project && build
       yield [:"builds/show", build_opts({:project => project, :build => build})]
     end
 
     def kill
-      project = ::Juici::Project.find_or_raise(NotFound, name: params[:project])
+      project = ::Juici::Workspace.find_or_raise(NotFound, name: params[:project])
       build   = ::Juici::Build.find_or_raise(NotFound, parent: project.name, _id: params[:id])
 
       ::Juici.dbgp "Killing off build #{build[:_id]}"
@@ -34,7 +34,7 @@ module Juici::Controllers
     end
 
     def cancel
-      project = ::Juici::Project.find_or_raise(NotFound, name: params[:project])
+      project = ::Juici::Workspace.find_or_raise(NotFound, name: params[:project])
       build   = ::Juici::Build.find_or_raise(NotFound, parent: project.name, _id: params[:id])
 
       ::Juici.dbgp "Cancelling build #{build[:_id]}"
@@ -51,14 +51,14 @@ module Juici::Controllers
     end
 
     def edit
-      project = ::Juici::Project.find_or_raise(NotFound, name: params[:project])
+      project = ::Juici::Workspace.find_or_raise(NotFound, name: params[:project])
       build   = ::Juici::Build.find_or_raise(NotFound, parent: project.name, _id: params[:id])
       # return 404 unless project && build
       yield [:"builds/edit", {:project => project, :build => build}]
     end
 
     def update!
-      project = ::Juici::Project.find_or_raise(NotFound, name: params[:project])
+      project = ::Juici::Workspace.find_or_raise(NotFound, name: params[:project])
       build   = ::Juici::Build.find_or_raise(NotFound, parent: project.name, _id: params[:id])
 
       ::Juici::Build::EDITABLE_ATTRIBUTES[:string].each do |attr|

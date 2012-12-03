@@ -3,13 +3,13 @@ module Juici::Controllers
 
     attr_reader :project, :params
     def initialize(project, params)
-      @project = ::Juici::Project.find_or_create_by(name: project)
+      @project = ::Juici::Workspace.find_or_create_by(name: project)
       @params = params
     end
 
     # Find an existing build, duplicate the sane parts of it.
     def rebuild!
-      unless project = ::Juici::Project.where(name: params[:project]).first
+      unless project = ::Juici::Workspace.where(name: params[:project]).first
         not_found
       end
       unless build = ::Juici::Build.where(parent: project.name, _id: params[:id]).first
