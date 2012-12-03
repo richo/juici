@@ -66,15 +66,15 @@ module Juici
     end
 
     post '/builds/new' do
-      build = Controllers::Trigger.new(params[:project], params).build!
+      build = Controllers::Trigger.new(params[:workspace], params).build!
       @redirect_to = build_url_for(build)
       erb(:redirect, {}, {})
     end
 
-    post %r{^/builds/(?<project>[\w\/]+)/rebuild/(?<id>[^/]*)$} do |project, id|
-      params[:project] = project
+    post %r{^/builds/(?<workspace>[\w\/]+)/rebuild/(?<id>[^/]*)$} do |workspace, id|
+      params[:workspace] = workspace
       params[:id] = id
-      build = Controllers::Trigger.new(project, params).rebuild!
+      build = Controllers::Trigger.new(workspace, params).rebuild!
       @redirect_to = build_url_for(build)
       erb(:redirect, {}, {})
     end
@@ -97,33 +97,33 @@ module Juici
       end
     end
 
-    get %r{^/builds/(?<project>[\w\/]+)/list$} do |project|
-      params[:project] = project
+    get %r{^/builds/(?<workspace>[\w\/]+)/list$} do |workspace|
+      params[:workspace] = workspace
       Controllers::Builds.new(params).list do |template, opts|
         erb(template, {}, opts)
       end
     end
 
-    get %r{^/builds/(?<project>[\w\/]+)/edit/(?<id>[^/]*)$} do |project, id|
+    get %r{^/builds/(?<workspace>[\w\/]+)/edit/(?<id>[^/]*)$} do |workspace, id|
       Controllers::Builds.new(params).edit do |template, opts|
         erb(template, {}, opts)
       end
     end
 
-    post %r{^/builds/(?<project>[\w\/]+)/edit/(?<id>[^/]*)$} do |project, id|
+    post %r{^/builds/(?<workspace>[\w\/]+)/edit/(?<id>[^/]*)$} do |workspace, id|
       build = Controllers::Builds.new(params).update!
       @redirect_to = build_url_for(build)
       erb(:redirect, {}, {})
     end
 
-    get %r{^/builds/(?<project>[\w\/]+)/show/(?<id>[^/]*)$} do |project, id|
+    get %r{^/builds/(?<workspace>[\w\/]+)/show/(?<id>[^/]*)$} do |workspace, id|
       Controllers::Builds.new(params).show do |template, opts|
         erb(template, {}, opts)
       end
     end
 
-    post %r{^/trigger/(?<project>[\w\/]+)$} do |project, id|
-      Controllers::Trigger.new(params[:project], params).build!
+    post %r{^/trigger/(?<workspace>[\w\/]+)$} do |workspace, id|
+      Controllers::Trigger.new(params[:workspace], params).build!
     end
 
     get '/queue' do

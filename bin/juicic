@@ -23,8 +23,8 @@ def main(args)
       options[:host] = args.shift
     when "--title"
       options[:title] = args.shift
-    when "--project"
-      options[:project] = args.shift
+    when "--workspace"
+      options[:workspace] = args.shift
     when "--priority"
       options[:priority] = args.shift
     when "--callback"
@@ -46,7 +46,7 @@ end
 
 def _create_payload(opts)
   URI.encode_www_form({
-    "project" => opts[:project],
+    "workspace" => opts[:workspace],
     "environment" => (opts[:environment] || {}).to_json,
     "command" => opts[:command],
     "priority" => opts[:priority] || 1,

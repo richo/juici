@@ -13,7 +13,7 @@ describe "Juici build abstraction" do
 
   it "Should run a given command in a subshell" do
     watcher = Juici::Watcher.instance.start
-    build = Juici::Build.new(workspace: "test project",
+    build = Juici::Build.new(workspace: "test workspace",
                       environment: {},
                       command: "/bin/echo 'test build succeeded'")
     $build_queue << build
@@ -32,7 +32,7 @@ describe "Juici build abstraction" do
 
   it "Should catch failed builds" do
     watcher = Juici::Watcher.instance.start
-    build = Juici::Build.new(workspace: "test project",
+    build = Juici::Build.new(workspace: "test workspace",
                       environment: {},
                       command: "exit 3")
     $build_queue << build
@@ -64,7 +64,7 @@ describe "Juici build abstraction" do
 
   it "Can create and fetch new bundles" do
     watcher = Juici::Watcher.instance.start
-    build = Juici::Build.new(workspace: "test project",
+    build = Juici::Build.new(workspace: "test workspace",
                              environment: ::Juici::BuildEnvironment.new.to_hash,
                              command: <<-EOS)
 #!/bin/sh

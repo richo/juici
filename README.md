@@ -54,7 +54,7 @@ Example:
 
 ```bash
 juicic build --host $hostname --command - --title "test build" \
-             --project "some project" <<EOF
+             --workspace "some project" <<EOF
 if [ ! -d .git ]; then
   git init .
   git remote add origin git://github.com/richo/twat.git
@@ -81,7 +81,7 @@ assigned priority 1 (to allow for marking a build as less important with
 priority 0).
 
 If juici receives a new build with priority higher than any currently
-unfinished, it will pause whatever it's doing and build the new project. If
+unfinished, it will pause whatever it's doing and build the new item. If
 there is a tie for priority, a FIFO queue is assumed.
 
 JuiCI uses `SIGSTOP` and `SIGCONT` internally for job control.

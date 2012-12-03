@@ -1,18 +1,18 @@
 module Juici::Controllers
   class Trigger
 
-    attr_reader :project, :params
-    def initialize(project, params)
-      @project = ::Juici::Workspace.find_or_create_by(name: project)
+    attr_reader :workspace, :params
+    def initialize(workspace, params)
+      @workspace = ::Juici::Workspace.find_or_create_by(name: workspace)
       @params = params
     end
 
     # Find an existing build, duplicate the sane parts of it.
     def rebuild!
-      unless project = ::Juici::Workspace.where(name: params[:project]).first
+      unless workspace = ::Juici::Workspace.where(name: params[:workspace]).first
         not_found
       end
-      unless build = ::Juici::Build.where(workspace: project.name, _id: params[:id]).first
+      unless build = ::Juici::Build.where(workspace: workspace.name, _id: params[:id]).first
         not_found
       end
 
@@ -25,7 +25,7 @@ module Juici::Controllers
 
     def build!
       environment = ::Juici::BuildEnvironment.new
-      ::Juici::Build.new(workspace: project.name).tap do |build|
+      ::Juici::Build.new(workspace: workspace.name).tap do |build|
         # The seperation of concerns around this madness is horrifying
         unless environment.load_json!(params['environment'])
           build.warn!("Failed to parse environment")

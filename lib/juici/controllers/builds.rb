@@ -4,9 +4,9 @@ module Juici::Controllers
     def list
       params[:page] = params[:page] ? params[:page].to_i : 0
 
-      project = ::Juici::Workspace.find_or_raise(NotFound, name: params[:project])
+      workspace = ::Juici::Workspace.find_or_raise(NotFound, name: params[:workspace])
 
-      builds = ::Juici::Build.where(workspace: project.name)
+      builds = ::Juici::Build.where(workspace: workspace.name)
 
       pages = (builds.count.to_f / ::Juici::Config.builds_per_page).ceil
 
@@ -14,19 +14,18 @@ module Juici::Controllers
         limit(::Juici::Config.builds_per_page).
         skip(params[:page].to_i * ::Juici::Config.builds_per_page)
 
-      yield [:"builds/list", build_opts({:project => project, :builds => builds, :pages => pages})]
+      yield [:"builds/list", build_opts({:workspace => workspace, :builds => builds, :pages => pages})]
     end
 
     def show
-      project = ::Juici::Workspace.find_or_raise(NotFound, name: params[:project])
-      build   = ::Juici::Build.find_or_raise(NotFound, workspace: project.name, _id: params[:id])
-      # return 404 unless project && build
-      yield [:"builds/show", build_opts({:project => project, :build => build})]
+      workspace = ::Juici::Workspace.find_or_raise(NotFound, name: params[:workspace])
+      build   = ::Juici::Build.find_or_raise(NotFound, workspace: workspace.name, _id: params[:id])
+      yield [:"builds/show", build_opts({:workspace => workspace, :build => build})]
     end
 
     def kill
-      project = ::Juici::Workspace.find_or_raise(NotFound, name: params[:project])
-      build   = ::Juici::Build.find_or_raise(NotFound, workspace: project.name, _id: params[:id])
+      workspace = ::Juici::Workspace.find_or_raise(NotFound, name: params[:workspace])
+      build   = ::Juici::Build.find_or_raise(NotFound, workspace: workspace.name, _id: params[:id])
 
       ::Juici.dbgp "Killing off build #{build[:_id]}"
       build.kill! if build.status == ::Juici::BuildStatus::START
@@ -34,8 +33,8 @@ module Juici::Controllers
     end
 
     def cancel
-      project = ::Juici::Workspace.find_or_raise(NotFound, name: params[:project])
-      build   = ::Juici::Build.find_or_raise(NotFound, workspace: project.name, _id: params[:id])
+      workspace = ::Juici::Workspace.find_or_raise(NotFound, name: params[:workspace])
+      build   = ::Juici::Build.find_or_raise(NotFound, workspace: workspace.name, _id: params[:id])
 
       ::Juici.dbgp "Cancelling build #{build[:_id]}"
       build.cancel if build.status == ::Juici::BuildStatus::WAIT
@@ -51,15 +50,14 @@ module Juici::Controllers
     end
 
     def edit
-      project = ::Juici::Workspace.find_or_raise(NotFound, name: params[:project])
-      build   = ::Juici::Build.find_or_raise(NotFound, workspace: project.name, _id: params[:id])
-      # return 404 unless project && build
-      yield [:"builds/edit", {:project => project, :build => build}]
+      workspace = ::Juici::Workspace.find_or_raise(NotFound, name: params[:workspace])
+      build   = ::Juici::Build.find_or_raise(NotFound, workspace: workspace.name, _id: params[:id])
+      yield [:"builds/edit", {:workspace => workspace, :build => build}]
     end
 
     def update!
-      project = ::Juici::Workspace.find_or_raise(NotFound, name: params[:project])
-      build   = ::Juici::Build.find_or_raise(NotFound, workspace: project.name, _id: params[:id])
+      workspace = ::Juici::Workspace.find_or_raise(NotFound, name: params[:workspace])
+      build   = ::Juici::Build.find_or_raise(NotFound, workspace: workspace.name, _id: params[:id])
 
       ::Juici::Build::EDITABLE_ATTRIBUTES[:string].each do |attr|
         build[attr] = params[attr] if params[attr]

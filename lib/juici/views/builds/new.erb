@@ -8,7 +8,7 @@
 
     <h1 class="block-header">new</h1>
     <p>From here you can create a new build</p>
-    <p>Name is a unique identifier for the project. It doesn't need to already exist, but builds for a like project need to be named identically</p>
+    <p>Name is a unique identifier for the workspace. It doesn't need to already exist, but builds for a like workspace need to be named identically</p>
     <p>Environment is a json hash of KEY - VALUE pairs, to be passed into the child environment</p>
     <p>Command is where the magic happens. Often they'll be longwinded, but a reasonable boilerplate might look <a href="#">something like this.</a><p>
     <hr>
@@ -20,7 +20,7 @@
         <!-- First Column -->
         <div class="span3">
           <label>Workspace Name</label>
-          <input type="text" name="project" value="<%= params[:project] %>" <%= "readonly" if params[:project] %>>
+          <input type="text" name="workspace" value="<%= params[:workspace] %>" <%= "readonly" if params[:workspace] %>>
           <label>Environment</label>
           <input type="text" name="environment" placeholder="expects a valid json hash" value="">
           <label>Priority</label>

@@ -8,7 +8,7 @@ module Juici
     include BuildLogic
     include BuildStatus
     extend FindLogic
-    # TODO Builds should probably be children of projects in the URL?
+    # TODO Builds should probably be children of workspaces in the URL?
 
     CLONABLE_FIELDS = [:command, :priority, :environment, :callbacks, :title, :workspace]
     EDITABLE_ATTRIBUTES = {
@@ -148,7 +148,7 @@ module Juici
 
     def to_callback_json
       {
-        "project" => self[:workspace],
+        "workspace" => self[:workspace],
         "status" => self[:status],
         "url" => build_url_for(self),
         "time" => time_elapsed

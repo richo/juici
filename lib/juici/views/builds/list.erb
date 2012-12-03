@@ -16,7 +16,7 @@
   <!-- Main contents -->
   <div class="span11">
     <!-- Create a new build -->
-    <h3 class="project-title"><a href="<%= build_url_for(project) %>"><%= project.name %></a><a class="btn pull-right" href="/builds/new?project=<%= project.name %>">New Build</a></h3>
+    <h3 class="project-title"><a href="<%= build_url_for(workspace) %>"><%= workspace.name %></a><a class="btn pull-right" href="/builds/new?workspace=<%= workspace.name %>">New Build</a></h3>
     <!-- Build history -->
     <% builds.each_with_index do |build, idx| %>
       <div class="accordion accordion-set-url" id="accordion<%= idx %>">

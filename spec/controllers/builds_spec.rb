@@ -3,8 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Juici::Controllers::Builds do
 
   describe "list" do
-    it "should throw not_found for invalid projects" do
-      params = { :project => "__LolIDon'tExist" }
+    it "should throw not_found for invalid workspaces" do
+      params = { :workspace => "__LolIDon'tExist" }
       lambda {
         Juici::Controllers::Builds.new(params).list
       }.should raise_error(Sinatra::NotFound)
@@ -12,8 +12,8 @@ describe Juici::Controllers::Builds do
   end
 
   describe "show" do
-    it "should throw not_found for invalid projects" do
-      params = { :project => "__LolIDon'tExist" }
+    it "should throw not_found for invalid workspaces" do
+      params = { :workspace => "__LolIDon'tExist" }
       lambda {
         Juici::Controllers::Builds.new(params).show
       }.should raise_error(Sinatra::NotFound)
@@ -28,8 +28,8 @@ describe Juici::Controllers::Builds do
   end
 
   describe "edit" do
-    it "should throw not_found for invalid projects" do
-      params = { :project => "__LolIDon'tExist" }
+    it "should throw not_found for invalid workspaces" do
+      params = { :workspace => "__LolIDon'tExist" }
       lambda {
         Juici::Controllers::Builds.new(params).show
       }.should raise_error(Sinatra::NotFound)
@@ -37,11 +37,11 @@ describe Juici::Controllers::Builds do
 
     it "Should update build objects when given data" do
       # FIXME This is a kludge to work around #38
-      ::Juici::Workspace.find_or_create_by(name: "test project")
-      build = Juici::Build.new(workspace: "test project", priority: 1, title: "test build")
+      ::Juici::Workspace.find_or_create_by(name: "test workspace")
+      build = Juici::Build.new(workspace: "test workspace", priority: 1, title: "test build")
       build.save!
 
-      Juici::Controllers::Builds.new({:priority => 15, :title => "butts lol", :id => build[:_id], :project => "test project"}).update!
+      Juici::Controllers::Builds.new({:priority => 15, :title => "butts lol", :id => build[:_id], :workspace => "test workspace"}).update!
       build.reload
 
       build[:title].should == "butts lol"
@@ -50,11 +50,11 @@ describe Juici::Controllers::Builds do
 
     it "Should not let you update a build's ID" do
       # FIXME This is a kludge to work around #38
-      ::Juici::Workspace.find_or_create_by(name: "test project")
-      build = Juici::Build.new(workspace: "test project")
+      ::Juici::Workspace.find_or_create_by(name: "test workspace")
+      build = Juici::Build.new(workspace: "test workspace")
       build.save!
 
-      updated_build = Juici::Controllers::Builds.new({:_id => "New id lol", :id => build[:_id], :project => "test project"}).update!
+      updated_build = Juici::Controllers::Builds.new({:_id => "New id lol", :id => build[:_id], :workspace => "test workspace"}).update!
 
       updated_build[:_id].should == build[:_id]
     end
