@@ -13,24 +13,24 @@ module Juici
       NEW_BUILD
     end
 
-    def build_list(project)
-      "/builds/#{project}/list"
+    def build_list(workspace)
+      "/builds/#{workspace}/list"
     end
 
-    def build_rebuild(project, build)
-      "/builds/#{project}/rebuild/#{build}"
+    def build_rebuild(workspace, build)
+      "/builds/#{workspace}/rebuild/#{build}"
     end
 
-    def build_edit(project, build)
-      "/builds/#{project}/edit/#{build}"
+    def build_edit(workspace, build)
+      "/builds/#{workspace}/edit/#{build}"
     end
 
-    def build_show(project, build)
-      "/builds/#{project}/show/#{build}"
+    def build_show(workspace, build)
+      "/builds/#{workspace}/show/#{build}"
     end
 
-    def build_trigger(project)
-      "/trigger/#{project}"
+    def build_trigger(workspace)
+      "/trigger/#{workspace}"
     end
   end
 
