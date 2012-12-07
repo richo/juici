@@ -10,5 +10,9 @@ module Juici::Controllers
       {:active => :queue}.merge(_opts)
     end
 
+    def styles
+      ["builds"]
+    end
+
   end
 end
