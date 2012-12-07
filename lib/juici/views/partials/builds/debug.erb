@@ -5,7 +5,7 @@
 <% end %>
 <% if build[:command] %>
   <h3 class="block-header">command:</h3>
-  <%= build[:command] %>
+  <div class="build-output"><%= build[:command] %></div>
 <% end %>
 <% if build[:environment] %>
   <h3 class="block-header">environment:</h3>
