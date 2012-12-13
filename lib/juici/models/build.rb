@@ -118,6 +118,17 @@ module Juici
     end
 
     def get_current_output
+      case status
+      when PASS, FAIL
+        get_output
+      when START
+        get_output_from_file
+      else
+        ""
+      end
+    end
+
+    def get_output_from_file
       return "" unless self[:buffer]
       File.open(self[:buffer], 'r') do |f|
         f.rewind

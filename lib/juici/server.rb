@@ -126,6 +126,12 @@ module Juici
       end
     end
 
+    get build_output_path do |project, id|
+      Controllers::Builds.new(params).output do |output, opts|
+        halt(200, {'Content-Type' => 'text/plain'}, output)
+      end
+    end
+
     post build_trigger_path do |project, id|
       Controllers::Trigger.new(params[:project], params).build!
     end

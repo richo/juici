@@ -22,6 +22,10 @@ module Juici
       %r{^/builds/(?<project>[\w\/]+)/show/(?<id>[^/]*)$}
     end
 
+    def build_output_path
+      %r{^/builds/(?<project>[\w\/]+)/(?<id>[^/]*)/_output$}
+    end
+
     def build_trigger_path
       %r{^/trigger/(?<project>[\w\/]+)$}
     end
