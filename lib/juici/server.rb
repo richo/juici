@@ -43,6 +43,7 @@ module Juici
     set :views,  "#{dir}/views"
     set :public_folder, "public"
     set :static, true
+    set :show_exceptions, true
 
     get '/' do
       Controllers::Index.new.index do |template, opts|
