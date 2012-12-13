@@ -62,7 +62,7 @@ module Juici
 
     def finish
       self[:end_time] = Time.now
-      self[:output] = get_output
+      self[:output] = get_current_output
       $build_queue.purge(:pid, self) if $build_queue
     end
 
@@ -114,6 +114,10 @@ module Juici
     end
 
     def get_output
+      self[:output]
+    end
+
+    def get_current_output
       return "" unless self[:buffer]
       File.open(self[:buffer], 'r') do |f|
         f.rewind
