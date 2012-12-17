@@ -127,9 +127,23 @@ module Juici
     end
 
     get build_output_path do |project, id|
-      Controllers::Builds.new(params).output do |output, opts|
-        halt(200, {'Content-Type' => 'text/plain'}, output)
+      resp = stream(:keep_open) do |out|
+        Controllers::Builds.new(params).output do |build|
+          fh = File.open(build[:buffer], 'r')
+          fetch = Proc.new do
+            out << fh.read
+            build.reload
+            if build.status == Juici::BuildStatus::START
+              EM.add_timer(1, &fetch)
+            else
+              out.close
+            end
+          end
+          fetch.call
+        end
       end
+
+      [200, {'Content-Type' => 'text/plain'}, resp]
     end
 
     post build_trigger_path do |project, id|
