@@ -28,7 +28,7 @@ module Juici::Controllers
       project = ::Juici::Project.find_or_raise(NotFound, name: params[:project])
       build   = ::Juici::Build.find_or_raise(NotFound, parent: project.name, _id: params[:id])
       # return 404 unless project && build
-      yield [build.get_current_output, {}]
+      yield build
     end
 
     def kill
