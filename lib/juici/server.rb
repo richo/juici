@@ -127,9 +127,17 @@ module Juici
     end
 
     get build_output_path do |project, id|
+      status = 200
       resp = stream(:keep_open) do |out|
         Controllers::Builds.new(params).output do |build|
-          fh = File.open(build[:buffer], 'r')
+          begin
+            fh = File.open(build[:buffer], 'r')
+          rescue Errno::ENOENT
+            status = 404
+            out << "unknown or complete build"
+            out.close
+            break
+          end
           fetch = Proc.new do
             out << fh.read
             build.reload
@@ -143,7 +151,7 @@ module Juici
         end
       end
 
-      [200, {'Content-Type' => 'text/plain'}, resp]
+      [status, {'Content-Type' => 'text/plain'}, resp]
     end
 
     post build_trigger_path do |project, id|
