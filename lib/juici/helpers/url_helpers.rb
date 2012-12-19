@@ -9,6 +9,13 @@ def build_url_for(entity)
   end
 end
 
+def build_output_url_for(entity)
+  URI.escape case entity
+  when ::Juici::Build
+    "/builds/#{entity[:parent]}/#{entity[:_id]}/_output"
+  end
+end
+
 def rebuild_url_for(entity)
   URI.escape case entity
   when ::Juici::Build
