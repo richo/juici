@@ -7,6 +7,15 @@
   <h3 class="block-header">command:</h3>
   <div class="build-output"><%= build[:command] %></div>
 <% end %>
+<h3 class="block-header">timing:</h3>
+  <p>create: <%= build[:create_time] %>
+  <% if build[:start_time] %>
+  <p>start: <%= build[:start_time] %>
+  <% end %>
+  <% if build[:end_time] %>
+  <p>end: <%= build[:end_time] %>
+  <% end %>
+</h3>
 <% if build[:environment] %>
   <h3 class="block-header">environment:</h3>
   <% build[:environment].reject{|k, v| v.nil?}.each do |k, v| %>
