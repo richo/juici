@@ -30,6 +30,26 @@ describe "Juici build abstraction" do
     end
   end
 
+  it "Should respect shebang lines" do
+    watcher = Juici::Watcher.instance.start
+    build = Juici::Build.new(parent: "test project",
+                      environment: {},
+                      command: "#!/bin/cat")
+    $build_queue << build
+
+    # Wait a reasonable time for build to finish
+    # TODO: This can leverage the hooks system
+    # TODO: Easer will be to have worker.block or something
+    Timeout::timeout(2) do
+      poll_build(build)
+
+      build.reload
+      build.status.should == Juici::BuildStatus::PASS
+      build[:output].chomp.should == "#!/bin/cat"
+    end
+  end
+
+
   it "Should catch failed builds" do
     watcher = Juici::Watcher.instance.start
     build = Juici::Build.new(parent: "test project",
