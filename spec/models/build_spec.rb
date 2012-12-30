@@ -51,4 +51,11 @@ describe Juici::Build do
     new_build[:output].should be_nil
     new_build[:buffer].should be_nil
   end
+
+  it "Should set PWD in environment to the worktree" do
+    build = Juici::Build.new({:parent => "SometestBuild"})
+    build[:environment] = ::Juici::BuildEnvironment.new.to_hash
+    build.environment["PWD"].should == build.worktree
+  end
+
 end
