@@ -196,5 +196,12 @@ module Juici
       self[:status] = s.to_sym
     end
 
+    def environment
+      self[:environment].tap do |env|
+        if env && env.include?("PWD")
+          env["PWD"] = worktree
+        end
+      end
+    end
   end
 end
