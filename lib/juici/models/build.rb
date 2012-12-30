@@ -183,7 +183,7 @@ module Juici
 
     def environment
       self[:environment].tap do |env|
-        if env.include? "PWD"
+        if env && env.include?("PWD")
           env["PWD"] = worktree
         end
       end
