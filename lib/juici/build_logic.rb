@@ -21,7 +21,7 @@ module Juici
 
     def spawn(cmd, dir)
       @buffer = Tempfile.new('juici-xxxx')
-      Process.spawn(environment, cmd,
+      Process.spawn(environment, parse_cmd(cmd),
         :chdir => dir,
         :in  => "/dev/null",
         :out => @buffer.fileno,
@@ -31,6 +31,18 @@ module Juici
       :enoent
     rescue TypeError
       :invalidcommand
+    end
+
+    def parse_cmd(cmd)
+      first_line = cmd.lines.first.chomp
+      if first_line.start_with?("#!")
+        scriptfile = Tempfile.new('juici-cmd')
+        scriptfile.write(cmd)
+        scriptfile.close
+        real_cmd = "#{first_line[2..-1]} #{scriptfile.path}"
+      else
+        real_cmd = cmd
+      end
     end
 
   end
