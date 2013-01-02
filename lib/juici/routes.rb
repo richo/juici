@@ -1,7 +1,7 @@
 module Juici
   module Router
     include Routes
-    URL_PART = /[\w\/. %]+/
+    URL_PART = /[-\w\/. %]+/
 
     def build_new_path
       "/builds/new"
