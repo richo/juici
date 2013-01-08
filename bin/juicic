@@ -5,7 +5,7 @@ require 'juici/interface'
 
 # TODO Refactor
 def main(args)
-  action = args.shift.to_sym
+  action = (args.shift || "help").to_sym
   options = {
     callbacks: []
   }
@@ -41,6 +41,19 @@ def build(opts)
     req = Net::HTTP::Post.new(Juici::Routes::NEW_BUILD)
     req.body = _create_payload(opts)
     h.request req
+  end
+end
+
+def help(opts)
+  [
+    "Usage #{$0} <build|help>",
+    "  build: --host <host>",
+    "       : --title <title>",
+    "       : --project <project>",
+    "       : --priority <priority>",
+    "       : --callback <callback>",
+  ].each do |line|
+    STDERR.puts(line)
   end
 end
 
