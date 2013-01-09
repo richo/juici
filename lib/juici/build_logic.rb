@@ -13,7 +13,11 @@ module Juici
     def kill!
       warn! "Killed!"
       if pid = self[:pid]
-        Process.kill(15, pid)
+        if pgid = Process.getpgid(pid)
+          Process.kill(15, -1 * pgid)
+        else
+          Process.kill(15, pid)
+        end
       end
     end
 
@@ -25,7 +29,8 @@ module Juici
         :chdir => dir,
         :in  => "/dev/null",
         :out => @buffer.fileno,
-        :err => [:child, :out]
+        :err => [:child, :out],
+        :pgroup => true
       )
     rescue Errno::ENOENT
       :enoent
