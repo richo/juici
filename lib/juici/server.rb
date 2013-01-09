@@ -132,7 +132,7 @@ module Juici
         Controllers::Builds.new(params).output do |build|
           begin
             fh = File.open(build[:buffer], 'r')
-          rescue Errno::ENOENT
+          rescue Errno::ENOENT, TypeError
             status = 404
             out << "unknown or complete build"
             out.close
