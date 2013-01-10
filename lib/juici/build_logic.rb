@@ -14,7 +14,7 @@ module Juici
       warn! "Killed!"
       if pid = self[:pid]
         if pgid = Process.getpgid(pid)
-          Process.kill(15, -1 * pgid)
+          Process.kill(15, -pgid)
         else
           Process.kill(15, pid)
         end
