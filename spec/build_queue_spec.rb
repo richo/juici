@@ -45,6 +45,24 @@ describe Juici::BuildQueue do
     subject.next_child.priority.should == 1
   end
 
+  it "Should update build definitions on reload!" do
+    @builds = []
+    subject.reload!
+    [1, 5].each do |priority|
+      ::Juici::Project.find_or_create_by(name: "test project")
+      build = Juici::Build.new(parent: "test project", priority: priority)
+      build.save!
+      subject << build
+    end
+    subject.next_child.priority.should == 1
+    @builds[1].tap do |build|
+      build.priority = -5
+      build.save!
+    end
+    subject.reload!
+    subject.next_child.priority.should == -5
+  end
+
 end
 
 class Juici::BuildQueue #{{{ Test injection

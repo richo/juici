@@ -108,7 +108,7 @@ module Juici
     end
 
     def reload!
-      builds.each(&:reload)
+      @builds.each(&:reload)
     end
 
   end

@@ -64,5 +64,4 @@ describe Juici::Controllers::Builds do
     end
 
   end
-
 end
