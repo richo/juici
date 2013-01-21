@@ -73,8 +73,8 @@ module Juici::Controllers
       end
       build.tap do |b|
         b.save!
+        $build_queue.reload! if $build_queue
       end
-      $build_queue.reload! if $build_queue
     end
 
   end
