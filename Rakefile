@@ -14,7 +14,7 @@ namespace :db do
   desc "Destroy the test db specified in mongoid.yml"
   task :destroy do
     Juici::Database.initialize!
-    Mongoid.purge!
+    Mongoid.session("default").drop
   end
 end
 
