@@ -4,7 +4,7 @@ be="bundle exec"
 
 export RACK_ENV="test"
 
-bundle install --path
+bundle install
 
 $be rake db:destroy
 $be rake spec
