@@ -71,7 +71,6 @@ module Juici::Controllers
       ::Juici::Build::EDITABLE_ATTRIBUTES[:string].each do |attr|
         build[attr] = params[attr] if params[attr]
       end
-      # binding.pry
       build.tap do |b|
         b.save!
       end
