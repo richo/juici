@@ -11,6 +11,7 @@ describe Juici::Build do
       build.success!
 
       build.time_elapsed.to_i.should == 5
+      build.destroy
     end
 
     it "Should have the time running if started" do
@@ -19,11 +20,13 @@ describe Juici::Build do
       build.start!
 
       build.time_elapsed.to_i.should == 6
+      build.destroy
     end
 
     it "Should be nil if not started" do
       build = Juici::Build.new
       build.time_elapsed.should be_nil
+      build.destroy
     end
   end
 
@@ -50,12 +53,15 @@ describe Juici::Build do
     build[:_id].should_not == new_build[:_id]
     new_build[:output].should be_nil
     new_build[:buffer].should be_nil
+    build.destroy
+    new_build.destroy
   end
 
   it "Should set PWD in environment to the worktree" do
     build = Juici::Build.new({:parent => "SometestBuild"})
     build[:environment] = ::Juici::BuildEnvironment.new.to_hash
     build.environment["PWD"].should == build.worktree
+    build.destroy
   end
 
 end
