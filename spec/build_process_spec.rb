@@ -83,6 +83,7 @@ describe "Juici build abstraction" do
   end
 
   it "Can create and fetch new bundles" do
+    pending
     watcher = Juici::Watcher.instance.start
     build = Juici::Build.new(parent: "test project",
                              environment: ::Juici::BuildEnvironment.new.to_hash,

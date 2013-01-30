@@ -41,6 +41,9 @@ describe Juici::Controllers::Builds do
       build = Juici::Build.new(parent: "test project", priority: 1, title: "test build")
       build.save!
 
+      # Succeed this build so it isn't retried.
+      build.success!
+
       Juici::Controllers::Builds.new({:priority => 15, :title => "butts lol", :id => build[:_id], :project => "test project"}).update!
       build.reload
 
@@ -53,6 +56,9 @@ describe Juici::Controllers::Builds do
       ::Juici::Project.find_or_create_by(name: "test project")
       build = Juici::Build.new(parent: "test project")
       build.save!
+      #
+      # Succeed this build so it isn't retried.
+      build.success!
 
       updated_build = Juici::Controllers::Builds.new({:_id => "New id lol", :id => build[:_id], :project => "test project"}).update!
 
