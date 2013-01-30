@@ -61,6 +61,8 @@ describe Juici::BuildQueue do
     end
     subject.reload!
     subject.next_child.priority.should == -5
+
+    @builds.each(&:destroy)
   end
 
 end
