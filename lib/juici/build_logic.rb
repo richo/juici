@@ -44,7 +44,7 @@ module Juici
         scriptfile = Tempfile.new('juici-cmd')
         scriptfile.write(cmd)
         scriptfile.close
-        real_cmd = "#{first_line[2..-1]} #{scriptfile.path}".split(" ")
+        real_cmd = "#{first_line[2..-1]} #{scriptfile.path}"
       else
         real_cmd = cmd
       end
