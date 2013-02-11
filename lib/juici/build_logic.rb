@@ -42,7 +42,7 @@ module Juici
       first_line = cmd.lines.first.chomp
       if first_line.start_with?("#!")
         scriptfile = Tempfile.new('juici-cmd')
-        if (scriptfile.write(cmd) != cmd.length)
+        if (scriptfile.write(cmd) != cmd.bytesize)
           warn! "Couldn't write tempfile"
         end
         scriptfile.close
