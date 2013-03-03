@@ -166,7 +166,8 @@ module Juici
         "project" => self[:parent],
         "status" => self[:status],
         "url" => build_url_for(self),
-        "time" => time_elapsed
+        "time" => time_elapsed,
+        "warnings" => warnings
       }.to_json
     end
 

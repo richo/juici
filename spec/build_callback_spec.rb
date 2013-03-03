@@ -51,4 +51,19 @@ describe "Juicy::Build::Callback" do
     build.destroy
   end
 
+  it "includes warnings" do
+    cb = Juici::Callback.new("test")
+    cb.stubs(:process!)
+
+    Juici::Callback.stubs(:new).with("test").returns(cb)
+
+    build = Juici::Build.new(:callbacks => ["test"])
+    build.start!
+    build.warnings << "Oh shi-"
+    build.failure!
+
+    JSON.load(cb.payload)["warnings"].should include("Oh shi-")
+    build.destroy
+  end
+
 end
