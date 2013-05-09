@@ -52,18 +52,24 @@ module Juici
       finish
       set_status PASS
       process_callbacks
+      unlink_buffer
     end
 
     def failure!
       finish
       set_status FAIL
       process_callbacks
+      unlink_buffer
     end
 
     def finish
       self[:end_time] = Time.now
       self[:output] = get_current_output
       $build_queue.purge(:pid, self) if $build_queue
+    end
+
+    def unlink_buffer
+      File.unlink(self[:buffer]) rescue nil
     end
 
     def cancel
