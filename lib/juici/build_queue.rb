@@ -56,12 +56,9 @@ module Juici
       update_children
 
       candidate_children.each do |child|
-        next if @child_pids.map do |pid|
-          if get_build_by_pid(pid).parent == child.parent
-            # We're already building something for this project
-            true
-          end
-        end.any?
+        next if @child_pids.any? do |pid|
+          get_build_by_pid(pid).parent == child.parent
+        end
 
         # We're good to launch this build
         Juici.dbgp "Starting another child process"
