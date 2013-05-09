@@ -133,4 +133,58 @@ EOS
     end
   end
 
+  it "should queue builds for the same project" do
+    watcher = Juici::Watcher.instance.start
+    build1 = Juici::Build.new(parent: "test project",
+                      environment: {},
+                      command: "sleep 10")
+    build2 = Juici::Build.new(parent: "test project",
+                      environment: {},
+                      command: "sleep 10")
+
+    build1.save
+    build2.save
+
+    $build_queue << build1
+    $build_queue << build2
+
+    build1.status.should == Juici::BuildStatus::START
+    build2.status.should == Juici::BuildStatus::WAIT
+
+    build1.kill!
+    poll_build(build1)
+
+    build2.status.should == Juici::BuildStatus::START
+
+    build2.kill!
+    poll_build(build2)
+  end
+
+  it "should build different projects simultaneously" do
+    watcher = Juici::Watcher.instance.start
+    build1 = Juici::Build.new(parent: "test project1",
+                      environment: {},
+                      command: "sleep 10")
+    build2 = Juici::Build.new(parent: "test project2",
+                      environment: {},
+                      command: "sleep 10")
+
+    build1.save
+    build2.save
+
+    $build_queue << build1
+    $build_queue << build2
+
+    build1.status.should == Juici::BuildStatus::START
+    build2.status.should == Juici::BuildStatus::START
+
+    build1.kill!
+    poll_build(build1)
+
+    build2.status.should == Juici::BuildStatus::START
+
+    build2.kill!
+    poll_build(build2)
+  end
+
 end

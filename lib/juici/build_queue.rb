@@ -34,6 +34,10 @@ module Juici
       @builds.sort_by(&:priority).first
     end
 
+    def candidate_children
+      @builds.sort_by(&:priority)
+    end
+
     def purge(by, build)
       @builds.reject! do |i|
         build.send(by) == i.send(by)
@@ -50,22 +54,27 @@ module Juici
     def bump!
       return unless @started
       update_children
-      if not_working? && work_to_do?
+
+      candidate_children.each do |child|
+        next if @child_pids.any? do |pid|
+          get_build_by_pid(pid).parent == child.parent
+        end
+
+        # We're good to launch this build
         Juici.dbgp "Starting another child process"
-        next_child.tap do |child|
-          if pid = child.build!
+        return child.tap do |cld|
+          if pid = cld.build!
             Juici.dbgp "Started child: #{pid}"
             @child_pids << pid
-            @builds_by_pid[pid] = child
+            @builds_by_pid[pid] = cld
           else
-            Juici.dbgp "Child #{child} failed to start"
+            Juici.dbgp "Child #{cld} failed to start"
             bump! # Ruby's recursion isn't great, but re{try,do} may as well be
                   # undefined behaviour here.
           end
         end
-      else
-        Juici.dbgp "I have quite enough to do"
       end
+      Juici.dbgp "I have quite enough to do"
     end
 
     def update_children
