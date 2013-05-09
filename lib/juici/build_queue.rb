@@ -30,10 +30,6 @@ module Juici
       @builds.collect(&:priority).compact.min || 1
     end
 
-    def next_child
-      @builds.sort_by(&:priority).first
-    end
-
     def candidate_children
       @builds.sort_by(&:priority)
     end
@@ -91,14 +87,6 @@ module Juici
 
     def get_build_by_pid(pid)
       @builds_by_pid[pid]
-    end
-
-    def not_working?
-      @child_pids.length == 0
-    end
-
-    def work_to_do?
-      @builds.length > 0
     end
 
     def currently_building
