@@ -40,9 +40,9 @@ describe Juici::BuildQueue do
 
   it "Should return a low priority job from #next_child" do
     @builds = builds_with(priority: [1, 2, 3, 4, 5, 6])
-    subject.next_child.priority.should == 1
+    subject.candidate_children.first.priority.should == 1
     @builds = builds_with(priority: [6, 5, 4, 3, 2, 1])
-    subject.next_child.priority.should == 1
+    subject.candidate_children.first.priority.should == 1
   end
 
   it "Should update build definitions on reload!" do
@@ -54,13 +54,13 @@ describe Juici::BuildQueue do
       build.save!
       subject << build
     end
-    subject.next_child.priority.should == 1
+    subject.candidate_children.first.priority.should == 1
     @builds[1].tap do |build|
       build.priority = -5
       build.save!
     end
     subject.reload!
-    subject.next_child.priority.should == -5
+    subject.candidate_children.first.priority.should == -5
 
     @builds.each(&:destroy)
   end
