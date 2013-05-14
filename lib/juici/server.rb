@@ -154,7 +154,7 @@ module Juici
       [status, {'Content-Type' => 'text/plain'}, resp]
     end
 
-    post build_trigger_path do |project, id|
+    post build_trigger_path do |project|
       Controllers::Trigger.new(params[:project], params).build!
     end
 
