@@ -1,3 +1,4 @@
+require 'json'
 module Juici::Controllers
   class Trigger
 
@@ -5,6 +6,10 @@ module Juici::Controllers
     def initialize(project, params)
       @project = ::Juici::Project.find_or_create_by(name: project)
       @params = params
+      begin
+        json = JSON.load(params.first[0])
+        @params = json
+      end
     end
 
     # Find an existing build, duplicate the sane parts of it.
