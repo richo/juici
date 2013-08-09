@@ -5,7 +5,7 @@
       JuiCI is a CI server, written at RailsCamp after Jenkins left me feeling a little dead inside. JuiCI aims to solve some of the issues with existing (and outstanding) CI solutions like <a href="http://jenkins-ci.org/">Jenkins</a> and <a href="http://travis-ci.org">Travis</a>, by not trying to be all things to all people.
     </p>
     <p>
-      JuiCI has a very thin wrapper around build triggers, is almost entirely API driven, and has a queuing system with a notion of priority, globally shared across all projects.
+      JuiCI has a very thin wrapper around build triggers, is almost entirely API driven, and has a queuing system with a notion of priority, locally to each workspace.
     </p>
     <p>
       If you're new to JuiCI, the <a href="https://github.com/richo/juici/blob/master/bin/juicic">juicic</a> script may be of interest to you- it wraps JuiCI's API in a much more palatable fashion.
