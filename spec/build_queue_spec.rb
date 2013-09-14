@@ -45,6 +45,16 @@ describe Juici::BuildQueue do
     subject.candidate_children.first.priority.should == 1
   end
 
+  it "Should return the first created job if they all have the same priority" do
+    now = Time.new(2013, 4, 19, 12, 35, 00, "+10:00")
+    before = Time.new(2013, 4, 19, 12, 31, 00, "+10:00")
+    later = Time.new(2013, 4, 19, 12, 39, 00, "+10:00")
+    @builds = builds_with(create_time: [now, before, later], priority: [1, 2, 3])
+    subject.candidate_children.first.create_time.should == before
+    @builds = builds_with(create_time: [later, before, now], priority: [1, 2, 3])
+    subject.candidate_children.first.create_time.should == before
+  end
+
   it "Should update build definitions on reload!" do
     @builds = []
     subject.reload!
@@ -74,10 +84,16 @@ class Juici::BuildQueue #{{{ Test injection
 end #}}}
 
 def builds_with(args)
-  args.map do |k, v|
-    v.map do |i|
-      stub(k => i)
+  first, rest = args.shift, args
+  k, v = first
+  stubs = v.map do |i|
+    stub(k => i)
+  end
+  rest.map do |k, v|
+    stubs.zip(v) do |stub, v|
+      stub.stubs(k, v)
     end
-  end.flatten
+  end
+  stubs
 end
 

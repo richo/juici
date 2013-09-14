@@ -31,7 +31,13 @@ module Juici
     end
 
     def candidate_children
-      @builds.sort_by(&:priority)
+      @builds.sort do |a, b|
+        if a.priority == b.priority
+          a.create_time <=> b.create_time
+        else
+          a.priority <=> b.priority
+        end
+      end
     end
 
     def purge(by, build)
