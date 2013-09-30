@@ -69,15 +69,7 @@ module Juici
     end
 
     def running?
-      started? and !finished?
-    end
-
-    def started?
-      !!self[:start_time]
-    end
-
-    def finished?
-      !!self[:end_time]
+      status == START
     end
 
     def unlink_buffer
