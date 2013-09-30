@@ -68,6 +68,10 @@ module Juici
       $build_queue.purge(:pid, self) if $build_queue
     end
 
+    def running?
+      status == START
+    end
+
     def unlink_buffer
       File.unlink(self[:buffer]) rescue nil
     end
