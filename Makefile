@@ -8,7 +8,7 @@ BINS = bin/juici
 
 all: $(BINS)
 
-bin/juici: $(PROTOBUFS)
+bin/juici: $(PROTOBUFS) src/main.c
 	$(CC) -o $@ $(CFLAGS) src/main.c $(PROTOBUFS) $(PROTOBUF_CFLAGS)
 
 src/proto/%.pb-c.c: proto/%.proto
