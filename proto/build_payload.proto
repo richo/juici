@@ -1,0 +1,7 @@
+message BuildPayload
+{
+    required string workspace = 1;
+    required string command   = 2;
+    required sint32 priority  = 3;
+    required string title     = 4;
+}
