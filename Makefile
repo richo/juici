@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS += -Isrc
+CFLAGS += -Isrc -D_DEBUG
 PROTOC_OPTS = --c_out src
 
 PROTOBUF_CFLAGS = -lprotobuf-c
