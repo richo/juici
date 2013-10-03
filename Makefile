@@ -5,7 +5,7 @@ PROTOC_OPTS = --c_out src
 PROTOBUF_CFLAGS = -lprotobuf-c
 PROTOBUFS = src/proto/build_payload.pb-c.o
 BINS = bin/juici
-OBJS = src/build.o
+OBJS = src/build.o src/socket.o
 
 all: $(BINS)
 
