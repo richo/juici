@@ -4,8 +4,11 @@ PROTOC_OPTS = --c_out src
 
 PROTOBUF_CFLAGS = -lprotobuf-c
 PROTOBUFS = src/proto/build_payload.pb-c.o
+TEST_PROTOBUFS = test/proto/build_payload_pb2.py
 BINS = bin/juici
 OBJS = src/build.o src/socket.o
+
+.PHONY: test
 
 all: $(BINS)
 
@@ -20,3 +23,11 @@ src/proto/%.pb-c.c: proto/%.proto
 
 src/proto/%.pb-c.o: src/proto/%.pb-c.c
 	$(CC) -c $(CFLAGS) -o $@ $^
+
+## TESTS
+
+test/proto/%_pb2.py: proto/%.proto
+	protoc --python_out test $^
+
+test: $(TEST_PROTOBUFS)
+	./test/runtests
