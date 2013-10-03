@@ -8,7 +8,7 @@ TEST_PROTOBUFS = test/proto/build_payload_pb2.py
 BINS = bin/juici
 OBJS = src/build.o src/socket.o
 
-.PHONY: test
+.PHONY: test clean
 
 all: $(BINS)
 
@@ -23,6 +23,11 @@ src/proto/%.pb-c.c: proto/%.proto
 
 src/proto/%.pb-c.o: src/proto/%.pb-c.c
 	$(CC) -c $(CFLAGS) -o $@ $^
+
+clean:
+	rm $(OBJS)
+	rm $(BINS)
+	rm $(PROTOBUFS)
 
 ## TESTS
 
