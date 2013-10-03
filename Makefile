@@ -5,11 +5,15 @@ PROTOC_OPTS = --c_out src
 PROTOBUF_CFLAGS = -lprotobuf-c
 PROTOBUFS = src/proto/build_payload.pb-c.o
 BINS = bin/juici
+OBJS = src/build.o
 
 all: $(BINS)
 
-bin/juici: $(PROTOBUFS) src/main.c
-	$(CC) -o $@ $(CFLAGS) src/main.c $(PROTOBUFS) $(PROTOBUF_CFLAGS)
+bin/juici: $(PROTOBUFS) src/main.c $(OBJS)
+	$(CC) -o $@ $(CFLAGS) src/main.c $(PROTOBUFS) $(PROTOBUF_CFLAGS) $(OBJS)
+
+%.o: %.c
+	$(CC) -c -o $@ $(CFLAGS) $<
 
 src/proto/%.pb-c.c: proto/%.proto
 	protoc-c ${PROTOC_OPTS} $^
