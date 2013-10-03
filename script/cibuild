@@ -2,3 +2,4 @@
 
 git clean -xdff
 make
+make test
