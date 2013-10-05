@@ -1,6 +1,8 @@
 #ifndef __JUICI_LOG_H
 #define __JUICI_LOG_H
 
+#include <stdio.h>
+
 #ifdef _DEBUG
 
 #define debug(...) fprintf(stderr, "debug: " __VA_ARGS__)
