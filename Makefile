@@ -6,7 +6,7 @@ PROTOBUF_CFLAGS = -lprotobuf-c
 PROTOBUFS = src/proto/build_payload.pb-c.o
 TEST_PROTOBUFS = test/proto/build_payload_pb2.py
 BINS = bin/juici
-OBJS = src/build.o src/socket.o
+OBJS = src/build.o src/socket.o src/work.o
 
 .PHONY: test clean
 

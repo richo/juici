@@ -6,6 +6,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <sys/select.h>
 
 #include "proto/build_payload.pb-c.h"
 
@@ -37,24 +38,34 @@ err:
     return -1;
 }
 
-BuildPayload* load_payload(int sock, size_t size) {
+BuildPayload* load_payload(int sock) {
+    uint32_t msg_size;
     BuildPayload *msg;
-    char c; int res=0, rcvd=0;
-    uint8_t *buf = malloc(size);
-    if (!buf) {
+    char c;
+    int res = 0;
+    size_t rcvd = 0;
+
+    if(recv(sock, &msg_size, sizeof(uint32_t), MSG_WAITALL) != sizeof(uint32_t)) {
         return NULL;
     }
 
-    while (rcvd < size)
+    msg_size = ntohl(msg_size);
+    uint8_t *buf = malloc(msg_size);
+
+    if (!buf) {
+        goto err;
+    }
+
+    while (rcvd < msg_size)
     {
-        res = recv(sock, buf + rcvd, size - rcvd, 0);
+        res = recv(sock, buf + rcvd, msg_size - rcvd, 0);
         if (res == -1) {
             goto err;
         }
         rcvd += res;
     }
 
-    msg = build_payload__unpack(NULL,size,buf); // Deserialize the serialized input
+    msg = build_payload__unpack(NULL, msg_size, buf);
     if (msg == NULL)
     {
         goto err;
@@ -63,4 +74,10 @@ BuildPayload* load_payload(int sock, size_t size) {
 err:
     free(buf);
     return NULL;
+}
+
+void accept_new_connection(int socket, fd_set* fds) {
+    int fd = accept(socket, NULL, NULL);
+    // TODO error handling
+    FD_SET(fd, fds);
 }
