@@ -24,6 +24,7 @@ pid_t start_build(BuildPayload* payload) {
     if (fwrite(payload->command, strlen(payload->command), 1, script) != 1) {
         goto err;
     }
+    fclose(script);
 
     switch(pid = fork()) {
         case -1: /* error */
