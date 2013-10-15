@@ -34,4 +34,6 @@ dep "juici.supervisor" do
   })
 end
 
-dep "mongodb.managed"
+dep "mongodb.managed" do
+  provides "mongo"
+end
