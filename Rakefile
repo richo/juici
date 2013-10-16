@@ -10,14 +10,6 @@ end
 desc 'Default: run specs'
 task :default => :spec
 
-namespace :db do
-  desc "Destroy the test db specified in mongoid.yml"
-  task :destroy do
-    Juici::Database.initialize!
-    Mongoid.session("default").drop
-  end
-end
-
 desc "Build all gems"
 task :gems do
   %w[juici juici-interface].each do |gem|
