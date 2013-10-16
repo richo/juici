@@ -25,7 +25,11 @@ void mainloop(int socket) {
 
     while(1) {
         FD_ZERO(&rfds); FD_ZERO(&wfds); FD_ZERO(&efds);
-        FD_COPY(&fds, &rfds); FD_COPY(&fds, &wfds); FD_COPY(&fds, &efds);
+
+        memcpy(&rfds, &fds, sizeof(fd_set));
+        memcpy(&wfds, &fds, sizeof(fd_set));
+        memcpy(&efds, &fds, sizeof(fd_set));
+
         res = select(FD_SETSIZE, &rfds, NULL, &efds, NULL);
         info("got %d fds\n", res);
         if (res == 0) {
