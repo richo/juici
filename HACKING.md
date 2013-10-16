@@ -1,6 +1,6 @@
 # Hacking on Juici
 
-You can precise64 box with RVM and Ruby pre-installed, so all you need to do is install Babushka, a few dependencies, and run the included deps.
+If you use this precise64 box with RVM and Ruby pre-installed, so all you need to do is install Babushka, a few dependencies, and run the included deps.
 
 First, download and add the box (~700MB):
 
