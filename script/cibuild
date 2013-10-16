@@ -6,5 +6,9 @@ export RACK_ENV="test"
 
 bundle install
 
-$be rake db:destroy
+mongo <<JS
+use juici-test;
+db.dropDatabase();
+JS
+
 $be rake spec
