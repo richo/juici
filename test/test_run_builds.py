@@ -18,8 +18,6 @@ class TestRunBuilds(JuiciTestCase):
         payload = bp.SerializeToString()
         length = len(payload)
         payload = struct.pack(">I", length) + payload
-        # Give juici a sec to boot
-        time.sleep(1) # Ew
         sock = self.socket()
         sock.send(payload)
         time.sleep(1) # Ew

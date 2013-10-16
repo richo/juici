@@ -2,6 +2,8 @@ import os
 import signal
 import subprocess as sp
 
+JUICI_SOCKET = "/tmp/juici.sock"
+
 class JuiciServer(object):
     """Wraps an instance of the juici server
 
@@ -16,7 +18,17 @@ class JuiciServer(object):
         self.process = self._start_juici()
 
     def _start_juici(self):
-        return sp.Popen("bin/juici")
+        if os.path.exists(JUICI_SOCKET):
+            os.unlink(JUICI_SOCKET)
+        process = sp.Popen("bin/juici")
+        # Spin until juici binds the socket, or crashes
+        while True:
+            if os.path.exists(JUICI_SOCKET):
+                return process
+            process.poll()
+            if process.returncode is not None:
+                raise RuntimeError("juici exited unexpectedly: status %d" % process.returncode)
+
 
     def shutdown(self):
         os.kill(self.process.pid, signal.SIGINT)
