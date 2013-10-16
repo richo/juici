@@ -35,5 +35,5 @@ clean:
 test/proto/%_pb2.py: proto/%.proto
 	protoc --python_out test $^
 
-test: $(TEST_PROTOBUFS)
+test: all $(TEST_PROTOBUFS)
 	python -m unittest discover test
