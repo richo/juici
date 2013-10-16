@@ -28,6 +28,7 @@ clean:
 	rm $(OBJS)
 	rm $(BINS)
 	rm $(PROTOBUFS)
+	rm $(TEST_PROTOBUFS)
 
 ## TESTS
 
