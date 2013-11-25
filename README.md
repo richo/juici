@@ -2,12 +2,13 @@
 
 JuiCI is a CI server that has a notion of queuing and priority.
 
-It's designed to work well with [agent99](https://github.com/99designs/agent99) but will play nicely with most frontends to CI.
+It's designed to work well with [agent99](https://github.com/99designs/agent99)
+but will play nicely with most frontends to CI.
 
 ## Features
 
 * Callbacks are created as builds are requested
-* Build are executed in parrallel, with one concurrent build per workspace
+* Builds are executed in parallel, with one concurrent build per workspace
 * Queues can be dynamically created
 * Build status visualised
 
@@ -35,7 +36,7 @@ Make sure you don't do something innocuous like
 bundle install --path .bundle
 ```
 
-this might look sane (and it is, kinda) but owing to a quick in bundler, it
+this might look sane (and it is, kinda) but owing to a quirk in bundler, it
 will break any ruby code you try to build.
 
 I'm working on a workaround, but in the meantime the fix is to not do it!
@@ -48,7 +49,8 @@ anything special to build a new project. Just request a build; however this
 means that on your first build you will need to send the commands to create
 your test environment)
 
-There is a sample implementation of a JuiCI client bundled with the JuiCI source code, or exposed in the `juici-interface` gem.
+There is a sample implementation of a JuiCI client bundled with the JuiCI source
+code, or exposed in the `juici-interface` gem.
 
 Example:
 
