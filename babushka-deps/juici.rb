@@ -13,6 +13,9 @@ dep 'juicic.bin' do
 end
 
 dep "juici bundled" do
+  requires 'ruby.managed',
+           'ruby-dev.managed',
+           'ruby-bundler.managed'
   met? {
     shell?("bundle check")
   }
@@ -36,4 +39,12 @@ end
 
 dep "mongodb.managed" do
   provides "mongo"
+end
+
+dep 'ruby.managed'
+dep 'ruby-dev.managed' do
+  provides []
+end
+dep 'ruby-bundler.managed' do
+  provides ['bundle']
 end
