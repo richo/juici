@@ -13,14 +13,14 @@ dep 'juicic.bin' do
 end
 
 dep "juici bundled" do
-  requires 'ruby.managed',
-           'ruby-dev.managed',
+  requires 'ruby1.9.3.managed',
+           'ruby1.9.1-dev.managed',
            'ruby-bundler.managed'
   met? {
-    shell?("bundle check")
+    shell?("ruby1.9.3 /usr/bin/bundle check")
   }
   meet {
-    shell("bundle install")
+    sudo("ruby1.9.3 /usr/bin/bundle install")
   }
 end
 
@@ -41,10 +41,19 @@ dep "mongodb.managed" do
   provides "mongo"
 end
 
-dep 'ruby.managed'
-dep 'ruby-dev.managed' do
+dep 'ruby1.9.3.managed' do
+  provides "ruby1.9.3"
+end
+dep 'ruby1.9.1-dev.managed' do
+  requires 'build-essential.managed'
   provides []
 end
 dep 'ruby-bundler.managed' do
   provides ['bundle']
+end
+
+
+dep 'build-essential.managed' do
+  ## Don't reference a particular compiler, they're all good
+  provides ['make']
 end
