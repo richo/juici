@@ -13,6 +13,10 @@ module Juici
     def process!
       Net::HTTP.start(url.host, url.port) do |http|
         request = Net::HTTP::Post.new(url.request_uri)
+        if url.scheme == "https"
+          http.use_ssl = true
+        end
+
         request.body = payload
 
         http.request request # Net::HTTPResponse object
