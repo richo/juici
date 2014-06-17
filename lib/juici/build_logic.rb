@@ -3,6 +3,8 @@ require 'tempfile'
 module Juici
   module BuildLogic
 
+    class EmptyCommandError < StandardError; end
+
     def spawn_build
       raise "No such work tree" unless FileUtils.mkdir_p(worktree)
       spawn(command, worktree)
@@ -34,12 +36,15 @@ module Juici
       )
     rescue Errno::ENOENT
       :enoent
-    rescue TypeError
+    rescue TypeError, EmptyCommandError
       :invalidcommand
     end
 
     def parse_cmd(cmd)
+      raise EmptyCommandError if cmd == ""
+
       first_line = cmd.lines.first.chomp
+
       if first_line.start_with?("#!")
         scriptfile = Tempfile.new('juici-cmd')
         if (scriptfile.write(cmd) != cmd.bytesize)

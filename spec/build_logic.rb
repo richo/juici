@@ -5,7 +5,7 @@ describe "Juici build logic" do
   describe "Shebangs" do
     before(:all) do
       testlogic = Class.new
-      testlogic.include ::Juici::BuildLogic
+      testlogic.send(:include, ::Juici::BuildLogic)
       @logic = testlogic.new
     end
 
@@ -37,6 +37,10 @@ echo lols
 echo butts
 EOS
       @logic.send(:parse_cmd, script).should == script
+    end
+
+    it "should raise EmptyCommandError if empty command" do
+      expect { @logic.send(:parse_cmd, "") }.to raise_error(::Juici::BuildLogic::EmptyCommandError)
     end
   end
 end
