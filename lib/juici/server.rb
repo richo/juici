@@ -46,25 +46,25 @@ module Juici
     set :show_exceptions, true
 
     get '/' do
-      Controllers::Index.new.index do |template, opts|
+      Controllers::Index.new(params).index do |template, opts|
         erb(template, {}, opts)
       end
     end
 
     get '/about' do
-      Controllers::Index.new.about do |template, opts|
+      Controllers::Index.new(params).about do |template, opts|
         erb(template, {}, opts)
       end
     end
 
     get '/builds' do
-      Controllers::Index.new.builds do |template, opts|
+      Controllers::Index.new(params).builds do |template, opts|
         erb(template, {}, opts)
       end
     end
 
     get '/support' do
-      Controllers::Index.new.support do |template, opts|
+      Controllers::Index.new(params).support do |template, opts|
         erb(template, {}, opts)
       end
     end
